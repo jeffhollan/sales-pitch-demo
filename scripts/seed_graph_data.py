@@ -4,14 +4,14 @@
 Usage:
     python -m scripts.seed_graph_data
 
-Requires GRAPH_TENANT_ID, GRAPH_CLIENT_ID, GRAPH_CLIENT_SECRET, and GRAPH_USER_ID
-in .env.  The app registration must have Mail.ReadWrite and Calendars.ReadWrite
-application permissions with admin consent.
+Requires Graph auth env vars in .env (Agent ID or legacy app registration).
+The identity must have Mail.ReadWrite application permission with admin consent.
+Calendar seeding uses the same token — works with the legacy app registration;
+with Agent ID it requires Calendars.ReadWrite (which may need delegated flow).
 """
 
 from __future__ import annotations
 
-import os
 import sys
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -22,28 +22,12 @@ from dotenv import load_dotenv
 _ROOT = Path(__file__).resolve().parent.parent
 load_dotenv(_ROOT / ".env")
 
-TENANT_ID = os.getenv("GRAPH_TENANT_ID")
-CLIENT_ID = os.getenv("GRAPH_CLIENT_ID")
-CLIENT_SECRET = os.getenv("GRAPH_CLIENT_SECRET")
-USER_ID = os.getenv("GRAPH_USER_ID")
+from src.auth import get_graph_token  # noqa: E402
+from src.config import GRAPH_USER_ID  # noqa: E402
+
+USER_ID = GRAPH_USER_ID
 
 GRAPH_BASE = "https://graph.microsoft.com/v1.0"
-
-
-def _get_token() -> str:
-    url = f"https://login.microsoftonline.com/{TENANT_ID}/oauth2/v2.0/token"
-    resp = httpx.post(
-        url,
-        data={
-            "grant_type": "client_credentials",
-            "client_id": CLIENT_ID,
-            "client_secret": CLIENT_SECRET,
-            "scope": "https://graph.microsoft.com/.default",
-        },
-        timeout=15,
-    )
-    resp.raise_for_status()
-    return resp.json()["access_token"]
 
 
 def _headers(token: str) -> dict[str, str]:
@@ -181,15 +165,12 @@ def seed_events(token: str) -> None:
 
 
 def main() -> None:
-    if not all([TENANT_ID, CLIENT_ID, CLIENT_SECRET, USER_ID]):
-        print(
-            "Error: GRAPH_TENANT_ID, GRAPH_CLIENT_ID, GRAPH_CLIENT_SECRET, "
-            "and GRAPH_USER_ID must be set in .env"
-        )
+    if not USER_ID:
+        print("Error: GRAPH_USER_ID must be set in .env")
         sys.exit(1)
 
     print("Acquiring token…")
-    token = _get_token()
+    token = get_graph_token()
 
     print("Seeding emails…")
     seed_emails(token)

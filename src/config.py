@@ -28,6 +28,11 @@ GRAPH_CLIENT_ID: str | None = os.getenv("GRAPH_CLIENT_ID")
 GRAPH_CLIENT_SECRET: str | None = os.getenv("GRAPH_CLIENT_SECRET")
 GRAPH_USER_ID: str | None = os.getenv("GRAPH_USER_ID")
 
+# ── Agent Identity Blueprint (Entra Agent ID preview) ────────────────
+GRAPH_BLUEPRINT_CLIENT_ID: str | None = os.getenv("GRAPH_BLUEPRINT_CLIENT_ID")
+GRAPH_BLUEPRINT_SECRET: str | None = os.getenv("GRAPH_BLUEPRINT_SECRET")
+GRAPH_AGENT_CLIENT_ID: str | None = os.getenv("GRAPH_AGENT_CLIENT_ID")
+
 # ── Fabric IQ ─────────────────────────────────────────────────────────
 FABRIC_WORKSPACE_ID: str | None = os.getenv("FABRIC_WORKSPACE_ID")
 

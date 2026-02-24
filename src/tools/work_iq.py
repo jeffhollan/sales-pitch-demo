@@ -11,7 +11,7 @@ from typing import Any
 
 import httpx
 
-from src.auth import get_graph_token
+from src.auth import get_graph_delegated_token, get_graph_token
 from src.config import GRAPH_USER_ID, MOCK_DATA_DIR, USE_MOCK_DATA
 
 _MOCK_FILE = MOCK_DATA_DIR / "work_iq_data.json"
@@ -42,17 +42,21 @@ def _fetch_messages(customer_name: str) -> list[dict[str, Any]]:
         raise RuntimeError("GRAPH_USER_ID must be set when USE_MOCK_DATA=false")
 
     url = f"{_GRAPH_BASE}/users/{GRAPH_USER_ID}/messages"
-    resp = httpx.get(
-        url,
-        headers=_graph_headers(),
-        params={
-            "$search": f'"{customer_name}"',
-            "$top": "10",
-            "$select": "receivedDateTime,from,subject,bodyPreview",
-        },
-        timeout=15,
-    )
-    resp.raise_for_status()
+    try:
+        resp = httpx.get(
+            url,
+            headers=_graph_headers(),
+            params={
+                "$search": f'"{customer_name}"',
+                "$top": "10",
+                "$select": "receivedDateTime,from,subject,bodyPreview",
+            },
+            timeout=15,
+        )
+        resp.raise_for_status()
+    except (httpx.HTTPStatusError, RuntimeError):
+        # Token not yet valid (e.g. Exchange replication delay) — return empty
+        return []
     items = resp.json().get("value", [])
 
     emails: list[dict[str, Any]] = []
@@ -67,23 +71,38 @@ def _fetch_messages(customer_name: str) -> list[dict[str, Any]]:
     return emails
 
 
+def _delegated_graph_headers() -> dict[str, str]:
+    return {
+        "Authorization": f"Bearer {get_graph_delegated_token()}",
+        "ConsistencyLevel": "eventual",
+    }
+
+
 def _fetch_events(customer_name: str) -> list[dict[str, Any]]:
-    """Fetch calendar events mentioning the customer from Graph."""
+    """Fetch calendar events mentioning the customer from Graph.
+
+    Uses the delegated token (Calendars.Read) since application-mode
+    calendar access is blocked for Entra Agent Identities.
+    """
     if not GRAPH_USER_ID:
         raise RuntimeError("GRAPH_USER_ID must be set when USE_MOCK_DATA=false")
 
     url = f"{_GRAPH_BASE}/users/{GRAPH_USER_ID}/events"
-    resp = httpx.get(
-        url,
-        headers=_graph_headers(),
-        params={
-            "$filter": f"contains(subject,'{customer_name}')",
-            "$top": "10",
-            "$select": "start,subject,attendees,bodyPreview",
-        },
-        timeout=15,
-    )
-    resp.raise_for_status()
+    try:
+        resp = httpx.get(
+            url,
+            headers=_delegated_graph_headers(),
+            params={
+                "$filter": f"contains(subject,'{customer_name}')",
+                "$top": "10",
+                "$select": "start,subject,attendees,bodyPreview",
+            },
+            timeout=15,
+        )
+        resp.raise_for_status()
+    except (httpx.HTTPStatusError, RuntimeError):
+        # Delegated token not available or 403 — return empty calendar data
+        return []
     items = resp.json().get("value", [])
 
     meetings: list[dict[str, Any]] = []
