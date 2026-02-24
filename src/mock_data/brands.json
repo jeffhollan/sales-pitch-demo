@@ -1,0 +1,29 @@
+{
+  "coca-cola": {
+    "display_name": "The Coca-Cola Company",
+    "short_name": "Coca-Cola",
+    "primary_color": "#FE0000",
+    "secondary_color": "#000000",
+    "accent_color": "#FFFFFF",
+    "industry": "Consumer Packaged Goods / Beverages",
+    "logo_placeholder": "🥤"
+  },
+  "pepsico": {
+    "display_name": "PepsiCo, Inc.",
+    "short_name": "PepsiCo",
+    "primary_color": "#004B93",
+    "secondary_color": "#E32934",
+    "accent_color": "#FFFFFF",
+    "industry": "Consumer Packaged Goods / Beverages",
+    "logo_placeholder": "🥤"
+  },
+  "contoso": {
+    "display_name": "Contoso Ltd.",
+    "short_name": "Contoso",
+    "primary_color": "#0078D4",
+    "secondary_color": "#50E6FF",
+    "accent_color": "#FFFFFF",
+    "industry": "Technology",
+    "logo_placeholder": "🏢"
+  }
+}

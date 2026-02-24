@@ -1,0 +1,64 @@
+{
+  "coca-cola": {
+    "customer_name": "The Coca-Cola Company",
+    "primary_contact": {
+      "name": "Sarah Chen",
+      "title": "VP of Digital Transformation",
+      "email": "sarah.chen@coca-cola.com"
+    },
+    "account_team": {
+      "account_executive": "Marcus Williams",
+      "technical_lead": "Priya Sharma",
+      "customer_success": "James O'Brien"
+    },
+    "recent_emails": [
+      {
+        "date": "2026-02-20",
+        "from": "sarah.chen@coca-cola.com",
+        "subject": "RE: Enterprise Agreement Renewal — Timeline",
+        "snippet": "Marcus, we need to finalize the renewal terms by March 15. Our CFO wants to see a clear ROI summary before approving the expanded scope. Can we schedule a call next week?"
+      },
+      {
+        "date": "2026-02-18",
+        "from": "david.park@coca-cola.com",
+        "subject": "Fabric Workspace Performance Concerns",
+        "snippet": "Hi Priya, we've been experiencing latency issues in our supply chain analytics pipeline on Fabric. Query times have increased 3x over the past month. This is affecting our daily reporting."
+      },
+      {
+        "date": "2026-02-14",
+        "from": "sarah.chen@coca-cola.com",
+        "subject": "AI Strategy Briefing Request",
+        "snippet": "We're putting together our AI roadmap for the next fiscal year and would love to get Microsoft's perspective on Copilot and Foundry for our bottling operations."
+      }
+    ],
+    "recent_meetings": [
+      {
+        "date": "2026-02-10",
+        "title": "Coca-Cola QBR — Q4 Review",
+        "attendees": ["Sarah Chen", "David Park", "Marcus Williams", "Priya Sharma"],
+        "notes": "Reviewed Q4 usage metrics. Coca-Cola expressed strong interest in expanding Copilot from 5,000 to 15,000 seats. Fabric adoption growing in supply chain team. Action: send AI strategy proposal by Feb 28."
+      },
+      {
+        "date": "2026-01-22",
+        "title": "Technical Deep Dive — Fabric Performance",
+        "attendees": ["David Park", "Priya Sharma", "James O'Brien"],
+        "notes": "Investigated Fabric query latency. Root cause: unoptimized Delta Lake partitioning on supply chain datasets. Priya to provide optimization guide."
+      }
+    ],
+    "teams_messages": [
+      {
+        "date": "2026-02-21",
+        "channel": "Coca-Cola Account Team",
+        "from": "Marcus Williams",
+        "message": "Heads up — Sarah mentioned their board meeting is March 20. If we can get the renewal + Copilot expansion signed before then, it'll be a great story for their digital transformation update."
+      },
+      {
+        "date": "2026-02-19",
+        "channel": "Coca-Cola Account Team",
+        "from": "James O'Brien",
+        "message": "Support ticket from David Park's team about Fabric latency is now P2. They're running into it daily. We should address this before the renewal conversation."
+      }
+    ],
+    "relationship_summary": "Strong 8-year strategic partnership. $12M annual spend. Enterprise Agreement renewal due March 15, 2026. Active expansion discussions for M365 Copilot (5K → 15K seats) and Fabric. Key risk: open P2 support ticket on Fabric performance. Board meeting March 20 — potential showcase moment."
+  }
+}

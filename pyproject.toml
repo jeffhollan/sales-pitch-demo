@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sales-pres-demo"
+version = "0.1.0"
+description = "Sales Presentation Preparation Agent — researches across Microsoft IQs and generates meeting prep documents"
+requires-python = ">=3.11"
+dependencies = [
+    "python-docx>=1.1.0",
+    "python-pptx>=1.0.0",
+    "httpx>=0.27.0",
+    "python-dotenv>=1.0.0",
+    "rich>=13.0.0",
+    "pydantic>=2.0.0",
+    "mcp>=1.0.0",
+]
+
+[project.optional-dependencies]
+agent = [
+    "agent-framework",
+    "agent-framework-github-copilot",
+]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.23",
+]
+
+[project.scripts]
+sales-prep = "src.main:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src*"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]

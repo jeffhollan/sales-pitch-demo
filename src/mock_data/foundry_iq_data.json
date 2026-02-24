@@ -1,0 +1,76 @@
+{
+  "coca-cola": {
+    "customer_name": "The Coca-Cola Company",
+    "industry": "Consumer Packaged Goods / Beverages",
+    "sales_plays": [
+      {
+        "play_name": "Copilot Expansion — Enterprise Productivity",
+        "relevance_score": 0.95,
+        "summary": "Expand M365 Copilot from pilot to enterprise-wide deployment. Leverage ROI data from initial rollout to build CFO-ready business case.",
+        "key_talking_points": [
+          "Coca-Cola's pilot shows 78% adoption and 142 monthly actions/user — top decile for CPG industry",
+          "Comparable CPG deployments (PepsiCo, Unilever) report 15-20% reduction in time spent on routine document creation",
+          "Enterprise-wide Copilot enables AI-powered meeting summaries, email triage, and document drafting across all 45,000 M365 users",
+          "ROI model: $3.2M annual productivity savings at 15K seats based on 2.5 hrs/week saved per active user"
+        ],
+        "customer_references": [
+          {"company": "PepsiCo", "contact": "available on request", "summary": "Rolled out Copilot to 20K users. 22% reduction in meeting time, 18% faster report generation."},
+          {"company": "Nestlé", "contact": "available on request", "summary": "15K Copilot seats. Integrated with SAP workflows. 4.5 satisfaction score."}
+        ],
+        "resources": [
+          {"title": "Copilot ROI Calculator for CPG", "type": "Excel Tool", "url": "internal://copilot-roi-cpg"},
+          {"title": "Enterprise Copilot Deployment Playbook", "type": "PDF Guide", "url": "internal://copilot-playbook-v3"}
+        ]
+      },
+      {
+        "play_name": "AI Foundry for Manufacturing & Supply Chain",
+        "relevance_score": 0.82,
+        "summary": "Deploy Azure AI Foundry for bottling operations automation and supply chain optimization. Connects to existing Fabric data estate.",
+        "key_talking_points": [
+          "Coca-Cola already runs supply chain analytics on Fabric — Foundry can add predictive models on top",
+          "Bottling line quality inspection using Azure AI Vision — 30% reduction in defect escape rate at comparable plants",
+          "Demand forecasting models improve inventory accuracy by 25%, reducing waste and stockouts",
+          "Foundry provides a governed AI platform — models, prompts, and evaluations in one place"
+        ],
+        "customer_references": [
+          {"company": "AB InBev", "contact": "available on request", "summary": "AI Foundry for brewery quality control. 35% reduction in quality incidents. $8M annual savings."},
+          {"company": "Danone", "contact": "available on request", "summary": "Supply chain demand forecasting with Foundry + Fabric. 28% improvement in forecast accuracy."}
+        ],
+        "resources": [
+          {"title": "AI Foundry for Manufacturing — Solution Brief", "type": "PDF", "url": "internal://foundry-manufacturing-brief"},
+          {"title": "CPG AI Use Case Library", "type": "Interactive Guide", "url": "internal://cpg-ai-usecases"}
+        ]
+      },
+      {
+        "play_name": "Fabric Capacity Optimization & Expansion",
+        "relevance_score": 0.78,
+        "summary": "Address current capacity concerns and position Fabric expansion for growing analytics workloads.",
+        "key_talking_points": [
+          "Current F64 capacity at 87% utilization — performance optimization can reclaim 30-40% headroom",
+          "Delta Lake partitioning optimization resolves P2 latency issue and demonstrates proactive technical partnership",
+          "Marketing Mix Modeling workload is ideal candidate for Fabric Real-Time Intelligence",
+          "F128 upgrade future-proofs for AI workloads and provides burst capacity for peak reporting periods"
+        ],
+        "customer_references": [
+          {"company": "Procter & Gamble", "contact": "available on request", "summary": "Fabric F256 deployment. Consolidated 12 analytics platforms into one. 40% cost reduction."}
+        ],
+        "resources": [
+          {"title": "Fabric Performance Optimization Guide", "type": "PDF", "url": "internal://fabric-perf-guide"},
+          {"title": "Fabric TCO Calculator", "type": "Excel Tool", "url": "internal://fabric-tco-calc"}
+        ]
+      }
+    ],
+    "competitive_intelligence": {
+      "primary_competitors_in_account": ["Google Cloud (BigQuery for some analytics)", "Salesforce (CRM)"],
+      "microsoft_strengths": [
+        "Deep integration across M365, Fabric, Azure, and Dynamics — single vendor for productivity + data + AI",
+        "8-year strategic partnership with strong executive sponsorship",
+        "Copilot adoption metrics are industry-leading for CPG vertical"
+      ],
+      "risks": [
+        "Google Cloud pitching Gemini for Workspace as Copilot alternative",
+        "Open P2 support ticket could undermine confidence in Fabric expansion"
+      ]
+    }
+  }
+}

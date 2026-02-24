@@ -1,0 +1,96 @@
+{
+  "coca-cola": {
+    "customer_name": "The Coca-Cola Company",
+    "contract": {
+      "type": "Enterprise Agreement",
+      "annual_spend": 12400000,
+      "renewal_date": "2026-03-15",
+      "products": [
+        {"name": "Microsoft 365 E5", "seats": 45000, "annual_value": 5400000},
+        {"name": "Microsoft 365 Copilot", "seats": 5000, "annual_value": 1800000},
+        {"name": "Microsoft Fabric", "capacity": "F64", "annual_value": 2200000},
+        {"name": "Azure (IaaS/PaaS)", "annual_value": 2100000},
+        {"name": "Dynamics 365 Sales", "seats": 3000, "annual_value": 900000}
+      ]
+    },
+    "usage_trends": {
+      "m365_copilot": {
+        "active_users_pct": 78,
+        "trend": "increasing",
+        "top_apps": ["Word", "Teams", "Outlook"],
+        "monthly_actions_per_user": 142,
+        "satisfaction_score": 4.2
+      },
+      "fabric": {
+        "monthly_queries": 284000,
+        "trend": "increasing",
+        "top_workloads": ["Supply Chain Analytics", "Sales Forecasting", "Marketing Mix Modeling"],
+        "capacity_utilization_pct": 87,
+        "latency_p95_ms": 4200,
+        "latency_trend": "degrading"
+      },
+      "azure": {
+        "monthly_spend_trend": [1650000, 1700000, 1720000, 1780000, 1810000, 1850000],
+        "top_services": ["AKS", "Cosmos DB", "Azure OpenAI"]
+      }
+    },
+    "support_tickets": [
+      {
+        "id": "TKT-2026-4821",
+        "severity": "P2",
+        "status": "Open",
+        "title": "Fabric query latency degradation — supply chain pipeline",
+        "opened": "2026-02-15",
+        "description": "P95 query latency increased from 1.2s to 4.2s over 30 days. Affecting daily supply chain reporting for 200+ users.",
+        "assigned_to": "Priya Sharma"
+      },
+      {
+        "id": "TKT-2026-3955",
+        "severity": "P3",
+        "status": "Resolved",
+        "title": "Copilot response quality in Teams meetings",
+        "opened": "2026-01-28",
+        "resolved": "2026-02-05",
+        "description": "Meeting summaries occasionally missing action items. Resolved with tenant-level Copilot configuration update."
+      }
+    ],
+    "expansion_opportunities": [
+      {
+        "product": "Microsoft 365 Copilot",
+        "current_seats": 5000,
+        "proposed_seats": 15000,
+        "incremental_value": 3600000,
+        "champion": "Sarah Chen",
+        "stage": "Proposal",
+        "confidence": "High",
+        "notes": "Strong ROI data from initial 5K rollout. 78% adoption, 4.2 satisfaction. Sarah advocating internally."
+      },
+      {
+        "product": "Microsoft Fabric",
+        "current_capacity": "F64",
+        "proposed_capacity": "F128",
+        "incremental_value": 1100000,
+        "champion": "David Park",
+        "stage": "Discovery",
+        "confidence": "Medium",
+        "notes": "Capacity utilization at 87%. Need to resolve P2 latency ticket first to build confidence."
+      },
+      {
+        "product": "Azure AI Foundry",
+        "current_state": "Not deployed",
+        "proposed": "AI Foundry + Azure OpenAI integration",
+        "incremental_value": 800000,
+        "champion": "Sarah Chen",
+        "stage": "Early Interest",
+        "confidence": "Medium",
+        "notes": "Sarah requested AI strategy briefing. Bottling operations automation is the initial use case."
+      }
+    ],
+    "financial_summary": {
+      "current_annual_spend": 12400000,
+      "proposed_annual_spend": 17900000,
+      "growth_potential_pct": 44,
+      "renewal_risk": "Low"
+    }
+  }
+}
