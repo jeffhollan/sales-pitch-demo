@@ -26,16 +26,22 @@ async def _run(user_input: str):
 
     result = await run_sales_prep(user_input)
 
-    console.print("\n")
-    console.print(Panel(
-        Markdown(result["synthesis"]),
-        title="[bold]Meeting Prep Synthesis[/bold]",
-        border_style="green",
-    ))
+    # In SDK mode, synthesis was already streamed to console.
+    # In legacy mode, show it in a panel.
+    if "customer_name" in result:
+        # Legacy pipeline — show synthesis panel
+        console.print("\n")
+        console.print(Panel(
+            Markdown(result["synthesis"]),
+            title="[bold]Meeting Prep Synthesis[/bold]",
+            border_style="green",
+        ))
 
-    console.print("\n[bold green]✓ Documents generated:[/bold green]")
-    console.print(f"  📄 Word prep doc:  {result['prep_doc_path']}")
-    console.print(f"  📊 PowerPoint deck: {result['presentation_path']}")
+    # Show doc paths if present
+    if result.get("prep_doc_path"):
+        console.print(f"\n  📄 Word prep doc:  {result['prep_doc_path']}")
+    if result.get("presentation_path"):
+        console.print(f"  📊 PowerPoint deck: {result['presentation_path']}")
     console.print()
 
 

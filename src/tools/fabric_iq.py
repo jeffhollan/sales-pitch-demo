@@ -7,7 +7,7 @@ In live mode, delegates to @microsoft/fabric-mcp.
 from __future__ import annotations
 
 import json
-from typing import Any
+from typing import Annotated, Any
 
 from src.config import MOCK_DATA_DIR, USE_MOCK_DATA
 
@@ -23,12 +23,11 @@ def _load_mock() -> dict[str, Any]:
         return json.load(f)
 
 
-def get_fabric_iq_data(customer_name: str) -> dict[str, Any]:
-    """Retrieve Fabric IQ data (contract, usage, support tickets, expansion opps) for a customer.
-
-    Returns a dict with keys: customer_name, contract, usage_trends,
-    support_tickets, expansion_opportunities, financial_summary.
-    """
+def get_fabric_iq_data(
+    customer_name: Annotated[str, "Customer company name to look up"],
+) -> dict[str, Any]:
+    """Retrieve business metrics — contract details, spend/usage trends,
+    support tickets, and expansion opportunities for a customer."""
     if USE_MOCK_DATA:
         data = _load_mock()
         key = _normalize_key(customer_name)

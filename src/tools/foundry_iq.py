@@ -7,7 +7,7 @@ In live mode, queries Azure AI Search REST API.
 from __future__ import annotations
 
 import json
-from typing import Any
+from typing import Annotated, Any
 
 import httpx
 
@@ -102,12 +102,11 @@ def _query_search(customer_name: str) -> dict[str, Any]:
     }
 
 
-def get_foundry_iq_data(customer_name: str) -> dict[str, Any]:
-    """Retrieve Foundry IQ data (sales plays, competitive intel, references) for a customer.
-
-    Returns a dict with keys: customer_name, industry, sales_plays,
-    competitive_intelligence.
-    """
+def get_foundry_iq_data(
+    customer_name: Annotated[str, "Customer company name to look up"],
+) -> dict[str, Any]:
+    """Retrieve sales enablement materials — relevant sales plays,
+    competitive intelligence, customer references, and resources for a customer."""
     if USE_MOCK_DATA:
         data = _load_mock()
         key = _normalize_key(customer_name)

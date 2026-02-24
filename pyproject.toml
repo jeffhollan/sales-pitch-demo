@@ -19,8 +19,9 @@ dependencies = [
 
 [project.optional-dependencies]
 agent = [
-    "agent-framework",
-    "agent-framework-github-copilot",
+    "agent-framework-core>=1.0.0rc1",
+    "agent-framework-github-copilot>=1.0.0b260219",
+    "opentelemetry-semantic-conventions-ai==0.4.13",
 ]
 dev = [
     "pytest>=8.0",
