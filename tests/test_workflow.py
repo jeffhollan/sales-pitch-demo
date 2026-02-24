@@ -2,6 +2,7 @@
 
 import asyncio
 import os
+from pathlib import Path
 
 import pytest
 
@@ -28,7 +29,7 @@ def test_orchestrator_has_all_tools():
 
     result = create_orchestrator()
 
-    # If SDK is installed, we get a GitHubCopilotAgent with 5 tools
+    # If SDK is installed, we get a SalesAgent with 5 tools + skill_directories
     if isinstance(result, dict):
         # Fallback mock agents — should have the 3 IQ agents
         assert "work_iq" in result
@@ -42,6 +43,27 @@ def test_orchestrator_has_all_tools():
         assert "get_foundry_iq_data" in tool_names
         assert "generate_prep_doc" in tool_names
         assert "generate_presentation" in tool_names
+
+        # Verify skill_directories is set and points to src/skills
+        assert hasattr(result, "_skill_directories")
+        assert len(result._skill_directories) == 1
+        skills_path = result._skill_directories[0]
+        assert skills_path.endswith("src/skills") or skills_path.endswith("src/skills/")
+        assert os.path.isdir(skills_path)
+
+
+def test_presentation_skill_exists():
+    """Verify the presentation SKILL.md exists with correct frontmatter."""
+    skill_md = Path(__file__).resolve().parent.parent / "src" / "skills" / "presentation" / "SKILL.md"
+    assert skill_md.exists(), f"SKILL.md not found at {skill_md}"
+
+    content = skill_md.read_text()
+
+    # Verify table-frontmatter has name and description
+    assert "| presentation |" in content
+    assert "presentation" in content.lower()
+    # Verify description mentions key trigger phrases
+    assert "slide deck" in content.lower() or "presentation" in content.lower()
 
 
 @pytest.mark.asyncio
