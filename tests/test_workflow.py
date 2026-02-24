@@ -7,9 +7,19 @@ import pytest
 
 
 @pytest.fixture(autouse=True)
-def _mock_mode():
+def _mock_mode(monkeypatch):
     """Ensure tests run in mock mode."""
-    os.environ["USE_MOCK_DATA"] = "true"
+    monkeypatch.setenv("USE_MOCK_DATA", "true")
+    # Patch the already-imported config constant so modules that read it
+    # at import time (work_iq, fabric_iq, foundry_iq) see the override.
+    import src.config
+    monkeypatch.setattr(src.config, "USE_MOCK_DATA", True)
+    import src.tools.work_iq
+    monkeypatch.setattr(src.tools.work_iq, "USE_MOCK_DATA", True)
+    import src.tools.fabric_iq
+    monkeypatch.setattr(src.tools.fabric_iq, "USE_MOCK_DATA", True)
+    import src.tools.foundry_iq
+    monkeypatch.setattr(src.tools.foundry_iq, "USE_MOCK_DATA", True)
 
 
 def test_extract_customer_name():

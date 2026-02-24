@@ -4,14 +4,18 @@ Supports two auth modes (auto-detected from env vars):
 1. Agent ID app-only — two-step client_credentials via Entra Agent Identity Blueprint
 2. Legacy — single-step client_credentials (existing app registration)
 
-When Agent ID is configured, Mail.Read uses the Agent ID token.
-Calendars.Read is blocked for agent identities in application mode, so
-calendar access always uses the legacy app registration token.
+When Agent ID is configured:
+- Mail.Read uses the Agent ID app-only token.
+- Calendars.Read uses a cached delegated agent token (acquired via
+  scripts/auth_server.py). Falls back to legacy if no token is cached.
 """
 
 from __future__ import annotations
 
+import json
+import sys
 import time
+from pathlib import Path
 from typing import Any
 
 import httpx
@@ -30,6 +34,8 @@ _TOKEN_URL = f"https://login.microsoftonline.com/{GRAPH_TENANT_ID}/oauth2/v2.0/t
 # ── In-memory caches ─────────────────────────────────────────────────
 _agent_token_cache: dict[str, Any] = {"access_token": None, "expires_at": 0.0}
 _legacy_token_cache: dict[str, Any] = {"access_token": None, "expires_at": 0.0}
+_delegated_token_cache: dict[str, Any] = {"access_token": None, "refresh_token": None, "expires_at": 0.0}
+_DELEGATED_TOKEN_CACHE_PATH = Path.home() / ".sales-prep-demo-token.json"
 
 
 def _use_agent_id() -> bool:
@@ -132,8 +138,110 @@ def get_graph_token() -> str:
 def get_graph_delegated_token() -> str:
     """Acquire a Graph token for Calendars.Read.
 
-    Calendars.Read is blocked for agent identities in application mode,
-    so this always uses the legacy app registration token (which has
-    Calendars.Read as an app permission on a regular app registration).
+    When Agent ID is configured, uses a cached delegated agent token
+    obtained via the interactive OBO flow (scripts/auth_server.py).
+    Falls back to the legacy app registration if no delegated token
+    is available.
     """
+    if not _use_agent_id():
+        return _get_legacy_token()
+
+    _load_delegated_cache()
+
+    # Return cached token if still valid
+    if _delegated_token_cache["access_token"] and time.time() < _delegated_token_cache["expires_at"] - 60:
+        return _delegated_token_cache["access_token"]
+
+    # Try refresh via OBO with cached refresh token
+    if _refresh_delegated_token():
+        return _delegated_token_cache["access_token"]
+
+    # No valid token — fall back to legacy, print instructions
+    print(
+        "Calendar: no delegated agent token cached. "
+        "Run: python scripts/auth_server.py",
+        file=sys.stderr,
+    )
     return _get_legacy_token()
+
+
+# ── Delegated token cache helpers ────────────────────────────────────
+
+def _load_delegated_cache() -> None:
+    """Load delegated token from disk into the in-memory cache."""
+    if _delegated_token_cache["access_token"]:
+        return  # already loaded
+
+    if not _DELEGATED_TOKEN_CACHE_PATH.exists():
+        return
+
+    try:
+        data = json.loads(_DELEGATED_TOKEN_CACHE_PATH.read_text())
+        _delegated_token_cache["access_token"] = data.get("access_token")
+        _delegated_token_cache["refresh_token"] = data.get("refresh_token")
+        _delegated_token_cache["expires_at"] = data.get("expires_at", 0.0)
+    except (json.JSONDecodeError, OSError):
+        pass
+
+
+def _save_delegated_cache() -> None:
+    """Persist the in-memory delegated token cache to disk."""
+    _DELEGATED_TOKEN_CACHE_PATH.write_text(json.dumps({
+        "access_token": _delegated_token_cache["access_token"],
+        "refresh_token": _delegated_token_cache["refresh_token"],
+        "expires_at": _delegated_token_cache["expires_at"],
+    }, indent=2))
+
+
+def _refresh_delegated_token() -> bool:
+    """Attempt to refresh the delegated token using the cached refresh token.
+
+    Uses the OBO flow: bootstrap token (T1) as client_assertion, refresh
+    token as the grant.  Returns True on success.
+    """
+    refresh_token = _delegated_token_cache.get("refresh_token")
+    if not refresh_token:
+        return False
+
+    try:
+        # Get bootstrap token (T1)
+        resp1 = httpx.post(_TOKEN_URL, data={
+            "grant_type": "client_credentials",
+            "client_id": GRAPH_BLUEPRINT_CLIENT_ID,
+            "client_secret": GRAPH_BLUEPRINT_SECRET,
+            "scope": "api://AzureADTokenExchange/.default",
+            "fmi_path": GRAPH_AGENT_CLIENT_ID,
+        }, timeout=15)
+        resp1.raise_for_status()
+        t1 = resp1.json()["access_token"]
+
+        # Refresh using T1 as client_assertion
+        resp2 = httpx.post(_TOKEN_URL, data={
+            "grant_type": "refresh_token",
+            "client_id": GRAPH_AGENT_CLIENT_ID,
+            "client_assertion_type": "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
+            "client_assertion": t1,
+            "refresh_token": refresh_token,
+            "scope": "https://graph.microsoft.com/Calendars.Read offline_access",
+        }, timeout=15)
+
+        if resp2.status_code >= 400:
+            # Try simpler refresh with blueprint credentials
+            resp2 = httpx.post(_TOKEN_URL, data={
+                "grant_type": "refresh_token",
+                "client_id": GRAPH_BLUEPRINT_CLIENT_ID,
+                "client_secret": GRAPH_BLUEPRINT_SECRET,
+                "refresh_token": refresh_token,
+                "scope": "https://graph.microsoft.com/Calendars.Read offline_access",
+            }, timeout=15)
+            if resp2.status_code >= 400:
+                return False
+
+        body = resp2.json()
+        _delegated_token_cache["access_token"] = body["access_token"]
+        _delegated_token_cache["refresh_token"] = body.get("refresh_token", refresh_token)
+        _delegated_token_cache["expires_at"] = time.time() + body.get("expires_in", 3600)
+        _save_delegated_cache()
+        return True
+    except (httpx.HTTPError, KeyError):
+        return False
