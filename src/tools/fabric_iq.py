@@ -39,4 +39,17 @@ def get_fabric_iq_data(customer_name: str) -> dict[str, Any]:
                 return v
         return {"error": f"No Fabric IQ mock data found for '{customer_name}'"}
 
-    return {"error": "Live Fabric IQ requires MCP server configuration. Set USE_MOCK_DATA=true for demo."}
+    # No free tier for Fabric — fall back to mock data with a warning.
+    import warnings
+    warnings.warn(
+        "Fabric IQ has no free-tier live backend; falling back to mock data.",
+        stacklevel=2,
+    )
+    data = _load_mock()
+    key = _normalize_key(customer_name)
+    if key in data:
+        return data[key]
+    for k, v in data.items():
+        if k in key or key in k:
+            return v
+    return {"error": f"No Fabric IQ mock data found for '{customer_name}'"}

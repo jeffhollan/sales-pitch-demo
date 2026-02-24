@@ -162,14 +162,14 @@ def generate_prep_doc(
     # ── Section 1: Relationship Context ──
     doc.add_heading("Relationship Context", level=1)
 
-    if "primary_contact" in work_iq:
-        contact = work_iq["primary_contact"]
+    contact = work_iq.get("primary_contact") or {}
+    if contact.get("name"):
         doc.add_paragraph(
-            f"Primary Contact: {contact['name']}, {contact['title']}"
+            f"Primary Contact: {contact['name']}, {contact.get('title', 'N/A')}"
         )
 
-    if "account_team" in work_iq:
-        team = work_iq["account_team"]
+    team = work_iq.get("account_team") or {}
+    if team:
         doc.add_paragraph(
             f"Account Team: AE {team.get('account_executive', 'N/A')} · "
             f"Tech Lead {team.get('technical_lead', 'N/A')} · "

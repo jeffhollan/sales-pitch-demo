@@ -21,8 +21,12 @@ PPTX_TEMPLATE = _PROJECT_ROOT / "templates" / "Microsoft_Brand_Template_May2023.
 # ── Feature flags ──────────────────────────────────────────────────────
 USE_MOCK_DATA: bool = os.getenv("USE_MOCK_DATA", "true").lower() == "true"
 
-# ── Work IQ (Microsoft Graph via @microsoft/workiq) ───────────────────
+# ── Work IQ (Microsoft Graph) ─────────────────────────────────────────
 WORKIQ_TENANT_ID: str | None = os.getenv("WORKIQ_TENANT_ID")
+GRAPH_TENANT_ID: str | None = os.getenv("GRAPH_TENANT_ID")
+GRAPH_CLIENT_ID: str | None = os.getenv("GRAPH_CLIENT_ID")
+GRAPH_CLIENT_SECRET: str | None = os.getenv("GRAPH_CLIENT_SECRET")
+GRAPH_USER_ID: str | None = os.getenv("GRAPH_USER_ID")
 
 # ── Fabric IQ ─────────────────────────────────────────────────────────
 FABRIC_WORKSPACE_ID: str | None = os.getenv("FABRIC_WORKSPACE_ID")

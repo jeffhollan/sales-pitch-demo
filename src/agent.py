@@ -54,13 +54,12 @@ concise meeting preparation plan. Structure your output as:
 def create_agents() -> dict[str, Any]:
     """Create and return all agent instances.
 
-    Returns a dict with keys: work_iq, fabric_iq, foundry_iq, synthesizer, orchestrator.
-    In mock mode, returns lightweight wrappers. In live mode, returns GitHubCopilotAgents.
+    Returns a dict with keys: work_iq, fabric_iq, foundry_iq.
+    Uses lightweight MockAgent wrappers in both mock and live modes — the tool
+    functions themselves handle the mock/live branching via REST APIs (Azure AI
+    Search for Foundry IQ, Microsoft Graph for Work IQ).
     """
-    if USE_MOCK_DATA:
-        return _create_mock_agents()
-
-    return _create_live_agents()
+    return _create_mock_agents()
 
 
 def _create_mock_agents() -> dict[str, Any]:
