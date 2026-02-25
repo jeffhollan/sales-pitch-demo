@@ -23,6 +23,7 @@ agent = [
     "agent-framework-core>=1.0.0rc1",
     "agent-framework-github-copilot>=1.0.0b260219",
     "opentelemetry-semantic-conventions-ai==0.4.13",
+    "azure-ai-agentserver-agentframework>=1.0.0b10",
 ]
 dev = [
     "pytest>=8.0",
@@ -31,10 +32,20 @@ dev = [
 
 [project.scripts]
 sales-prep = "src.main:main"
+sales-prep-server = "src.server:main"
 
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["src*"]
+
+[tool.uv]
+# Most agent-framework / Azure AI packages are pre-release only right now.
+prerelease = "allow"
+# The adapter (azure-ai-agentserver-agentframework <=1.0.0b14) caps
+# agent-framework-core at <=1.0.0b260107, but the copilot SDK already
+# requires >=1.0.0rc1. The override lets both coexist until the adapter
+# publishes a build compatible with the RC.
+override-dependencies = ["agent-framework-core>=1.0.0rc1"]
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"

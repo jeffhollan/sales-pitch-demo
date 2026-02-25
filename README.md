@@ -15,43 +15,55 @@ Output files land in `output/`.
 ## Architecture
 
 ```
-                         ┌─────────────────┐
-User ──► CLI (main.py) ──► Orchestrator    │
-                         │ (agent.py /     │
-                         │  workflow.py)   │
-                         └───────┬─────────┘
-                                 │
-              ┌──────────────────┼──────────────────┐
-              │                  │                   │
-              ▼                  ▼                   ▼
-     ┌────────────────┐ ┌───────────────┐ ┌─────────────────┐
-     │  Work IQ       │ │  Fabric IQ    │ │  Foundry IQ     │
-     │  (Graph API)   │ │  (Fabric)     │ │  (AI Search)    │
-     │  emails,       │ │  spend,       │ │  sales plays,   │
-     │  calendar,     │ │  usage,       │ │  competitive    │
-     │  Teams         │ │  tickets      │ │  intel           │
-     └────────────────┘ └───────────────┘ └─────────────────┘
-              │                  │                   │
-              └──────────────────┼──────────────────┘
-                                 │
-              ┌──────────────────┼──────────────────┐
-              ▼                                     ▼
-     ┌────────────────┐                   ┌─────────────────┐
-     │ generate_prep  │                   │ generate_       │
-     │ _doc (.docx)   │                   │ presentation    │
-     └────────────────┘                   │ (.pptx)         │
-              │                           └─────────────────┘
-              ▼                                     ▼
-           output/                               output/
+                              ┌─────────────────┐
+User ──► CLI (main.py)   ──► │                  │
+              — or —         │  Orchestrator    │
+User ──► Hosted Server   ──► │  (agent.py /     │
+          (server.py)        │   workflow.py)   │
+              — or —         │                  │
+Client ──► /responses    ──► │                  │
+                              └───────┬─────────┘
+                                      │
+                   ┌──────────────────┼──────────────────┐
+                   │                  │                   │
+                   ▼                  ▼                   ▼
+          ┌────────────────┐ ┌───────────────┐ ┌─────────────────┐
+          │  Work IQ       │ │  Fabric IQ    │ │  Foundry IQ     │
+          │  (Graph API)   │ │  (Fabric)     │ │  (AI Search)    │
+          │  emails,       │ │  spend,       │ │  sales plays,   │
+          │  calendar,     │ │  usage,       │ │  competitive    │
+          │  Teams         │ │  tickets      │ │  intel           │
+          └────────────────┘ └───────────────┘ └─────────────────┘
+                   │                  │                   │
+                   └──────────────────┼──────────────────┘
+                                      │
+                   ┌──────────────────┼──────────────────┐
+                   ▼                                     ▼
+          ┌────────────────┐                   ┌─────────────────┐
+          │ generate_prep  │                   │ generate_       │
+          │ _doc (.docx)   │                   │ presentation    │
+          └────────────────┘                   │ (.pptx)         │
+                   │                           └─────────────────┘
+                   ▼                                     ▼
+                output/                               output/
 ```
 
 The orchestrator is a `GitHubCopilotAgent` (from the Copilot Agent Framework SDK) that receives the user's natural-language request and autonomously decides which tools to call and in what order.
+
+The agent can be run in two ways:
+
+| Mode | Entry point | Description |
+|------|-------------|-------------|
+| **CLI** | `src/main.py` | Direct command-line execution — runs the agent in-process |
+| **Hosted Server** | `src/server.py` | Starlette server exposing a `/responses` endpoint (OpenAI Responses API format) via the Azure AI Hosted Agent Adapter |
 
 ## Project layout
 
 ```
 ├── src/
 │   ├── main.py              # CLI entry point (`sales-prep` command)
+│   ├── server.py            # Hosted Agent Adapter server (`sales-prep-server`)
+│   ├── invoke.py            # Local dev helper — calls the hosted server from CLI
 │   ├── agent.py             # Orchestrator setup, system prompt, tool list
 │   ├── workflow.py          # Streaming loop, auth retry logic
 │   ├── auth.py              # Graph token helpers (Agent ID + legacy modes)
@@ -136,15 +148,47 @@ cp .env.example .env
 uv sync --extra agent --extra dev
 ```
 
-### Run
+### Run — Option A: CLI (direct, in-process)
 
 ```bash
-# Via the CLI entry point
+# Pass a prompt directly
 uv run sales-prep "Help me prepare for my meeting with Coca-Cola"
 
-# Or interactively (will prompt for input)
+# Or run interactively (will prompt for input)
 uv run sales-prep
 ```
+
+### Run — Option B: Hosted Agent Server
+
+This mode runs the agent behind a Starlette server that exposes an OpenAI Responses API–compatible `/responses` endpoint. This is the same interface used when the agent is deployed to Azure AI Foundry via the Hosted Agent Adapter.
+
+**Step 1 — Start the server** (runs on `http://0.0.0.0:8088`):
+
+```bash
+uv run python -m src.server
+```
+
+The server exposes three endpoints:
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/responses` | POST | Send a prompt to the agent (OpenAI Responses API format) |
+| `/liveness` | GET | Health check |
+| `/readiness` | GET | Readiness check |
+
+**Step 2 — Invoke the agent** (in a separate terminal):
+
+```bash
+# Using the included dev helper (streams output with rich formatting)
+uv run python -m src.invoke "Help me prepare for my meeting with Coca-Cola"
+
+# Or with curl
+curl -N -X POST http://localhost:8088/responses \
+  -H "Content-Type: application/json" \
+  -d '{"input": "Help me prepare for my meeting with Coca-Cola", "stream": true}'
+```
+
+> **Note:** The server must be running before you invoke it. If you see a "Could not connect" error, make sure Step 1 is running in another terminal.
 
 ## Mock vs Live mode
 
