@@ -32,6 +32,8 @@ GRAPH_USER_ID: str | None = os.getenv("GRAPH_USER_ID")
 GRAPH_BLUEPRINT_CLIENT_ID: str | None = os.getenv("GRAPH_BLUEPRINT_CLIENT_ID")
 GRAPH_BLUEPRINT_SECRET: str | None = os.getenv("GRAPH_BLUEPRINT_SECRET")
 GRAPH_AGENT_CLIENT_ID: str | None = os.getenv("GRAPH_AGENT_CLIENT_ID")
+GRAPH_DELEGATED_CLIENT_ID: str | None = os.getenv("GRAPH_DELEGATED_CLIENT_ID")
+GRAPH_DELEGATED_CLIENT_SECRET: str | None = os.getenv("GRAPH_DELEGATED_CLIENT_SECRET")
 
 # ── OAuth callback ────────────────────────────────────────────────────
 AUTH_REDIRECT_BASE_URL: str = os.getenv("AUTH_REDIRECT_BASE_URL", "http://localhost:5050")

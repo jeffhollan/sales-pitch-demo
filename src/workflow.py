@@ -24,22 +24,31 @@ _AUTH_SERVER_SCRIPT = str(PROJECT_ROOT / "scripts" / "auth_server.py")
 
 
 async def _poll_for_token(timeout: int = 120) -> bool:
-    """Poll Azure Blob Storage for a token update.
+    """Poll Azure Blob Storage for a fresh token write.
 
-    Returns True if a token was found within the timeout, False otherwise.
+    Records the blob's last_modified timestamp before polling starts, then
+    waits for it to change (or for the blob to appear if none existed). This
+    ensures we only return True after the auth callback writes a new token,
+    rather than picking up a stale token from a previous run.
     """
-    import json
-
     from azure.storage.blob import BlobClient
 
     blob_client = BlobClient.from_blob_url(TOKEN_STORAGE_URL)
     deadline = asyncio.get_event_loop().time() + timeout
 
+    # Snapshot the current last_modified time (if blob exists)
+    initial_modified = None
+    try:
+        props = blob_client.get_blob_properties()
+        initial_modified = props.last_modified
+    except Exception:
+        pass  # blob doesn't exist yet
+
     while asyncio.get_event_loop().time() < deadline:
         try:
-            blob_data = blob_client.download_blob().readall()
-            data = json.loads(blob_data)
-            if data.get("access_token"):
+            props = blob_client.get_blob_properties()
+            # Wait for a NEW write (different last_modified than before polling)
+            if props.last_modified != initial_modified:
                 return True
         except Exception:
             pass

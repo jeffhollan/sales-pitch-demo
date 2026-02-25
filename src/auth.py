@@ -226,13 +226,13 @@ def _save_delegated_cache() -> None:
 
     if TOKEN_STORAGE_URL:
         try:
-            from azure.storage.blob import BlobClient
+            from azure.storage.blob import BlobClient, ContentSettings
 
             blob_client = BlobClient.from_blob_url(TOKEN_STORAGE_URL)
             blob_client.upload_blob(
                 payload,
                 overwrite=True,
-                content_settings={"content_type": "application/json"},
+                content_settings=ContentSettings(content_type="application/json"),
             )
         except Exception:
             pass  # best-effort

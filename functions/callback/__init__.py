@@ -39,13 +39,13 @@ _ERROR_HTML = """<html>
 
 def _save_token_to_blob(token_data: dict) -> None:
     """Write token JSON to Azure Blob Storage."""
-    from azure.storage.blob import BlobClient
+    from azure.storage.blob import BlobClient, ContentSettings
 
     blob_client = BlobClient.from_blob_url(TOKEN_STORAGE_URL)
     blob_client.upload_blob(
         json.dumps(token_data, indent=2),
         overwrite=True,
-        content_settings={"content_type": "application/json"},
+        content_settings=ContentSettings(content_type="application/json"),
     )
     logger.info("Token saved to blob storage")
 

@@ -12,17 +12,17 @@ from urllib.parse import urlencode
 
 import azure.functions as func
 
-from shared.auth_exchange import AGENT_CLIENT_ID, AUTHORIZE_URL, BLUEPRINT_CLIENT_ID, REDIRECT_URI
+from shared.auth_exchange import AUTHORIZE_URL, DELEGATED_CLIENT_ID, REDIRECT_URI
 
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
     state = secrets.token_urlsafe(16)
 
     params = urlencode({
-        "client_id": AGENT_CLIENT_ID,
+        "client_id": DELEGATED_CLIENT_ID,
         "response_type": "code",
         "redirect_uri": REDIRECT_URI,
-        "scope": f"api://{BLUEPRINT_CLIENT_ID}/access_agent offline_access",
+        "scope": "https://graph.microsoft.com/Calendars.Read offline_access",
         "state": state,
         "response_mode": "query",
     })

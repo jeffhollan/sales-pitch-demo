@@ -18,6 +18,8 @@ TENANT_ID = os.getenv("GRAPH_TENANT_ID", "")
 BLUEPRINT_CLIENT_ID = os.getenv("GRAPH_BLUEPRINT_CLIENT_ID", "")
 BLUEPRINT_SECRET = os.getenv("GRAPH_BLUEPRINT_SECRET", "")
 AGENT_CLIENT_ID = os.getenv("GRAPH_AGENT_CLIENT_ID", "")
+DELEGATED_CLIENT_ID = os.getenv("GRAPH_DELEGATED_CLIENT_ID", "")
+DELEGATED_CLIENT_SECRET = os.getenv("GRAPH_DELEGATED_CLIENT_SECRET", "")
 AUTH_REDIRECT_BASE_URL = os.getenv("AUTH_REDIRECT_BASE_URL", "http://localhost:5050")
 TOKEN_STORAGE_URL = os.getenv("TOKEN_STORAGE_URL", "")
 
@@ -46,28 +48,17 @@ def obo_exchange(auth_code: str) -> dict:
     Step 2: Blueprint credentials -> bootstrap token (T1)
     Step 3: OBO exchange -- T1 + Tc -> delegated agent token
     """
-    # Step 1 -- Redeem auth code for user token
+    # Step 1 -- Redeem auth code for user token using the delegated auth app
     resp1 = httpx.post(TOKEN_URL, data={
         "grant_type": "authorization_code",
-        "client_id": BLUEPRINT_CLIENT_ID,
-        "client_secret": BLUEPRINT_SECRET,
+        "client_id": DELEGATED_CLIENT_ID,
+        "client_secret": DELEGATED_CLIENT_SECRET,
         "code": auth_code,
         "redirect_uri": REDIRECT_URI,
         "scope": "https://graph.microsoft.com/Calendars.Read offline_access",
     }, timeout=15)
     if resp1.status_code >= 400:
-        # Try redeeming with agent client ID instead
-        resp1 = httpx.post(TOKEN_URL, data={
-            "grant_type": "authorization_code",
-            "client_id": AGENT_CLIENT_ID,
-            "client_assertion_type": "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
-            "client_assertion": get_bootstrap_token(),
-            "code": auth_code,
-            "redirect_uri": REDIRECT_URI,
-            "scope": "https://graph.microsoft.com/Calendars.Read offline_access",
-        }, timeout=15)
-        if resp1.status_code >= 400:
-            raise RuntimeError(f"Code redemption failed: {resp1.status_code} {resp1.text[:500]}")
+        raise RuntimeError(f"Code redemption failed: {resp1.status_code} {resp1.text[:500]}")
 
     user_token_data = resp1.json()
 
