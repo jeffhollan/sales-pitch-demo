@@ -1,0 +1,9 @@
+{
+  "hostedAgentDeployOptions": {
+    "dockerContextPath": "/Users/jeffhollan/Development/Claude/sales-pres-demo",
+    "dockerfilePath": "/Users/jeffhollan/Development/Claude/sales-pres-demo/Dockerfile",
+    "cpu": "2.0",
+    "memory": "4.0Gi",
+    "agentName": "sales-pres-agent"
+  }
+}

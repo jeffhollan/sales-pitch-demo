@@ -6,6 +6,12 @@ Wraps the SalesAgent orchestrator in a Starlette server exposing:
 - GET  /readiness  — readiness check
 """
 
+# Shim: azure-ai-agentserver-agentframework <=1.0.0b14 imports
+# AgentProtocol, which was renamed to Agent in agent-framework-core RC1.
+import agent_framework as _af
+if not hasattr(_af, "AgentProtocol"):
+    _af.AgentProtocol = _af.Agent
+
 from azure.ai.agentserver.agentframework import from_agent_framework
 
 from src.agent import create_orchestrator
