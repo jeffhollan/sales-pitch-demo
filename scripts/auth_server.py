@@ -37,8 +37,9 @@ BLUEPRINT_CLIENT_ID = os.getenv("GRAPH_BLUEPRINT_CLIENT_ID", "")
 BLUEPRINT_SECRET = os.getenv("GRAPH_BLUEPRINT_SECRET", "")
 AGENT_CLIENT_ID = os.getenv("GRAPH_AGENT_CLIENT_ID", "")
 
-PORT = 5050
-REDIRECT_URI = f"http://localhost:{PORT}/callback"
+_AUTH_REDIRECT_BASE_URL = os.getenv("AUTH_REDIRECT_BASE_URL", "http://localhost:5050")
+PORT = urlparse(_AUTH_REDIRECT_BASE_URL).port or 5050
+REDIRECT_URI = f"{_AUTH_REDIRECT_BASE_URL}/callback"
 TOKEN_CACHE_PATH = Path.home() / ".sales-prep-demo-token.json"
 TOKEN_URL = f"https://login.microsoftonline.com/{TENANT_ID}/oauth2/v2.0/token"
 AUTHORIZE_URL = f"https://login.microsoftonline.com/{TENANT_ID}/oauth2/v2.0/authorize"

@@ -33,6 +33,12 @@ GRAPH_BLUEPRINT_CLIENT_ID: str | None = os.getenv("GRAPH_BLUEPRINT_CLIENT_ID")
 GRAPH_BLUEPRINT_SECRET: str | None = os.getenv("GRAPH_BLUEPRINT_SECRET")
 GRAPH_AGENT_CLIENT_ID: str | None = os.getenv("GRAPH_AGENT_CLIENT_ID")
 
+# ── OAuth callback ────────────────────────────────────────────────────
+AUTH_REDIRECT_BASE_URL: str = os.getenv("AUTH_REDIRECT_BASE_URL", "http://localhost:5050")
+
+# ── Cloud token storage (Azure Blob SAS URL) ─────────────────────────
+TOKEN_STORAGE_URL: str | None = os.getenv("TOKEN_STORAGE_URL")
+
 # ── Fabric IQ ─────────────────────────────────────────────────────────
 FABRIC_WORKSPACE_ID: str | None = os.getenv("FABRIC_WORKSPACE_ID")
 

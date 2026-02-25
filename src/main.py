@@ -7,7 +7,6 @@ import sys
 
 from rich.console import Console
 from rich.panel import Panel
-from rich.markdown import Markdown
 
 console = Console()
 
@@ -25,17 +24,6 @@ async def _run(user_input: str):
     from src.workflow import run_sales_prep
 
     result = await run_sales_prep(user_input)
-
-    # In SDK mode, synthesis was already streamed to console.
-    # In legacy mode, show it in a panel.
-    if "customer_name" in result:
-        # Legacy pipeline — show synthesis panel
-        console.print("\n")
-        console.print(Panel(
-            Markdown(result["synthesis"]),
-            title="[bold]Meeting Prep Synthesis[/bold]",
-            border_style="green",
-        ))
 
     # Show doc paths if present
     if result.get("prep_doc_path"):

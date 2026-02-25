@@ -32,25 +32,19 @@ prep, research across all three data sources, synthesize your findings, then
 generate the requested documents. For simpler requests, use only what's needed.
 
 When presenting findings, be concise and focus on actionable insights.
-Highlight risks (open tickets, competitive threats) and opportunities (expansion, upsell)."""
+Highlight risks (open tickets, competitive threats) and opportunities (expansion, upsell).
+
+IMPORTANT — AUTHENTICATION FLOW:
+If a tool returns a result containing "auth_required": true, you MUST stop immediately.
+Do NOT continue with partial data. Do NOT present other findings or summarize what you have so far.
+Your ONLY response should be to tell the user they need to sign in and provide the auth_url link.
+Example: "I need you to sign in so I can access your calendar data. Please click here: <auth_url>"
+Then WAIT. Do not call any other tools or generate any other output until the user confirms
+they have signed in. Once they confirm, retry the SAME tool call to get the complete data."""
 
 
 def create_orchestrator():
-    """Create a SalesAgent orchestrator with all 5 tools and skill directories.
-
-    Falls back to the legacy mock agent dict if the Copilot SDK is not installed.
-    """
-    try:
-        from agent_framework.github import GitHubCopilotAgent
-    except ImportError:
-        import warnings
-        warnings.warn(
-            "agent-framework-github-copilot not installed — falling back to mock agents. "
-            "Install with: pip install agent-framework-github-copilot --pre",
-            stacklevel=2,
-        )
-        return _create_mock_agents()
-
+    """Create a SalesAgent orchestrator with all 5 tools and skill directories."""
     from src.tools import (
         get_work_iq_data,
         get_fabric_iq_data,
@@ -132,25 +126,3 @@ def _make_sales_agent_class():
             return await self._client.create_session(config)
 
     return SalesAgent
-
-
-def _create_mock_agents() -> dict[str, Any]:
-    """Create simple function-based agents for mock mode (no Copilot SDK needed)."""
-    from src.tools.work_iq import get_work_iq_data
-    from src.tools.fabric_iq import get_fabric_iq_data
-    from src.tools.foundry_iq import get_foundry_iq_data
-
-    class MockAgent:
-        """Lightweight agent that wraps a function tool."""
-        def __init__(self, name: str, fn):
-            self.name = name
-            self._fn = fn
-
-        async def run(self, customer_name: str) -> dict[str, Any]:
-            return self._fn(customer_name)
-
-    return {
-        "work_iq": MockAgent("work-iq", get_work_iq_data),
-        "fabric_iq": MockAgent("fabric-iq", get_fabric_iq_data),
-        "foundry_iq": MockAgent("foundry-iq", get_foundry_iq_data),
-    }

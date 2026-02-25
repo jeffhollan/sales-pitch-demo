@@ -11,7 +11,7 @@ from typing import Annotated, Any
 
 import httpx
 
-from src.auth import get_graph_delegated_token, get_graph_token
+from src.auth import DelegatedAuthRequired, get_graph_delegated_token, get_graph_token
 from src.config import GRAPH_USER_ID, MOCK_DATA_DIR, USE_MOCK_DATA
 
 _MOCK_FILE = MOCK_DATA_DIR / "work_iq_data.json"
@@ -100,6 +100,8 @@ def _fetch_events(customer_name: str) -> list[dict[str, Any]]:
             timeout=15,
         )
         resp.raise_for_status()
+    except DelegatedAuthRequired:
+        raise
     except (httpx.HTTPStatusError, RuntimeError):
         # Delegated token not available or 403 — return empty calendar data
         return []
@@ -152,4 +154,21 @@ def get_work_iq_data(
                 return v
         return {"error": f"No Work IQ mock data found for '{customer_name}'"}
 
-    return _query_graph(customer_name)
+    try:
+        return _query_graph(customer_name)
+    except DelegatedAuthRequired as e:
+        return {
+            "auth_required": True,
+            "auth_url": e.auth_url,
+            "message": (
+                "Calendar access requires your authorization. "
+                f"Please visit {e.auth_url} to sign in, then tell me you're done."
+            ),
+            "customer_name": customer_name,
+            "recent_emails": _fetch_messages(customer_name),
+            "recent_meetings": [],
+            "primary_contact": {},
+            "account_team": {},
+            "teams_messages": [],
+            "relationship_summary": "",
+        }

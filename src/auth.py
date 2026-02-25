@@ -13,7 +13,6 @@ When Agent ID is configured:
 from __future__ import annotations
 
 import json
-import sys
 import time
 from pathlib import Path
 from typing import Any
@@ -21,13 +20,23 @@ from typing import Any
 import httpx
 
 from src.config import (
+    AUTH_REDIRECT_BASE_URL,
     GRAPH_AGENT_CLIENT_ID,
     GRAPH_BLUEPRINT_CLIENT_ID,
     GRAPH_BLUEPRINT_SECRET,
     GRAPH_CLIENT_ID,
     GRAPH_CLIENT_SECRET,
     GRAPH_TENANT_ID,
+    TOKEN_STORAGE_URL,
 )
+
+
+class DelegatedAuthRequired(Exception):
+    """Raised when delegated auth is needed and no valid token exists."""
+
+    def __init__(self, auth_url: str):
+        self.auth_url = auth_url
+        super().__init__(f"Delegated auth required. Visit: {auth_url}")
 
 _TOKEN_URL = f"https://login.microsoftonline.com/{GRAPH_TENANT_ID}/oauth2/v2.0/token"
 
@@ -156,25 +165,29 @@ def get_graph_delegated_token() -> str:
     if _refresh_delegated_token():
         return _delegated_token_cache["access_token"]
 
-    # No valid token — fall back to legacy, print instructions
-    print(
-        "Calendar: no delegated agent token cached. "
-        "Run: python scripts/auth_server.py",
-        file=sys.stderr,
-    )
-    return _get_legacy_token()
+    # No valid token — raise so callers can surface the auth URL
+    raise DelegatedAuthRequired(f"{AUTH_REDIRECT_BASE_URL}/login")
 
 
 # ── Delegated token cache helpers ────────────────────────────────────
 
-def _load_delegated_cache() -> None:
-    """Load delegated token from disk into the in-memory cache."""
-    if _delegated_token_cache["access_token"]:
-        return  # already loaded
+def _load_from_blob() -> None:
+    """Load delegated token from Azure Blob Storage."""
+    try:
+        from azure.storage.blob import BlobClient
 
-    if not _DELEGATED_TOKEN_CACHE_PATH.exists():
-        return
+        blob_client = BlobClient.from_blob_url(TOKEN_STORAGE_URL)
+        blob_data = blob_client.download_blob().readall()
+        data = json.loads(blob_data)
+        _delegated_token_cache["access_token"] = data.get("access_token")
+        _delegated_token_cache["refresh_token"] = data.get("refresh_token")
+        _delegated_token_cache["expires_at"] = data.get("expires_at", 0.0)
+    except Exception:
+        pass  # blob doesn't exist yet or is unreadable
 
+
+def _load_from_file() -> None:
+    """Load delegated token from the local file cache."""
     try:
         data = json.loads(_DELEGATED_TOKEN_CACHE_PATH.read_text())
         _delegated_token_cache["access_token"] = data.get("access_token")
@@ -184,13 +197,54 @@ def _load_delegated_cache() -> None:
         pass
 
 
+def _load_delegated_cache() -> None:
+    """Load delegated token into the in-memory cache.
+
+    Reads from Azure Blob Storage when TOKEN_STORAGE_URL is set,
+    otherwise falls back to the local file.
+    """
+    if _delegated_token_cache["access_token"]:
+        return  # already loaded
+
+    if TOKEN_STORAGE_URL:
+        _load_from_blob()
+    elif _DELEGATED_TOKEN_CACHE_PATH.exists():
+        _load_from_file()
+
+
 def _save_delegated_cache() -> None:
-    """Persist the in-memory delegated token cache to disk."""
-    _DELEGATED_TOKEN_CACHE_PATH.write_text(json.dumps({
+    """Persist the in-memory delegated token cache.
+
+    Writes to Azure Blob Storage when TOKEN_STORAGE_URL is set,
+    otherwise writes to the local file.
+    """
+    payload = json.dumps({
         "access_token": _delegated_token_cache["access_token"],
         "refresh_token": _delegated_token_cache["refresh_token"],
         "expires_at": _delegated_token_cache["expires_at"],
-    }, indent=2))
+    }, indent=2)
+
+    if TOKEN_STORAGE_URL:
+        try:
+            from azure.storage.blob import BlobClient
+
+            blob_client = BlobClient.from_blob_url(TOKEN_STORAGE_URL)
+            blob_client.upload_blob(
+                payload,
+                overwrite=True,
+                content_settings={"content_type": "application/json"},
+            )
+        except Exception:
+            pass  # best-effort
+    else:
+        _DELEGATED_TOKEN_CACHE_PATH.write_text(payload)
+
+
+def clear_delegated_cache() -> None:
+    """Reset the in-memory delegated token cache so the next call reloads from disk."""
+    _delegated_token_cache["access_token"] = None
+    _delegated_token_cache["refresh_token"] = None
+    _delegated_token_cache["expires_at"] = 0.0
 
 
 def _refresh_delegated_token() -> bool:
