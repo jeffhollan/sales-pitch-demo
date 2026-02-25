@@ -7,6 +7,7 @@ to the legacy mock agent pipeline.
 
 from __future__ import annotations
 
+import os
 from pathlib import Path
 from typing import Any
 
@@ -45,6 +46,8 @@ they have signed in. Once they confirm, retry the SAME tool call to get the comp
 
 def create_orchestrator():
     """Create a SalesAgent orchestrator with all 5 tools and skill directories."""
+    from agent_framework.github import GitHubCopilotAgent
+
     from src.tools import (
         get_work_iq_data,
         get_fabric_iq_data,
@@ -53,26 +56,13 @@ def create_orchestrator():
         generate_presentation,
     )
 
-    SalesAgent = _make_sales_agent_class()
-    return SalesAgent(
-        instructions=SYSTEM_INSTRUCTIONS,
-        tools=[
-            get_work_iq_data,
-            get_fabric_iq_data,
-            get_foundry_iq_data,
-            generate_prep_doc,
-            generate_presentation,
-        ],
-        skill_directories=[SKILLS_DIR],
-    )
-
-
-def _make_sales_agent_class():
-    """Build a SalesAgent class that subclasses GitHubCopilotAgent.
-
-    Deferred into a factory so the SDK import only happens when called.
-    """
-    from agent_framework.github import GitHubCopilotAgent
+    tools = [
+        get_work_iq_data,
+        get_fabric_iq_data,
+        get_foundry_iq_data,
+        generate_prep_doc,
+        generate_presentation,
+    ]
 
     class SalesAgent(GitHubCopilotAgent):
         """GitHubCopilotAgent subclass that forwards skill_directories."""
@@ -123,6 +113,32 @@ def _make_sales_agent_class():
             if self._disabled_skills:
                 config["disabled_skills"] = self._disabled_skills
 
+            # ── Azure AI Foundry provider (for hosted containers) ──
+            foundry_url = os.environ.get("AZURE_AI_FOUNDRY_RESOURCE_URL")
+            if foundry_url:
+                from copilot import ProviderConfig
+
+                base_url = foundry_url.rstrip("/") + "/openai/v1/"
+                api_key = os.environ.get("AZURE_AI_FOUNDRY_API_KEY")
+                if api_key:
+                    bearer = api_key
+                else:
+                    from azure.identity import DefaultAzureCredential
+
+                    bearer = DefaultAzureCredential().get_token(
+                        "https://cognitiveservices.azure.com/.default"
+                    ).token
+                config["provider"] = ProviderConfig(
+                    type="openai",
+                    base_url=base_url,
+                    bearer_token=bearer,
+                    wire_api="responses",
+                )
+
             return await self._client.create_session(config)
 
-    return SalesAgent
+    return SalesAgent(
+        instructions=SYSTEM_INSTRUCTIONS,
+        tools=tools,
+        skill_directories=[SKILLS_DIR],
+    )
