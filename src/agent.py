@@ -156,41 +156,7 @@ def create_orchestrator():
             if self._disabled_skills:
                 config["disabled_skills"] = self._disabled_skills
 
-            # ── Azure AI Foundry provider (for hosted containers) ──
-            foundry_url = os.environ.get("AZURE_AI_FOUNDRY_RESOURCE_URL")
-            github_token = os.environ.get("GITHUB_TOKEN")
-            print(f"[SalesAgent] AZURE_AI_FOUNDRY_RESOURCE_URL={foundry_url!r}", flush=True)
-            print(f"[SalesAgent] GITHUB_TOKEN={'set' if github_token else 'not set'}", flush=True)
-
-            if foundry_url:
-                from copilot import ProviderConfig
-
-                base_url = foundry_url.rstrip("/") + "/openai/v1/"
-                api_key = os.environ.get("AZURE_AI_FOUNDRY_API_KEY")
-                try:
-                    if api_key:
-                        bearer = api_key
-                        print(f"[SalesAgent] Using Foundry provider with API key", flush=True)
-                    else:
-                        from azure.identity import DefaultAzureCredential
-
-                        print(f"[SalesAgent] Using Foundry provider with DefaultAzureCredential", flush=True)
-                        bearer = DefaultAzureCredential().get_token(
-                            "https://cognitiveservices.azure.com/.default"
-                        ).token
-                        print(f"[SalesAgent] Got bearer token (len={len(bearer)})", flush=True)
-                    config["provider"] = ProviderConfig(
-                        type="openai",
-                        base_url=base_url,
-                        bearer_token=bearer,
-                        wire_api="responses",
-                    )
-                    print(f"[SalesAgent] Provider config set: base_url={base_url}", flush=True)
-                except Exception as exc:
-                    print(f"[SalesAgent] FAILED to configure Foundry provider: {exc}", flush=True)
-            else:
-                print("[SalesAgent] No Foundry URL — using default GitHub Copilot provider", flush=True)
-
+            print(f"[SalesAgent] Using GitHub Copilot provider", flush=True)
             print(f"[SalesAgent] Session config keys: {list(config.keys())}", flush=True)
             return await self._client.create_session(config)
 

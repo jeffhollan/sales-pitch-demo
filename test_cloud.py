@@ -21,7 +21,7 @@ project_client = AIProjectClient(
 )
 
 myAgent = "sales-pres-agent"
-myVersion = "16"
+myVersion = "19"
 
 prompt = sys.argv[1] if len(sys.argv) > 1 else "Tell me what you can help with."
 
@@ -56,5 +56,27 @@ for event in stream:
     else:
         # Show all envelope events for debugging
         print(f"  [{event_count}] {etype}", flush=True)
+        # Print raw event data for debugging
+        if hasattr(event, "model_dump"):
+            import json
+            print(f"       {json.dumps(event.model_dump(), default=str)[:200]}", flush=True)
 
 print(f"\n--- stream ended after {event_count} event(s) ---")
+
+# Also try non-streaming to verify the agent works at all
+print("\n=== Non-streaming test ===")
+try:
+    result = openai_client.responses.create(
+        input=[{"role": "user", "content": "Hello"}],
+        extra_body={
+            "agent_reference": {
+                "name": myAgent,
+                "version": myVersion,
+                "type": "agent_reference",
+            }
+        },
+        stream=False,
+    )
+    print(f"output_text: {result.output_text!r}")
+except Exception as e:
+    print(f"Non-streaming error: {e}")

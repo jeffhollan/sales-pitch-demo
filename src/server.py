@@ -11,11 +11,25 @@ converts the agent-framework streaming output into RAPI SSE events.
 
 from __future__ import annotations
 
-import time
+import datetime
 from typing import AsyncGenerator
 
 from azure.ai.agentserver.core import FoundryCBAgent, AgentRunContext
-from azure.ai.agentserver.core.models import projects as rapi
+from azure.ai.agentserver.core.models import Response as OpenAIResponse
+from azure.ai.agentserver.core.models.projects import (
+    ItemContentOutputText,
+    ResponseCompletedEvent,
+    ResponseContentPartAddedEvent,
+    ResponseContentPartDoneEvent,
+    ResponseCreatedEvent,
+    ResponseInProgressEvent,
+    ResponseOutputItemAddedEvent,
+    ResponseOutputItemDoneEvent,
+    ResponsesAssistantMessageItemResource,
+    ResponseStreamEvent,
+    ResponseTextDeltaEvent,
+    ResponseTextDoneEvent,
+)
 
 from agent_framework import AgentSession
 
@@ -29,6 +43,12 @@ class SalesAgentServer(FoundryCBAgent):
         super().__init__()
         self._orchestrator = create_orchestrator()
         self._started = False
+        self._seq = 0
+
+    def _next_seq(self) -> int:
+        val = self._seq
+        self._seq += 1
+        return val
 
     async def agent_run(self, context: AgentRunContext):
         if not self._started:
@@ -46,149 +66,144 @@ class SalesAgentServer(FoundryCBAgent):
 
     async def _stream_response(
         self, prompt: str, context: AgentRunContext
-    ) -> AsyncGenerator[rapi.ResponseStreamEvent, None]:
+    ) -> AsyncGenerator[ResponseStreamEvent, None]:
         """Yield RAPI SSE events following the standard envelope sequence."""
-        seq = 0
+        self._seq = 0
         item_id = context.id_generator.generate_message_id()
-        now = int(time.time())
+        now = datetime.datetime.now()
         accumulated_text = ""
 
         # --- Opening envelope ---
-        response_obj = self._make_response(context, "in_progress", now)
-
-        yield rapi.ResponseCreatedEvent(
-            {"sequence_number": seq, "response": response_obj}
+        yield ResponseCreatedEvent(
+            sequence_number=self._next_seq(),
+            response=self._build_response(context, "in_progress", now),
         )
-        seq += 1
 
-        yield rapi.ResponseInProgressEvent(
-            {"sequence_number": seq, "response": response_obj}
+        yield ResponseInProgressEvent(
+            sequence_number=self._next_seq(),
+            response=self._build_response(context, "in_progress", now),
         )
-        seq += 1
 
         # Output item (assistant message)
-        item = {
-            "type": "message",
-            "id": item_id,
-            "role": "assistant",
-            "status": "in_progress",
-            "content": [],
-        }
-        yield rapi.ResponseOutputItemAddedEvent(
-            {"sequence_number": seq, "output_index": 0, "item": item}
+        item = ResponsesAssistantMessageItemResource(
+            id=item_id,
+            status="in_progress",
+            content=[],
         )
-        seq += 1
+        yield ResponseOutputItemAddedEvent(
+            sequence_number=self._next_seq(),
+            output_index=0,
+            item=item,
+        )
 
         # Content part (text)
-        yield rapi.ResponseContentPartAddedEvent(
-            {
-                "sequence_number": seq,
-                "item_id": item_id,
-                "output_index": 0,
-                "content_index": 0,
-                "part": {"type": "output_text", "text": ""},
-            }
+        yield ResponseContentPartAddedEvent(
+            sequence_number=self._next_seq(),
+            item_id=item_id,
+            output_index=0,
+            content_index=0,
+            part=ItemContentOutputText(text="", annotations=[]),
         )
-        seq += 1
 
         # --- Stream agent output ---
+        print(f"[SalesAgent] Starting agent stream for prompt: {prompt[:80]!r}", flush=True)
         session = AgentSession()
-        stream = self._orchestrator.run(prompt, stream=True, session=session)
-        async for update in stream:
-            text = update.text
-            if text:
-                accumulated_text += text
-                yield rapi.ResponseTextDeltaEvent(
-                    {
-                        "sequence_number": seq,
-                        "item_id": item_id,
-                        "output_index": 0,
-                        "content_index": 0,
-                        "delta": text,
-                    }
-                )
-                seq += 1
+        update_count = 0
+        try:
+            stream = self._orchestrator.run(prompt, stream=True, session=session)
+            async for update in stream:
+                update_count += 1
+                text = update.text
+                if text:
+                    accumulated_text += text
+                    yield ResponseTextDeltaEvent(
+                        sequence_number=self._next_seq(),
+                        item_id=item_id,
+                        output_index=0,
+                        content_index=0,
+                        delta=text,
+                    )
+        except Exception as exc:
+            print(f"[SalesAgent] Stream ERROR after {update_count} updates: {exc!r}", flush=True)
+            raise
+
+        print(f"[SalesAgent] Stream ended after {update_count} updates, accumulated {len(accumulated_text)} chars", flush=True)
 
         # --- Closing envelope ---
-        yield rapi.ResponseTextDoneEvent(
-            {
-                "sequence_number": seq,
-                "item_id": item_id,
-                "output_index": 0,
-                "content_index": 0,
-                "text": accumulated_text,
-            }
+        yield ResponseTextDoneEvent(
+            sequence_number=self._next_seq(),
+            item_id=item_id,
+            output_index=0,
+            content_index=0,
+            text=accumulated_text,
         )
-        seq += 1
 
-        yield rapi.ResponseContentPartDoneEvent(
-            {
-                "sequence_number": seq,
-                "item_id": item_id,
-                "output_index": 0,
-                "content_index": 0,
-                "part": {"type": "output_text", "text": accumulated_text},
-            }
+        yield ResponseContentPartDoneEvent(
+            sequence_number=self._next_seq(),
+            item_id=item_id,
+            output_index=0,
+            content_index=0,
+            part=ItemContentOutputText(text=accumulated_text, annotations=[]),
         )
-        seq += 1
 
-        done_item = {
-            "type": "message",
-            "id": item_id,
-            "role": "assistant",
-            "status": "completed",
-            "content": [{"type": "output_text", "text": accumulated_text}],
-        }
-        yield rapi.ResponseOutputItemDoneEvent(
-            {"sequence_number": seq, "output_index": 0, "item": done_item}
+        done_item = ResponsesAssistantMessageItemResource(
+            id=item_id,
+            status="completed",
+            content=[ItemContentOutputText(text=accumulated_text, annotations=[])],
         )
-        seq += 1
+        yield ResponseOutputItemDoneEvent(
+            sequence_number=self._next_seq(),
+            output_index=0,
+            item=done_item,
+        )
 
-        completed_response = self._make_response(
-            context, "completed", now, output=[done_item]
-        )
-        yield rapi.ResponseCompletedEvent(
-            {"sequence_number": seq, "response": completed_response}
+        yield ResponseCompletedEvent(
+            sequence_number=self._next_seq(),
+            response=self._build_response(
+                context, "completed", now, output=[done_item]
+            ),
         )
 
     # ── Non-streaming path ────────────────────────────────────────────
 
     async def _non_stream_response(
         self, prompt: str, context: AgentRunContext
-    ) -> rapi.Response:
+    ) -> OpenAIResponse:
         """Run the agent and return a complete Response object."""
         session = AgentSession()
         result = await self._orchestrator.run(prompt, session=session)
-        text = result.text or ""
-        now = int(time.time())
+        text = result.text or "(No response text was produced by the agent.)"
         item_id = context.id_generator.generate_message_id()
-        output = [
-            {
-                "type": "message",
-                "id": item_id,
-                "role": "assistant",
-                "status": "completed",
-                "content": [{"type": "output_text", "text": text}],
-            }
-        ]
-        return self._make_response(context, "completed", now, output=output)
+        return OpenAIResponse(
+            id=context.response_id,
+            created_at=datetime.datetime.now(),
+            output=[
+                ResponsesAssistantMessageItemResource(
+                    id=item_id,
+                    status="completed",
+                    content=[
+                        ItemContentOutputText(text=text, annotations=[]),
+                    ],
+                )
+            ],
+        )
 
     # ── Helpers ───────────────────────────────────────────────────────
 
     @staticmethod
-    def _make_response(
+    def _build_response(
         context: AgentRunContext,
         status: str,
-        created_at: int,
+        created_at: datetime.datetime,
         output: list | None = None,
-    ) -> dict:
-        return {
-            "id": context.response_id,
+    ) -> OpenAIResponse:
+        return OpenAIResponse({
             "object": "response",
+            "id": context.response_id,
             "status": status,
             "created_at": created_at,
             "output": output or [],
-        }
+        })
 
     @staticmethod
     def _extract_prompt(payload: dict) -> str:
