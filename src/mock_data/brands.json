@@ -23,7 +23,88 @@
     "primary_color": "#0078D4",
     "secondary_color": "#50E6FF",
     "accent_color": "#FFFFFF",
-    "industry": "Technology",
+    "industry": "Technology / SaaS",
     "logo_placeholder": "🏢"
+  },
+  "fabrikam": {
+    "display_name": "Fabrikam",
+    "short_name": "Fabrikam",
+    "primary_color": "#E3008C",
+    "secondary_color": "#5C2D91",
+    "accent_color": "#FFFFFF",
+    "industry": "Manufacturing / Industrial",
+    "logo_placeholder": "🏭"
+  },
+  "northwind-traders": {
+    "display_name": "Northwind Traders",
+    "short_name": "Northwind",
+    "primary_color": "#107C10",
+    "secondary_color": "#FFB900",
+    "accent_color": "#FFFFFF",
+    "industry": "Retail / E-commerce",
+    "logo_placeholder": "🛒"
+  },
+  "woodgrove-bank": {
+    "display_name": "Woodgrove Bank",
+    "short_name": "Woodgrove",
+    "primary_color": "#002050",
+    "secondary_color": "#0078D4",
+    "accent_color": "#FFD700",
+    "industry": "Financial Services / Banking",
+    "logo_placeholder": "🏦"
+  },
+  "adatum": {
+    "display_name": "Adatum",
+    "short_name": "Adatum",
+    "primary_color": "#4B0082",
+    "secondary_color": "#9B59B6",
+    "accent_color": "#FFFFFF",
+    "industry": "Insurance / Financial Services",
+    "logo_placeholder": "🛡️"
+  },
+  "tailwind-toys": {
+    "display_name": "Tailwind Toys",
+    "short_name": "Tailwind",
+    "primary_color": "#FF6F00",
+    "secondary_color": "#00BCD4",
+    "accent_color": "#FFFFFF",
+    "industry": "Consumer Products / Toys",
+    "logo_placeholder": "🧸"
+  },
+  "alpine-ski-house": {
+    "display_name": "Alpine Ski House",
+    "short_name": "Alpine",
+    "primary_color": "#1B5E20",
+    "secondary_color": "#E0E0E0",
+    "accent_color": "#FFFFFF",
+    "industry": "Hospitality / Tourism",
+    "logo_placeholder": "⛷️"
+  },
+  "bellows-college": {
+    "display_name": "Bellows College",
+    "short_name": "Bellows",
+    "primary_color": "#8B0000",
+    "secondary_color": "#FFD700",
+    "accent_color": "#FFFFFF",
+    "industry": "Higher Education",
+    "logo_placeholder": "🎓"
+  },
+  "relecloud": {
+    "display_name": "Relecloud",
+    "short_name": "Relecloud",
+    "primary_color": "#6A1B9A",
+    "secondary_color": "#00E5FF",
+    "accent_color": "#FFFFFF",
+    "industry": "Media / Entertainment / Streaming",
+    "logo_placeholder": "🎬"
+  },
+  "lamna-healthcare": {
+    "display_name": "Lamna Healthcare",
+    "short_name": "Lamna",
+    "primary_color": "#00695C",
+    "secondary_color": "#80CBC4",
+    "accent_color": "#FFFFFF",
+    "industry": "Healthcare / Pharmaceuticals",
+    "logo_placeholder": "🏥"
   }
 }

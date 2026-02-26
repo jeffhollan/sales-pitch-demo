@@ -33,7 +33,6 @@ dev = [
 ]
 
 [project.scripts]
-sales-prep = "src.main:main"
 sales-prep-server = "src.server:main"
 
 [tool.setuptools.packages.find]

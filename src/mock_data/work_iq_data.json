@@ -60,5 +60,625 @@
       }
     ],
     "relationship_summary": "Strong 8-year strategic partnership. $12M annual spend. Enterprise Agreement renewal due March 15, 2026. Active expansion discussions for M365 Copilot (5K → 15K seats) and Fabric. Key risk: open P2 support ticket on Fabric performance. Board meeting March 20 — potential showcase moment."
+  },
+  "contoso": {
+    "customer_name": "Contoso Ltd.",
+    "primary_contact": {
+      "name": "Elena Vasquez",
+      "title": "Chief Technology Officer",
+      "email": "elena.vasquez@contoso.com"
+    },
+    "account_team": {
+      "account_executive": "Ryan Mitchell",
+      "technical_lead": "Aisha Patel",
+      "customer_success": "Tom Brennan"
+    },
+    "recent_emails": [
+      {
+        "date": "2026-02-22",
+        "from": "elena.vasquez@contoso.com",
+        "subject": "AI Foundry Integration — Phase 2 Kickoff",
+        "snippet": "Ryan, we're ready to move into Phase 2 of the AI Foundry integration. Our product team wants to embed GPT-4o directly into our SaaS platform for customer-facing features. Can we get a scoping session on the calendar this week?"
+      },
+      {
+        "date": "2026-02-17",
+        "from": "jordan.li@contoso.com",
+        "subject": "RE: Azure OpenAI Throughput Provisioning",
+        "snippet": "Aisha, we're projecting 50M tokens/day by Q3 as we roll out the AI assistant feature to our enterprise tier. We need to discuss reserved capacity and pricing for PTUs."
+      },
+      {
+        "date": "2026-02-12",
+        "from": "elena.vasquez@contoso.com",
+        "subject": "Contoso Platform + Microsoft Partnership Announcement",
+        "snippet": "We'd like to explore a joint press release or case study around our AI Foundry integration. Our marketing team thinks this could be a strong co-sell story for both sides."
+      }
+    ],
+    "recent_meetings": [
+      {
+        "date": "2026-02-13",
+        "title": "Contoso AI Foundry — Phase 2 Architecture Review",
+        "attendees": ["Elena Vasquez", "Jordan Li", "Aisha Patel", "Ryan Mitchell"],
+        "notes": "Reviewed architecture for embedding AI Foundry models into Contoso's SaaS platform. Key decision: using Azure API Management as the gateway layer for model routing. Contoso wants multi-model support (GPT-4o + custom fine-tuned) by Q3. Aisha to deliver reference architecture by Feb 28."
+      },
+      {
+        "date": "2026-01-29",
+        "title": "Contoso Executive Business Review",
+        "attendees": ["Elena Vasquez", "Ryan Mitchell", "Tom Brennan"],
+        "notes": "Contoso's annual Azure spend grew 40% YoY to $18.5M, driven primarily by AI workloads. Elena confirmed they're all-in on Microsoft for their AI strategy. Upsell opportunity: Cosmos DB for vector search and Azure AI Search for RAG patterns."
+      }
+    ],
+    "teams_messages": [
+      {
+        "date": "2026-02-23",
+        "channel": "Contoso Account Team",
+        "from": "Ryan Mitchell",
+        "message": "Elena just told me Contoso's board approved a $5M incremental AI budget for FY27. They want to go deep on Foundry + Cosmos DB. This is our biggest upsell opportunity this quarter."
+      },
+      {
+        "date": "2026-02-18",
+        "channel": "Contoso Account Team",
+        "from": "Aisha Patel",
+        "message": "Jordan's team is already hitting rate limits on their Azure OpenAI deployment. I'm working with the capacity team to get them provisioned throughput. Need to move fast — they're evaluating Anthropic as a fallback."
+      }
+    ],
+    "relationship_summary": "Flagship technology account and pure upsell story. $18.5M annual spend growing 40% YoY. Contoso is embedding AI Foundry directly into their SaaS platform for customer-facing AI features. Board approved $5M incremental AI budget. Phase 2 integration starting now with GPT-4o and custom fine-tuned models. Minor risk: evaluating Anthropic as a fallback provider due to capacity constraints. Strong executive relationship with CTO Elena Vasquez."
+  },
+  "fabrikam": {
+    "customer_name": "Fabrikam",
+    "primary_contact": {
+      "name": "Richard Tanaka",
+      "title": "VP of IT Operations",
+      "email": "richard.tanaka@fabrikam.com"
+    },
+    "account_team": {
+      "account_executive": "Diana Flores",
+      "technical_lead": "Kevin Osei",
+      "customer_success": "Laura Henriksen"
+    },
+    "recent_emails": [
+      {
+        "date": "2026-02-21",
+        "from": "richard.tanaka@fabrikam.com",
+        "subject": "On-Prem Migration Timeline Concerns",
+        "snippet": "Diana, our board is pushing back on the migration timeline. They want to see a revised plan that gets us off the legacy data centers by Q4 instead of Q2 next year. Can we discuss what it would take to accelerate?"
+      },
+      {
+        "date": "2026-02-16",
+        "from": "mei.wong@fabrikam.com",
+        "subject": "RE: AWS Outpost Evaluation — Heads Up",
+        "snippet": "Kevin, wanted to be transparent — our procurement team has started an evaluation of AWS Outpost for our factory floor workloads. Richard asked me to loop you in so there are no surprises."
+      },
+      {
+        "date": "2026-02-11",
+        "from": "richard.tanaka@fabrikam.com",
+        "subject": "Fabric POC Results — Supply Chain Analytics",
+        "snippet": "The Fabric POC exceeded our expectations on the supply chain visibility dashboard. Query performance is 8x faster than our current on-prem SQL cluster. We want to move to a production pilot."
+      }
+    ],
+    "recent_meetings": [
+      {
+        "date": "2026-02-07",
+        "title": "Fabrikam Migration Strategy — Accelerated Timeline Review",
+        "attendees": ["Richard Tanaka", "Mei Wong", "Diana Flores", "Kevin Osei"],
+        "notes": "Fabrikam wants to accelerate on-prem migration from 18-month to 10-month timeline. Key blocker: factory floor OT systems require Azure Arc-enabled Kubernetes for hybrid scenario. Kevin to deliver accelerated migration plan with Arc integration by Feb 21. Budget increase of $1.2M requested for migration tooling."
+      },
+      {
+        "date": "2026-01-15",
+        "title": "Fabrikam Competitive Response — AWS Engagement",
+        "attendees": ["Diana Flores", "Kevin Osei", "Laura Henriksen"],
+        "notes": "Internal strategy session. AWS is actively pursuing Fabrikam's factory floor workloads with Outpost. Our differentiator: Azure Arc + Fabric for unified supply chain analytics. Need to get a Fabric production pilot running before AWS completes their POC in March."
+      }
+    ],
+    "teams_messages": [
+      {
+        "date": "2026-02-22",
+        "channel": "Fabrikam Account Team",
+        "from": "Diana Flores",
+        "message": "Red flag: Mei Wong confirmed AWS has a meeting with Fabrikam's CFO next week. We need to get the accelerated migration proposal in front of Richard before that meeting. Kevin — where are we on the Arc integration plan?"
+      },
+      {
+        "date": "2026-02-17",
+        "channel": "Fabrikam Account Team",
+        "from": "Kevin Osei",
+        "message": "Good news on the Fabric POC — Richard's team is genuinely impressed with the supply chain analytics performance. If we can parlay this into a broader data platform conversation, it strengthens our position against the AWS push."
+      }
+    ],
+    "relationship_summary": "Manufacturing account in active supply chain modernization, migrating from on-prem to Azure + Fabric. $8.2M annual spend. Strong competitive threat from AWS targeting factory floor workloads with Outpost. Fabric POC delivered excellent results (8x query improvement) — momentum to convert to production. Critical next 30 days: must deliver accelerated migration plan and get Fabric production pilot running before AWS completes their competing POC in March."
+  },
+  "northwind-traders": {
+    "customer_name": "Northwind Traders",
+    "primary_contact": {
+      "name": "Camille Dupont",
+      "title": "Chief Digital Officer",
+      "email": "camille.dupont@northwindtraders.com"
+    },
+    "account_team": {
+      "account_executive": "Brandon Cole",
+      "technical_lead": "Nadia Kowalski",
+      "customer_success": "Stephen Reeves"
+    },
+    "recent_emails": [
+      {
+        "date": "2026-02-20",
+        "from": "camille.dupont@northwindtraders.com",
+        "subject": "Copilot for Store Operations — Pilot Feedback",
+        "snippet": "Brandon, the store managers love the Copilot pilot. Inventory query time dropped 60% and staff are actually using it daily. We want to discuss expanding from 12 pilot stores to all 340 locations."
+      },
+      {
+        "date": "2026-02-15",
+        "from": "alex.gordon@northwindtraders.com",
+        "subject": "Dynamics 365 Commerce — Holiday Season Retrospective",
+        "snippet": "Nadia, our holiday season on D365 Commerce was our best ever — 28% revenue increase with zero downtime. We'd like to do a retrospective to identify areas for optimization before back-to-school season."
+      },
+      {
+        "date": "2026-02-10",
+        "from": "camille.dupont@northwindtraders.com",
+        "subject": "RE: Unified Customer Data Platform Proposal",
+        "snippet": "The proposal for Customer Insights on Dynamics 365 looks promising. Our CMO is very interested in the real-time personalization capabilities. Can we get a demo for the marketing team next week?"
+      }
+    ],
+    "recent_meetings": [
+      {
+        "date": "2026-02-06",
+        "title": "Northwind Traders — Copilot Store Operations Expansion Planning",
+        "attendees": ["Camille Dupont", "Alex Gordon", "Brandon Cole", "Nadia Kowalski"],
+        "notes": "Reviewed pilot results from 12 stores using Copilot for inventory management and staff scheduling. NPS from store managers is 72. Key ask: phased rollout plan for all 340 stores by June. Nadia to deliver rollout architecture with bandwidth requirements per store by Feb 20."
+      },
+      {
+        "date": "2026-01-20",
+        "title": "Northwind Traders — D365 Commerce Roadmap Alignment",
+        "attendees": ["Alex Gordon", "Nadia Kowalski", "Stephen Reeves"],
+        "notes": "Aligned on D365 Commerce roadmap for 2026. Northwind wants to integrate Customer Insights for real-time personalization in-store and online. Also exploring Power Platform for store manager self-service reporting. Estimated incremental spend: $1.8M."
+      }
+    ],
+    "teams_messages": [
+      {
+        "date": "2026-02-21",
+        "channel": "Northwind Traders Account Team",
+        "from": "Brandon Cole",
+        "message": "Camille is presenting the Copilot pilot results to their board next month. She asked if we can provide a polished ROI deck. This could unlock the full 340-store rollout — roughly $1.5M in incremental Copilot licensing."
+      },
+      {
+        "date": "2026-02-16",
+        "channel": "Northwind Traders Account Team",
+        "from": "Stephen Reeves",
+        "message": "Store manager satisfaction survey results are in from the pilot. Copilot is the highest-rated tech initiative Northwind has rolled out in three years. We should use this in the expansion business case."
+      }
+    ],
+    "relationship_summary": "Retail transformation account built on Dynamics 365 Commerce. $4.5M annual spend. Strong momentum: holiday season delivered 28% revenue increase on D365 with zero downtime. Copilot pilot across 12 stores showing exceptional results (60% reduction in inventory query time, NPS 72 from store managers). Expansion to all 340 stores under discussion — potential $1.5M incremental licensing. Additional upsell: Customer Insights for real-time personalization and Power Platform for store reporting."
+  },
+  "woodgrove-bank": {
+    "customer_name": "Woodgrove Bank",
+    "primary_contact": {
+      "name": "Margaret Holloway",
+      "title": "Chief Information Officer",
+      "email": "margaret.holloway@woodgrovebank.com"
+    },
+    "account_team": {
+      "account_executive": "David Nakamura",
+      "technical_lead": "Sofia Bergström",
+      "customer_success": "Patrick Quinn"
+    },
+    "recent_emails": [
+      {
+        "date": "2026-02-23",
+        "from": "margaret.holloway@woodgrovebank.com",
+        "subject": "Vendor Strategy Review — Confidential",
+        "snippet": "David, I want to be upfront with you. Our board has asked us to evaluate Google Cloud as part of a multi-cloud strategy review. This is not a reflection on Microsoft's performance, but we need to demonstrate due diligence on vendor diversification."
+      },
+      {
+        "date": "2026-02-18",
+        "from": "raj.gupta@woodgrovebank.com",
+        "subject": "RE: Azure Landing Zone — Compliance Audit Results",
+        "snippet": "Sofia, the OCC compliance audit flagged three findings related to our Azure landing zone configuration. We need remediation plans within 30 days. Can we set up a working session this week?"
+      },
+      {
+        "date": "2026-02-13",
+        "from": "margaret.holloway@woodgrovebank.com",
+        "subject": "EA Renewal — Board Concerns on Lock-in",
+        "snippet": "Our board finance committee is asking pointed questions about concentration risk with Microsoft. They want to see a clear portability and exit strategy as part of any renewal discussion. I'd like to address this proactively."
+      }
+    ],
+    "recent_meetings": [
+      {
+        "date": "2026-02-12",
+        "title": "Woodgrove Bank — EA Renewal Strategy (Internal)",
+        "attendees": ["David Nakamura", "Sofia Bergström", "Patrick Quinn"],
+        "notes": "Internal account team strategy session. Woodgrove's $22M EA renewal is due April 30. CIO Margaret Holloway raised vendor lock-in concerns and confirmed Google Cloud evaluation. Our strategy: emphasize regulatory compliance depth, Azure Confidential Computing for banking workloads, and provide a transparent portability framework. David to request executive sponsorship from our CVP of Financial Services."
+      },
+      {
+        "date": "2026-01-28",
+        "title": "Woodgrove Bank — Compliance Remediation Planning",
+        "attendees": ["Raj Gupta", "Sofia Bergström", "Patrick Quinn"],
+        "notes": "Reviewed OCC audit findings on Azure landing zone. Three items: key rotation policy gaps, network segmentation documentation, and disaster recovery RTO verification. Sofia delivering remediation runbook by Feb 7. All items must be closed within 30 days to maintain compliance certification."
+      }
+    ],
+    "teams_messages": [
+      {
+        "date": "2026-02-24",
+        "channel": "Woodgrove Bank Account Team",
+        "from": "David Nakamura",
+        "message": "Just got off a call with Margaret. Google Cloud's financial services team met with Woodgrove's board last week. This is real. I'm escalating to our CVP — we need an executive-level engagement within two weeks. This is a $22M renewal at risk."
+      },
+      {
+        "date": "2026-02-19",
+        "channel": "Woodgrove Bank Account Team",
+        "from": "Sofia Bergström",
+        "message": "Compliance remediation is on track — 2 of 3 findings resolved. The DR RTO verification requires a full failover test scheduled for March 5. Raj's team is cooperating well but they're stretched thin."
+      }
+    ],
+    "relationship_summary": "Largest account in the portfolio at $22M annual spend. Critical EA renewal due April 30, 2026. Significant churn risk: CIO Margaret Holloway has confirmed a Google Cloud evaluation driven by board-level concerns about vendor concentration and lock-in. Three OCC compliance findings under active remediation (2 of 3 resolved). Strategy: leverage regulatory compliance depth, Azure Confidential Computing, and provide transparent portability framework. Executive escalation in progress — need CVP engagement within two weeks to defend this renewal."
+  },
+  "adatum": {
+    "customer_name": "Adatum",
+    "primary_contact": {
+      "name": "Frank Morrison",
+      "title": "VP of Infrastructure",
+      "email": "frank.morrison@adatum.com"
+    },
+    "account_team": {
+      "account_executive": "Jennifer Huang",
+      "technical_lead": "Carlos Mendez",
+      "customer_success": "Rachel Foster"
+    },
+    "recent_emails": [
+      {
+        "date": "2026-02-19",
+        "from": "frank.morrison@adatum.com",
+        "subject": "Mainframe Migration — Phase 1 Go/No-Go",
+        "snippet": "Jennifer, we've been running the Phase 1 parallel environment for six weeks now. Results are encouraging but our actuarial team still has concerns about decimal precision in the Azure SQL migration. We need to address this before we can decommission the mainframe partition."
+      },
+      {
+        "date": "2026-02-14",
+        "from": "lisa.park@adatum.com",
+        "subject": "RE: Azure Migration Assessment — Updated Scope",
+        "snippet": "Carlos, we've identified 14 additional COBOL applications that need to be included in the migration assessment. These are critical policy administration systems that weren't in the original inventory."
+      },
+      {
+        "date": "2026-02-08",
+        "from": "frank.morrison@adatum.com",
+        "subject": "Budget Approval for Phase 2 — Delayed",
+        "snippet": "Wanted to let you know that our CFO pushed the Phase 2 budget approval to the April board meeting. The actuarial precision issue needs to be fully resolved before they'll commit additional funds."
+      }
+    ],
+    "recent_meetings": [
+      {
+        "date": "2026-02-05",
+        "title": "Adatum Mainframe Migration — Phase 1 Parallel Testing Review",
+        "attendees": ["Frank Morrison", "Lisa Park", "Carlos Mendez", "Jennifer Huang"],
+        "notes": "Phase 1 parallel testing showing 99.7% parity between mainframe and Azure outputs. Remaining 0.3% gap is in actuarial calculations due to decimal precision differences between COBOL packed decimal and Azure SQL. Carlos to engage the Azure SQL product team for a custom precision configuration. Phase 2 budget approval delayed to April board meeting."
+      },
+      {
+        "date": "2026-01-14",
+        "title": "Adatum — Legacy Application Discovery Workshop",
+        "attendees": ["Lisa Park", "Carlos Mendez", "Rachel Foster"],
+        "notes": "Discovered 14 additional COBOL applications in policy administration not included in original scope. Total application count now 47. Revised migration timeline extends by approximately 4 months. Rachel to update the project plan and resourcing model."
+      }
+    ],
+    "teams_messages": [
+      {
+        "date": "2026-02-20",
+        "channel": "Adatum Account Team",
+        "from": "Jennifer Huang",
+        "message": "Frank told me privately that Adatum's CEO is getting impatient with the migration pace. The mainframe maintenance contract costs $4M/year and they want off it. If we solve the precision issue, Phase 2 budget approval could accelerate. This account has potential to grow from $6.8M to $12M+."
+      },
+      {
+        "date": "2026-02-15",
+        "channel": "Adatum Account Team",
+        "from": "Carlos Mendez",
+        "message": "I've been in touch with the Azure SQL product group about the decimal precision issue. They're considering a fix in the next service update. In the meantime, I'm building a workaround using CLR stored procedures to match COBOL packed decimal behavior."
+      }
+    ],
+    "relationship_summary": "Insurance account undergoing complex mainframe-to-Azure migration. $6.8M annual spend with potential to double upon successful migration. Phase 1 parallel testing at 99.7% parity — blocked on actuarial decimal precision issue between COBOL and Azure SQL. Phase 2 budget approval delayed to April board. Scope expanded from 33 to 47 COBOL applications. Slow-moving due to regulatory and precision requirements, but CEO is pushing to accelerate to eliminate $4M/year mainframe maintenance costs. High long-term potential if precision issue is resolved."
+  },
+  "tailwind-toys": {
+    "customer_name": "Tailwind Toys",
+    "primary_contact": {
+      "name": "Nicole Ramirez",
+      "title": "Head of Technology",
+      "email": "nicole.ramirez@tailwindtoys.com"
+    },
+    "account_team": {
+      "account_executive": "Greg Sullivan",
+      "technical_lead": "Yuki Tanaka",
+      "customer_success": "Michelle Alvarez"
+    },
+    "recent_emails": [
+      {
+        "date": "2026-02-22",
+        "from": "nicole.ramirez@tailwindtoys.com",
+        "subject": "Copilot ROI Numbers — Incredible Results",
+        "snippet": "Greg, I had to share this immediately. Our customer service team using Copilot resolved 40% more tickets this month with higher satisfaction scores. Our CEO wants to expand Copilot to product design and marketing teams next."
+      },
+      {
+        "date": "2026-02-17",
+        "from": "nicole.ramirez@tailwindtoys.com",
+        "subject": "D2C Platform Scaling — Holiday 2026 Planning",
+        "snippet": "We're already planning for Holiday 2026. Last year we had a 5x traffic spike and our Azure infrastructure handled it perfectly. This year we're projecting 8x. Can we do a capacity planning session?"
+      },
+      {
+        "date": "2026-02-11",
+        "from": "jake.miller@tailwindtoys.com",
+        "subject": "Azure AI for Product Recommendations",
+        "snippet": "Yuki, we want to build an AI-powered recommendation engine for our D2C site. We're thinking Azure AI Search + OpenAI for personalized product suggestions. Can we set up a design session?"
+      }
+    ],
+    "recent_meetings": [
+      {
+        "date": "2026-02-09",
+        "title": "Tailwind Toys — Copilot Expansion Planning",
+        "attendees": ["Nicole Ramirez", "Greg Sullivan", "Michelle Alvarez"],
+        "notes": "Reviewed Copilot pilot results: 40% increase in customer service ticket resolution, 25% reduction in average handle time. Nicole wants to expand from 50 seats (customer service) to 200 seats across product design, marketing, and operations. Estimated incremental deal: $350K. Greg to prepare expansion proposal by Feb 24."
+      },
+      {
+        "date": "2026-01-27",
+        "title": "Tailwind Toys — AI Recommendation Engine Architecture",
+        "attendees": ["Jake Miller", "Yuki Tanaka", "Michelle Alvarez"],
+        "notes": "Designed initial architecture for AI-powered product recommendation engine using Azure AI Search, Azure OpenAI, and Cosmos DB for user profile vectors. Estimated build time: 8 weeks. Yuki to provide detailed cost model including Azure OpenAI token consumption estimates."
+      }
+    ],
+    "teams_messages": [
+      {
+        "date": "2026-02-23",
+        "channel": "Tailwind Toys Account Team",
+        "from": "Greg Sullivan",
+        "message": "Tailwind is growing fast — 200% D2C revenue growth last year. Nicole told me they're raising a Series C and Microsoft partnership is a key part of their pitch to investors. Great co-sell and case study opportunity here."
+      },
+      {
+        "date": "2026-02-18",
+        "channel": "Tailwind Toys Account Team",
+        "from": "Yuki Tanaka",
+        "message": "Jake's team is sharp — they built a working prototype of the recommendation engine in two weeks using our Azure OpenAI cookbook samples. This could be a great ISV partnership story if they productize it."
+      }
+    ],
+    "relationship_summary": "Fast-growing D2C consumer products company and early Copilot adopter. $2.1M annual spend growing rapidly with 200% D2C revenue growth last year. Copilot pilot showing exceptional results (40% more tickets resolved, 25% faster handle time) — expanding from 50 to 200 seats. Building AI-powered product recommendation engine on Azure. Series C fundraising in progress with Microsoft partnership featured in investor pitch. Small but high-trajectory account with strong case study and co-sell potential."
+  },
+  "alpine-ski-house": {
+    "customer_name": "Alpine Ski House",
+    "primary_contact": {
+      "name": "Thomas Keller",
+      "title": "Director of IT",
+      "email": "thomas.keller@alpineskihouse.com"
+    },
+    "account_team": {
+      "account_executive": "Amy Whitfield",
+      "technical_lead": "Derek Chang",
+      "customer_success": "Natalie Sørensen"
+    },
+    "recent_emails": [
+      {
+        "date": "2026-02-21",
+        "from": "thomas.keller@alpineskihouse.com",
+        "subject": "Off-Season Cost Optimization — Urgent",
+        "snippet": "Amy, ski season ends in April and we need to dramatically reduce our Azure spend during the off-season. Last year we were paying full price for idle resources from May through November. Can we discuss reserved instance swaps and auto-scaling options?"
+      },
+      {
+        "date": "2026-02-16",
+        "from": "thomas.keller@alpineskihouse.com",
+        "subject": "AI Guest Experience Personalization — Concept",
+        "snippet": "Derek, I've been thinking about using AI to personalize the guest experience — dynamic pricing, personalized activity recommendations, predictive maintenance for lifts. Would love to explore what's feasible with Azure AI services on our budget."
+      },
+      {
+        "date": "2026-02-09",
+        "from": "anna.bergman@alpineskihouse.com",
+        "subject": "RE: Teams Deployment — Seasonal Staff Onboarding",
+        "snippet": "Natalie, the Teams deployment for seasonal staff onboarding worked great this year. We onboarded 400 seasonal workers in two weeks using Teams + Power Automate flows. Our HR team wants to keep this for next season."
+      }
+    ],
+    "recent_meetings": [
+      {
+        "date": "2026-02-04",
+        "title": "Alpine Ski House — Off-Season Cloud Cost Strategy",
+        "attendees": ["Thomas Keller", "Amy Whitfield", "Derek Chang"],
+        "notes": "Reviewed Azure spend patterns: $180K/month peak season vs. $95K/month off-season (but should be $40K). Identified $330K annual savings through reserved instance exchanges, auto-shutdown policies, and moving dev/test to spot VMs. Derek to deliver cost optimization runbook by Feb 18. Thomas emphasized that proving cloud cost discipline is critical for getting board approval on the AI personalization project."
+      },
+      {
+        "date": "2026-01-21",
+        "title": "Alpine Ski House — AI Guest Experience Discovery Session",
+        "attendees": ["Thomas Keller", "Anna Bergman", "Derek Chang", "Natalie Sørensen"],
+        "notes": "Explored AI-driven guest experience personalization concepts. Top priorities: dynamic lift ticket pricing based on demand/weather, personalized activity recommendations via mobile app, and predictive maintenance for ski lifts using IoT telemetry. Budget constraint: total AI investment must stay under $200K for the first year. Derek to prepare a phased approach starting with dynamic pricing."
+      }
+    ],
+    "teams_messages": [
+      {
+        "date": "2026-02-22",
+        "channel": "Alpine Ski House Account Team",
+        "from": "Amy Whitfield",
+        "message": "Thomas is pragmatic and cost-focused but genuinely excited about the AI personalization ideas. If we nail the cost optimization story, it builds trust and unlocks the AI budget. Small account but could be a great hospitality reference customer."
+      },
+      {
+        "date": "2026-02-17",
+        "channel": "Alpine Ski House Account Team",
+        "from": "Derek Chang",
+        "message": "Finished the cost optimization analysis. We can save Alpine $330K/year with basic hygiene — reserved instance swaps, auto-shutdown, and right-sizing. Sending the runbook to Thomas tomorrow. This should fund the AI pilot with room to spare."
+      }
+    ],
+    "relationship_summary": "Seasonal hospitality account, cost-conscious but innovating. $1.2M annual spend with significant waste during off-season ($330K savings identified). Strong use case for AI guest experience personalization (dynamic pricing, recommendations, predictive lift maintenance) with $200K initial budget. Teams + Power Automate successfully used for seasonal staff onboarding (400 workers). Key strategy: deliver cost optimization savings to build trust and fund AI innovation. Potential hospitality vertical reference customer."
+  },
+  "bellows-college": {
+    "customer_name": "Bellows College",
+    "primary_contact": {
+      "name": "Dr. Patricia Owens",
+      "title": "VP of Information Technology",
+      "email": "patricia.owens@bellowscollege.edu"
+    },
+    "account_team": {
+      "account_executive": "Mike Donovan",
+      "technical_lead": "Samira Hassan",
+      "customer_success": "Chris Taylor"
+    },
+    "recent_emails": [
+      {
+        "date": "2026-02-20",
+        "from": "patricia.owens@bellowscollege.edu",
+        "subject": "Copilot for Faculty — Pilot Proposal",
+        "snippet": "Mike, our Faculty Senate approved a pilot of Copilot for 50 faculty members across three departments. They want to evaluate it for curriculum development, research assistance, and administrative tasks. Can you help us structure the pilot?"
+      },
+      {
+        "date": "2026-02-15",
+        "from": "david.chen@bellowscollege.edu",
+        "subject": "Teams Rooms — Campus Expansion Budget",
+        "snippet": "Samira, we're outfitting 40 more classrooms with Teams Rooms for hybrid learning this summer. We need updated pricing on Surface Hub and Teams Rooms Pro licensing for education."
+      },
+      {
+        "date": "2026-02-10",
+        "from": "patricia.owens@bellowscollege.edu",
+        "subject": "RE: M365 A5 Security Features — Compliance Concern",
+        "snippet": "Chris, FERPA compliance is non-negotiable for us. We need a detailed walkthrough of how M365 A5 DLP policies handle student records. Our compliance officer has questions about data residency for student PII."
+      }
+    ],
+    "recent_meetings": [
+      {
+        "date": "2026-02-11",
+        "title": "Bellows College — Copilot Faculty Pilot Design",
+        "attendees": ["Dr. Patricia Owens", "Mike Donovan", "Samira Hassan", "Chris Taylor"],
+        "notes": "Designed 90-day Copilot pilot for 50 faculty across Computer Science, English, and Business departments. Success metrics: time saved on curriculum development, research paper drafting efficiency, and administrative task reduction. FERPA compliance guardrails must be configured before launch. Samira to deliver Copilot governance and DLP configuration guide by Feb 25. Target pilot launch: March 10."
+      },
+      {
+        "date": "2026-01-23",
+        "title": "Bellows College — M365 A5 Security and Compliance Review",
+        "attendees": ["David Chen", "Samira Hassan", "Chris Taylor"],
+        "notes": "Deep dive on M365 A5 security features for FERPA compliance. Reviewed DLP policies for student records, sensitivity labels for faculty research data, and Defender for Endpoint deployment across campus devices. Two gaps identified: data residency configuration for student PII and conditional access policies for BYOD. Samira to deliver remediation plan."
+      }
+    ],
+    "teams_messages": [
+      {
+        "date": "2026-02-21",
+        "channel": "Bellows College Account Team",
+        "from": "Mike Donovan",
+        "message": "Great news — Faculty Senate approved the Copilot pilot. Dr. Owens said if the pilot succeeds, they'll roll out to all 800 faculty and potentially 12,000 students for next academic year. That's a significant A5 + Copilot expansion opportunity."
+      },
+      {
+        "date": "2026-02-16",
+        "channel": "Bellows College Account Team",
+        "from": "Samira Hassan",
+        "message": "FERPA compliance configuration is more complex than expected. We need to create custom DLP policies that distinguish between student records, faculty research, and general administrative data. Working with the compliance team on a configuration guide."
+      }
+    ],
+    "relationship_summary": "Higher education digital transformation account. $3.5M annual spend on M365 A5 + Teams-heavy deployment. Faculty Senate approved 50-person Copilot pilot across three departments — success could unlock campus-wide rollout to 800 faculty and 12,000 students. Expanding Teams Rooms to 40 additional hybrid classrooms. Key focus: FERPA compliance configuration for student data protection. Strong relationship with VP of IT Dr. Patricia Owens. Growth opportunity tied to Copilot pilot success and academic year planning cycle."
+  },
+  "relecloud": {
+    "customer_name": "Relecloud",
+    "primary_contact": {
+      "name": "Jason Park",
+      "title": "VP of Engineering",
+      "email": "jason.park@relecloud.com"
+    },
+    "account_team": {
+      "account_executive": "Vanessa Torres",
+      "technical_lead": "Ravi Krishnamurthy",
+      "customer_success": "Alison Becker"
+    },
+    "recent_emails": [
+      {
+        "date": "2026-02-22",
+        "from": "jason.park@relecloud.com",
+        "subject": "AKS Cluster Scaling — Live Event Surge Planning",
+        "snippet": "Ravi, we have a major live concert streaming event on March 15 expecting 8M concurrent viewers. Our current AKS cluster auto-scaling maxes out at 3M. We need to discuss burst capacity planning and CDN pre-warming strategies ASAP."
+      },
+      {
+        "date": "2026-02-17",
+        "from": "sarah.kim@relecloud.com",
+        "subject": "AI Content Recommendation Engine — Phase 2 Update",
+        "snippet": "Vanessa, our AI recommendation engine built on Azure OpenAI + Cosmos DB is performing well in A/B testing — 23% improvement in watch time. We want to move to full production and expand to podcast recommendations."
+      },
+      {
+        "date": "2026-02-12",
+        "from": "jason.park@relecloud.com",
+        "subject": "RE: Azure Media Services Migration to Custom Pipeline",
+        "snippet": "Ravi, with Azure Media Services deprecation, we've completed the migration to our custom encoding pipeline on AKS. Wanted to acknowledge your team's support — the migration was seamless. Zero viewer-facing impact."
+      }
+    ],
+    "recent_meetings": [
+      {
+        "date": "2026-02-14",
+        "title": "Relecloud — Live Event Surge Capacity Planning",
+        "attendees": ["Jason Park", "Ravi Krishnamurthy", "Vanessa Torres"],
+        "notes": "Planned infrastructure for March 15 live concert event (8M concurrent viewers). Strategy: pre-provision AKS node pools in 3 regions, CDN pre-warming with Azure Front Door, and Azure Load Testing for stress validation. Estimated burst cost: $280K for the event weekend. Ravi to coordinate with Azure capacity team for reserved burst nodes. Rehearsal load test scheduled for March 8."
+      },
+      {
+        "date": "2026-01-30",
+        "title": "Relecloud — AI Recommendation Engine Architecture Review",
+        "attendees": ["Sarah Kim", "Ravi Krishnamurthy", "Alison Becker"],
+        "notes": "Reviewed AI content recommendation engine Phase 1 results: 23% watch time improvement, 15% reduction in churn for users exposed to AI recommendations. Architecture uses Azure OpenAI for embedding generation, Cosmos DB for vector search, and AKS for serving. Phase 2 scope: podcast recommendations and real-time personalization for live events. Estimated incremental Azure spend: $2M/year."
+      }
+    ],
+    "teams_messages": [
+      {
+        "date": "2026-02-23",
+        "channel": "Relecloud Account Team",
+        "from": "Vanessa Torres",
+        "message": "Relecloud's AI recommendation engine is a massive success story — 23% watch time improvement and 15% churn reduction. Jason mentioned their board is allocating an additional $5M to AI initiatives this year. We should position ourselves for the full pipeline: recommendations, content moderation, and automated captioning."
+      },
+      {
+        "date": "2026-02-18",
+        "channel": "Relecloud Account Team",
+        "from": "Ravi Krishnamurthy",
+        "message": "The March 15 live event is going to be a real stress test. I've got a call with the Azure capacity team tomorrow to secure burst nodes in East US, West Europe, and Southeast Asia. If we nail this, it cements our position as Relecloud's primary cloud partner."
+      }
+    ],
+    "relationship_summary": "Major streaming platform account, Azure-heavy across AKS, CDN, and AI services. $15M annual spend. AI content recommendation engine showing outstanding results (23% watch time improvement, 15% churn reduction) — Phase 2 expanding to podcasts and live events with $2M incremental spend. Critical live event on March 15 requiring 8M concurrent viewer capacity. Board allocating $5M to AI initiatives. Successfully migrated off deprecated Azure Media Services with zero impact. Strong engineering relationship with VP Jason Park. Growth trajectory: recommendations, content moderation, and automated captioning."
+  },
+  "lamna-healthcare": {
+    "customer_name": "Lamna Healthcare",
+    "primary_contact": {
+      "name": "Dr. Robert Okafor",
+      "title": "Chief Information Security Officer",
+      "email": "robert.okafor@lamnahealthcare.com"
+    },
+    "account_team": {
+      "account_executive": "Angela Diaz",
+      "technical_lead": "Michael Strauss",
+      "customer_success": "Karen Liu"
+    },
+    "recent_emails": [
+      {
+        "date": "2026-02-24",
+        "from": "robert.okafor@lamnahealthcare.com",
+        "subject": "URGENT: P1 Security Incident — Unauthorized Access Detected",
+        "snippet": "Angela, we detected unauthorized access to a non-production environment containing de-identified patient data. Our IR team is engaged and we need immediate support from Microsoft's security response team. HIPAA breach assessment is underway."
+      },
+      {
+        "date": "2026-02-19",
+        "from": "robert.okafor@lamnahealthcare.com",
+        "subject": "RE: Sentinel SIEM Deployment — Accelerated Timeline",
+        "snippet": "Michael, given recent threat activity in the healthcare sector, our board approved emergency funding to accelerate the Sentinel deployment. We need full SOC visibility within 60 days instead of the planned 6 months."
+      },
+      {
+        "date": "2026-02-13",
+        "from": "helen.martinez@lamnahealthcare.com",
+        "subject": "Fabric Clinical Analytics — HIPAA BAA Clarification",
+        "snippet": "Karen, our legal team needs clarification on the HIPAA Business Associate Agreement coverage for Fabric workspaces processing PHI. Specifically, they want to understand data residency guarantees and encryption at rest for clinical datasets."
+      }
+    ],
+    "recent_meetings": [
+      {
+        "date": "2026-02-24",
+        "title": "Lamna Healthcare — P1 Security Incident Response Bridge",
+        "attendees": ["Dr. Robert Okafor", "Angela Diaz", "Michael Strauss", "Karen Liu"],
+        "notes": "Active incident: unauthorized access to non-production Azure environment detected Feb 23 at 22:15 UTC. Preliminary analysis: compromised service principal with excessive permissions. De-identified patient data in scope but no confirmed PHI exposure. Microsoft DART (Detection and Response Team) engaged. Immediate actions: credential rotation, network isolation of affected resources, and forensic image preservation. Next bridge call in 4 hours."
+      },
+      {
+        "date": "2026-02-06",
+        "title": "Lamna Healthcare — Sentinel Accelerated Deployment Planning",
+        "attendees": ["Dr. Robert Okafor", "Michael Strauss", "Karen Liu"],
+        "notes": "Planned accelerated Sentinel deployment to achieve full SOC visibility in 60 days. Phase 1 (weeks 1-2): connect Azure AD, Azure Activity, and Defender for Cloud connectors. Phase 2 (weeks 3-4): on-prem network appliances and endpoint telemetry. Phase 3 (weeks 5-8): custom analytics rules and SOAR playbooks for healthcare-specific threats. Emergency budget: $800K approved. Michael to deliver detailed deployment schedule by Feb 12."
+      }
+    ],
+    "teams_messages": [
+      {
+        "date": "2026-02-24",
+        "channel": "Lamna Healthcare Account Team",
+        "from": "Angela Diaz",
+        "message": "All hands on deck — Lamna has a P1 security incident. Unauthorized access to a non-production environment. DART is engaged. Robert is managing the IR but he's under enormous pressure from their board and legal. We need to be responsive and transparent. This is a critical moment for the relationship."
+      },
+      {
+        "date": "2026-02-20",
+        "channel": "Lamna Healthcare Account Team",
+        "from": "Michael Strauss",
+        "message": "Sentinel accelerated deployment is on track — Azure AD and Defender connectors are live. If this had been in place two weeks earlier, we might have caught the threat activity sooner. Ironic timing but it reinforces the urgency."
+      }
+    ],
+    "relationship_summary": "Healthcare account with active P1 security incident requiring immediate attention. $9.5M annual spend. Unauthorized access detected in non-production environment on Feb 23 — DART engaged, HIPAA breach assessment underway. No confirmed PHI exposure but situation is evolving. Accelerated Sentinel deployment in progress ($800K emergency budget) to achieve full SOC visibility in 60 days. Fabric clinical analytics initiative on hold pending security incident resolution and HIPAA BAA clarification. CISO Dr. Robert Okafor is under significant board and regulatory pressure. Relationship is at a critical juncture — our incident response quality will define the partnership going forward."
   }
 }

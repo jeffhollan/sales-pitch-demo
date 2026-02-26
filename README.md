@@ -16,12 +16,11 @@ Output files land in `output/`.
 
 ```
                               ┌─────────────────┐
-User ──► CLI (main.py)   ──► │                  │
+User ──► GitHub Copilot  ──► │                  │
               — or —         │  Orchestrator    │
-User ──► Hosted Server   ──► │  (agent.py /     │
-          (server.py)        │   workflow.py)   │
-              — or —         │                  │
-Client ──► /responses    ──► │                  │
+Client ──► /responses    ──► │  (agent.py /     │
+          (server.py)        │   server.py)     │
+                              │                  │
                               └───────┬─────────┘
                                       │
                    ┌──────────────────┼──────────────────┐
@@ -48,24 +47,15 @@ Client ──► /responses    ──► │                  │
                 output/                               output/
 ```
 
-The orchestrator is a `GitHubCopilotAgent` (from the Copilot Agent Framework SDK) that receives the user's natural-language request and autonomously decides which tools to call and in what order.
-
-The agent can be run in two ways:
-
-| Mode | Entry point | Description |
-|------|-------------|-------------|
-| **CLI** | `src/main.py` | Direct command-line execution — runs the agent in-process |
-| **Hosted Server** | `src/server.py` | Starlette server exposing a `/responses` endpoint (OpenAI Responses API format) via the Azure AI Hosted Agent Adapter |
+The orchestrator is a `GitHubCopilotAgent` (from the Copilot Agent Framework SDK) that receives the user's natural-language request and autonomously decides which tools to call and in what order. The agent runs as a Starlette server (`src/server.py`) exposing an OpenAI Responses API–compatible `/responses` endpoint, which is the same interface used when deployed to Azure AI Foundry via the Hosted Agent Adapter.
 
 ## Project layout
 
 ```
 ├── src/
-│   ├── main.py              # CLI entry point (`sales-prep` command)
 │   ├── server.py            # Hosted Agent Adapter server (`sales-prep-server`)
 │   ├── invoke.py            # Local dev helper — calls the hosted server from CLI
 │   ├── agent.py             # Orchestrator setup, system prompt, tool list
-│   ├── workflow.py          # Streaming loop, auth retry logic
 │   ├── auth.py              # Graph token helpers (Agent ID + legacy modes)
 │   ├── config.py            # Env vars, paths, feature flags
 │   ├── tools/
@@ -119,14 +109,7 @@ A single-step `client_credentials` flow using a standard Entra app registration.
 
 ### Delegated OAuth flow (calendar access)
 
-When the agent needs calendar data and no valid delegated token exists, it:
-
-1. Returns an `auth_required` response with a sign-in URL
-2. The workflow loop detects this, launches the local auth server (or polls Azure Blob Storage in cloud mode)
-3. The user signs in via browser
-4. The workflow clears the in-memory token cache and retries the tool call automatically
-
-Token storage is local by default (`~/.sales-prep-demo-token.json`) or Azure Blob Storage when `TOKEN_STORAGE_URL` is set.
+When the agent needs calendar data and no valid delegated token exists, it returns an `auth_required` response with a sign-in URL. The user signs in via browser, and the token is stored locally (`~/.sales-prep-demo-token.json`) or in Azure Blob Storage when `TOKEN_STORAGE_URL` is set.
 
 ## Getting started
 
@@ -148,21 +131,9 @@ cp .env.example .env
 uv sync --extra agent --extra dev
 ```
 
-### Run — Option A: CLI (direct, in-process)
+### Run the server
 
-```bash
-# Pass a prompt directly
-uv run sales-prep "Help me prepare for my meeting with Coca-Cola"
-
-# Or run interactively (will prompt for input)
-uv run sales-prep
-```
-
-### Run — Option B: Hosted Agent Server
-
-This mode runs the agent behind a Starlette server that exposes an OpenAI Responses API–compatible `/responses` endpoint. This is the same interface used when the agent is deployed to Azure AI Foundry via the Hosted Agent Adapter.
-
-**Step 1 — Start the server** (runs on `http://0.0.0.0:8088`):
+Start the agent server (runs on `http://0.0.0.0:8088`):
 
 ```bash
 uv run python -m src.server
@@ -176,7 +147,7 @@ The server exposes three endpoints:
 | `/liveness` | GET | Health check |
 | `/readiness` | GET | Readiness check |
 
-**Step 2 — Invoke the agent** (in a separate terminal):
+To invoke the agent (in a separate terminal):
 
 ```bash
 # Using the included dev helper (streams output with rich formatting)
@@ -187,8 +158,6 @@ curl -N -X POST http://localhost:8088/responses \
   -H "Content-Type: application/json" \
   -d '{"input": "Help me prepare for my meeting with Coca-Cola", "stream": true}'
 ```
-
-> **Note:** The server must be running before you invoke it. If you see a "Could not connect" error, make sure Step 1 is running in another terminal.
 
 ## Mock vs Live mode
 
@@ -205,4 +174,28 @@ Mock mode is useful for demos, development, and running tests without external d
 
 ```bash
 uv run pytest tests/
+```
+
+## Test Customers
+
+The following companies are pre-populated in mock data and can be used for demos and testing:
+
+| Company | Industry | Annual Spend | Story |
+|---------|----------|-------------|-------|
+| Coca-Cola | Consumer Packaged Goods / Beverages | $12.4M | 8-year strategic partnership. Copilot expansion (5K→15K seats), Fabric growth, EA renewal March 15 |
+| Contoso Ltd. | Technology / SaaS | $18.5M | Flagship account, pure upsell momentum — expanding AI Foundry into their own SaaS product |
+| Fabrikam | Manufacturing / Industrial | $8.2M | Supply chain modernization, migrating from on-prem to Fabric + Azure. Competitive threat from AWS |
+| Northwind Traders | Retail / E-commerce | $4.5M | Retail transformation, Dynamics 365-heavy. Expanding into Copilot for store operations |
+| Woodgrove Bank | Financial Services / Banking | $22M | Largest account. Regulatory compliance focus, heavy Azure. Churn risk — evaluating Google Cloud |
+| Adatum | Insurance / Financial Services | $6.8M | Legacy modernization from mainframe to Azure. Slow-moving but high potential |
+| Tailwind Toys | Consumer Products / Toys | $2.1M | Fast-growing D2C brand. Small but expanding rapidly. Early Copilot adopter |
+| Alpine Ski House | Hospitality / Tourism | $1.2M | Seasonal business, cost-conscious. Looking at AI for guest experience personalization |
+| Bellows College | Higher Education | $3.5M | Education digital transformation. M365 A5 + Teams-heavy. Exploring Copilot for faculty |
+| Relecloud | Media / Entertainment / Streaming | $15M | Streaming platform, Azure-heavy (AKS, CDN, Media Services). Building AI-powered content recommendations |
+| Lamna Healthcare | Healthcare / Pharmaceuticals | $9.5M | HIPAA-compliant cloud strategy. Azure + Fabric for clinical analytics. P1 security incident in progress |
+
+To test with any company:
+
+```bash
+uv run python -m src.invoke "Help me prepare for my meeting with Northwind Traders"
 ```

@@ -92,5 +92,763 @@
       "growth_potential_pct": 44,
       "renewal_risk": "Low"
     }
+  },
+  "contoso": {
+    "customer_name": "Contoso Ltd.",
+    "contract": {
+      "type": "Enterprise Agreement",
+      "annual_spend": 18500000,
+      "renewal_date": "2026-09-30",
+      "products": [
+        {"name": "Microsoft 365 E5", "seats": 8000, "annual_value": 3840000},
+        {"name": "Microsoft 365 Copilot", "seats": 3000, "annual_value": 1080000},
+        {"name": "Azure (IaaS/PaaS)", "annual_value": 10200000},
+        {"name": "Azure AI Foundry", "annual_value": 3380000}
+      ]
+    },
+    "usage_trends": {
+      "m365_copilot": {
+        "active_users_pct": 87,
+        "trend": "increasing",
+        "top_apps": ["Teams", "Word", "PowerPoint", "Outlook"],
+        "monthly_actions_per_user": 198,
+        "satisfaction_score": 4.5
+      },
+      "azure": {
+        "monthly_spend_trend": [780000, 810000, 835000, 860000, 890000, 920000],
+        "top_services": ["AKS", "Azure OpenAI", "Cosmos DB", "Azure AI Foundry"]
+      }
+    },
+    "support_tickets": [
+      {
+        "id": "TKT-2026-2104",
+        "severity": "P3",
+        "status": "Resolved",
+        "title": "AKS node pool autoscaling delays during peak traffic",
+        "opened": "2026-01-10",
+        "resolved": "2026-01-18",
+        "description": "AKS cluster autoscaler was slow to provision new nodes during traffic spikes to their SaaS platform. Resolved by adjusting autoscaler profile and enabling node pool prewarming."
+      }
+    ],
+    "expansion_opportunities": [
+      {
+        "product": "Azure AI Foundry",
+        "current_state": "Internal tooling only",
+        "proposed": "AI Foundry embedded in Contoso SaaS product",
+        "incremental_value": 2400000,
+        "champion": "Marcus Rivera",
+        "stage": "Proposal",
+        "confidence": "High",
+        "notes": "Contoso wants to embed AI Foundry capabilities directly into their SaaS platform for customer-facing AI features. Marcus is VP of Product and has board-level buy-in. POC completed successfully in January."
+      },
+      {
+        "product": "Microsoft 365 Copilot",
+        "current_seats": 3000,
+        "proposed_seats": 8000,
+        "incremental_value": 1800000,
+        "champion": "Angela Torres",
+        "stage": "Negotiation",
+        "confidence": "High",
+        "notes": "87% adoption rate across initial 3K rollout. Angela (CIO) approved full org-wide deployment. Negotiating volume discount for remaining 5K seats."
+      }
+    ],
+    "financial_summary": {
+      "current_annual_spend": 18500000,
+      "proposed_annual_spend": 24200000,
+      "growth_potential_pct": 31,
+      "renewal_risk": "Low"
+    }
+  },
+  "fabrikam": {
+    "customer_name": "Fabrikam",
+    "contract": {
+      "type": "Enterprise Agreement",
+      "annual_spend": 8200000,
+      "renewal_date": "2026-06-30",
+      "products": [
+        {"name": "Microsoft 365 E3", "seats": 12000, "annual_value": 4320000},
+        {"name": "Azure (IaaS/PaaS)", "annual_value": 2680000},
+        {"name": "Microsoft Fabric", "capacity": "F32", "annual_value": 1200000}
+      ]
+    },
+    "usage_trends": {
+      "fabric": {
+        "monthly_queries": 68000,
+        "trend": "increasing",
+        "top_workloads": ["Manufacturing Quality Control", "Inventory Forecasting"],
+        "capacity_utilization_pct": 42,
+        "latency_p95_ms": 1800,
+        "latency_trend": "stable"
+      },
+      "azure": {
+        "monthly_spend_trend": [185000, 198000, 215000, 232000, 248000, 265000],
+        "top_services": ["Virtual Machines", "Azure SQL", "Azure Migrate", "Azure Site Recovery"]
+      }
+    },
+    "support_tickets": [
+      {
+        "id": "TKT-2026-5107",
+        "severity": "P2",
+        "status": "Open",
+        "title": "Azure Migrate — VMware vSphere batch replication failures",
+        "opened": "2026-02-08",
+        "description": "Batch replication of 40 VMware workloads to Azure failing intermittently at 60-70% completion. Impacting Phase 2 of cloud migration timeline. Plant floor ERP system migration delayed.",
+        "assigned_to": "James Kowalski"
+      }
+    ],
+    "expansion_opportunities": [
+      {
+        "product": "Microsoft 365 E5",
+        "current_seats": 12000,
+        "current_sku": "E3",
+        "proposed_sku": "E5",
+        "incremental_value": 1440000,
+        "champion": "Lisa Mukherjee",
+        "stage": "Discovery",
+        "confidence": "Medium",
+        "notes": "Lisa (CISO) interested in E5 security features — Defender for Endpoint and Purview. Compliance requirements driving urgency. Needs business case for CFO."
+      },
+      {
+        "product": "Microsoft 365 Copilot",
+        "current_seats": 0,
+        "proposed_seats": 500,
+        "incremental_value": 180000,
+        "champion": "Lisa Mukherjee",
+        "stage": "Early Interest",
+        "confidence": "Medium",
+        "notes": "Pilot program for engineering and management teams. Lisa wants to see E5 upgrade first before adding Copilot. Dependent on E3-to-E5 migration."
+      },
+      {
+        "product": "Microsoft Fabric",
+        "current_capacity": "F32",
+        "proposed_capacity": "F64",
+        "incremental_value": 1200000,
+        "champion": "Raj Patel",
+        "stage": "Discovery",
+        "confidence": "Low",
+        "notes": "Raj (Head of Data) sees potential for Fabric in manufacturing analytics but wants to prove value with current F32 first. Utilization still at 42%. Revisit after 90 days."
+      }
+    ],
+    "financial_summary": {
+      "current_annual_spend": 8200000,
+      "proposed_annual_spend": 12020000,
+      "growth_potential_pct": 47,
+      "renewal_risk": "Medium"
+    }
+  },
+  "northwind-traders": {
+    "customer_name": "Northwind Traders",
+    "contract": {
+      "type": "Enterprise Agreement",
+      "annual_spend": 4500000,
+      "renewal_date": "2026-08-15",
+      "products": [
+        {"name": "Microsoft 365 E3", "seats": 5000, "annual_value": 1800000},
+        {"name": "Dynamics 365 Commerce", "seats": 2000, "annual_value": 2160000},
+        {"name": "Microsoft 365 Copilot", "seats": 500, "annual_value": 180000},
+        {"name": "Azure (IaaS/PaaS)", "annual_value": 360000}
+      ]
+    },
+    "usage_trends": {
+      "m365_copilot": {
+        "active_users_pct": 64,
+        "trend": "increasing",
+        "top_apps": ["Outlook", "Excel", "Teams"],
+        "monthly_actions_per_user": 87,
+        "satisfaction_score": 3.9
+      },
+      "dynamics365": {
+        "active_users_pct": 91,
+        "trend": "stable",
+        "top_modules": ["Commerce", "Inventory Management", "Supply Chain"],
+        "monthly_transactions": 1250000
+      },
+      "azure": {
+        "monthly_spend_trend": [28000, 29000, 29500, 30000, 30500, 31000],
+        "top_services": ["App Service", "Azure SQL", "Azure CDN"]
+      }
+    },
+    "support_tickets": [
+      {
+        "id": "TKT-2026-3642",
+        "severity": "P3",
+        "status": "Open",
+        "title": "Dynamics 365 Commerce — POS integration sync delays",
+        "opened": "2026-02-01",
+        "description": "Point-of-sale terminals in 15 retail locations experiencing 10-15 minute delays syncing inventory data with Dynamics 365 Commerce. Causing intermittent stock-level inaccuracies on e-commerce storefront.",
+        "assigned_to": "Monica Reyes"
+      }
+    ],
+    "expansion_opportunities": [
+      {
+        "product": "Microsoft 365 Copilot",
+        "current_seats": 500,
+        "proposed_seats": 2000,
+        "incremental_value": 540000,
+        "champion": "Karen Okonkwo",
+        "stage": "Proposal",
+        "confidence": "High",
+        "notes": "Pilot showed strong results for store operations managers. Karen (COO) wants to roll out to all store managers, merchandising, and corporate staff. Business case presented to board in March."
+      },
+      {
+        "product": "Microsoft Fabric",
+        "current_state": "Not deployed",
+        "proposed": "Fabric F32 for retail analytics",
+        "incremental_value": 1200000,
+        "champion": "Tom Andersen",
+        "stage": "Discovery",
+        "confidence": "Medium",
+        "notes": "Tom (VP Analytics) exploring Fabric for unified retail analytics — customer segmentation, demand forecasting, and inventory optimization. Currently using a mix of Power BI Premium and third-party tools."
+      }
+    ],
+    "financial_summary": {
+      "current_annual_spend": 4500000,
+      "proposed_annual_spend": 6500000,
+      "growth_potential_pct": 44,
+      "renewal_risk": "Low"
+    }
+  },
+  "woodgrove-bank": {
+    "customer_name": "Woodgrove Bank",
+    "contract": {
+      "type": "Enterprise Agreement",
+      "annual_spend": 22000000,
+      "renewal_date": "2026-04-30",
+      "products": [
+        {"name": "Microsoft 365 E5", "seats": 25000, "annual_value": 6000000},
+        {"name": "Microsoft 365 Copilot", "seats": 8000, "annual_value": 2880000},
+        {"name": "Azure (IaaS/PaaS)", "annual_value": 8500000},
+        {"name": "Microsoft Fabric", "capacity": "F128", "annual_value": 4620000}
+      ]
+    },
+    "usage_trends": {
+      "m365_copilot": {
+        "active_users_pct": 81,
+        "trend": "stable",
+        "top_apps": ["Excel", "Outlook", "Word", "Teams"],
+        "monthly_actions_per_user": 165,
+        "satisfaction_score": 4.1
+      },
+      "fabric": {
+        "monthly_queries": 920000,
+        "trend": "increasing",
+        "top_workloads": ["Regulatory Reporting", "Risk Analytics", "Customer 360", "Fraud Detection"],
+        "capacity_utilization_pct": 78,
+        "latency_p95_ms": 2100,
+        "latency_trend": "stable"
+      },
+      "azure": {
+        "monthly_spend_trend": [680000, 695000, 705000, 710000, 718000, 725000],
+        "top_services": ["Azure Confidential Computing", "Azure Key Vault", "AKS", "Azure SQL Managed Instance", "Azure Monitor"]
+      }
+    },
+    "support_tickets": [
+      {
+        "id": "TKT-2026-4455",
+        "severity": "P2",
+        "status": "Open",
+        "title": "Compliance audit finding — Azure AD conditional access policy gap",
+        "opened": "2026-02-10",
+        "description": "Internal audit identified that 3 legacy service accounts bypass conditional access policies in Entra ID. Regulatory remediation deadline of March 31. Requires immediate attention for SOX and FFIEC compliance.",
+        "assigned_to": "Christopher Nolan"
+      },
+      {
+        "id": "TKT-2026-3180",
+        "severity": "P3",
+        "status": "Resolved",
+        "title": "Fabric data pipeline latency for end-of-day settlement reports",
+        "opened": "2026-01-15",
+        "resolved": "2026-01-29",
+        "description": "End-of-day settlement report pipeline in Fabric taking 45 minutes instead of target 15 minutes. Resolved by optimizing Spark job configuration and increasing executor memory allocation."
+      }
+    ],
+    "expansion_opportunities": [
+      {
+        "product": "Azure Confidential Computing",
+        "current_state": "Limited deployment",
+        "proposed": "Full confidential computing for trading workloads",
+        "incremental_value": 3200000,
+        "champion": "Daniel Obi",
+        "stage": "Proposal",
+        "confidence": "Medium",
+        "notes": "Daniel (CTO) wants to move all trading and risk calculation workloads to Azure Confidential Computing. Board has regulatory pressure. Competing Google Cloud proposal on the table — must demonstrate differentiated security posture."
+      },
+      {
+        "product": "Azure AI Foundry",
+        "current_state": "Not deployed",
+        "proposed": "AI Foundry for credit risk modeling and fraud detection",
+        "incremental_value": 2800000,
+        "champion": "Samira Khan",
+        "stage": "Discovery",
+        "confidence": "Medium",
+        "notes": "Samira (Chief Risk Officer) exploring AI-powered risk modeling. Needs to satisfy model governance and explainability requirements for banking regulators. POC scope being defined."
+      }
+    ],
+    "financial_summary": {
+      "current_annual_spend": 22000000,
+      "proposed_annual_spend": 28000000,
+      "growth_potential_pct": 27,
+      "renewal_risk": "High"
+    }
+  },
+  "adatum": {
+    "customer_name": "Adatum",
+    "contract": {
+      "type": "Enterprise Agreement",
+      "annual_spend": 6800000,
+      "renewal_date": "2027-01-15",
+      "products": [
+        {"name": "Microsoft 365 E3", "seats": 10000, "annual_value": 3600000},
+        {"name": "Azure (IaaS/PaaS)", "annual_value": 2400000},
+        {"name": "Dynamics 365 Customer Service", "seats": 500, "annual_value": 800000}
+      ]
+    },
+    "usage_trends": {
+      "dynamics365": {
+        "active_users_pct": 72,
+        "trend": "stable",
+        "top_modules": ["Customer Service", "Claims Management"],
+        "monthly_transactions": 340000
+      },
+      "azure": {
+        "monthly_spend_trend": [165000, 172000, 180000, 195000, 210000, 228000],
+        "top_services": ["Virtual Machines", "Azure SQL", "Azure ExpressRoute", "Azure App Service"]
+      }
+    },
+    "support_tickets": [
+      {
+        "id": "TKT-2026-4980",
+        "severity": "P3",
+        "status": "Open",
+        "title": "Azure ExpressRoute — mainframe connectivity intermittent drops",
+        "opened": "2026-02-18",
+        "description": "ExpressRoute circuit to on-premises mainframe data center experiencing brief connectivity drops (2-5 seconds) 3-4 times per day. Impacting batch data synchronization between mainframe claims system and Azure SQL. Suspected BGP route flapping.",
+        "assigned_to": "Patricia Gomez"
+      }
+    ],
+    "expansion_opportunities": [
+      {
+        "product": "Azure (Migration Phases 2-4)",
+        "current_state": "Phase 1 — dev/test and non-critical workloads",
+        "proposed": "Full mainframe-to-Azure migration over 18 months",
+        "incremental_value": 1800000,
+        "champion": "Robert Hoffman",
+        "stage": "Proposal",
+        "confidence": "Medium",
+        "notes": "Robert (VP Infrastructure) has a 3-year mainframe exit strategy. Phase 1 is in progress. Phases 2-4 would move claims processing, policy administration, and actuarial workloads to Azure. Slow-moving due to change advisory board process."
+      },
+      {
+        "product": "Microsoft 365 E5",
+        "current_seats": 10000,
+        "current_sku": "E3",
+        "proposed_sku": "E5",
+        "incremental_value": 1200000,
+        "champion": "Nina Vasquez",
+        "stage": "Early Interest",
+        "confidence": "Low",
+        "notes": "Nina (CISO) interested in Purview for insurance regulatory compliance and Defender for identity protection. Budget approval likely requires FY2027 planning cycle. Earliest deployment would be Q2 2027."
+      },
+      {
+        "product": "Microsoft 365 Copilot",
+        "current_seats": 0,
+        "proposed_seats": 250,
+        "incremental_value": 90000,
+        "champion": "Robert Hoffman",
+        "stage": "Early Interest",
+        "confidence": "Low",
+        "notes": "Robert curious about Copilot for IT productivity but no formal evaluation started. Wants to see E5 upgrade happen first. Very conservative adoption culture."
+      }
+    ],
+    "financial_summary": {
+      "current_annual_spend": 6800000,
+      "proposed_annual_spend": 11090000,
+      "growth_potential_pct": 63,
+      "renewal_risk": "Low"
+    }
+  },
+  "tailwind-toys": {
+    "customer_name": "Tailwind Toys",
+    "contract": {
+      "type": "MOSP/CSP",
+      "annual_spend": 2100000,
+      "renewal_date": "2026-07-01",
+      "products": [
+        {"name": "Microsoft 365 Business Premium", "seats": 800, "annual_value": 288000},
+        {"name": "Microsoft 365 Copilot", "seats": 200, "annual_value": 72000},
+        {"name": "Azure (IaaS/PaaS)", "annual_value": 1740000}
+      ]
+    },
+    "usage_trends": {
+      "m365_copilot": {
+        "active_users_pct": 92,
+        "trend": "increasing",
+        "top_apps": ["Teams", "Word", "PowerPoint", "Excel"],
+        "monthly_actions_per_user": 215,
+        "satisfaction_score": 4.7
+      },
+      "azure": {
+        "monthly_spend_trend": [138000, 140000, 142000, 145000, 148000, 150000],
+        "top_services": ["App Service", "Azure AI Services", "Azure SQL", "Blob Storage"]
+      }
+    },
+    "support_tickets": [
+      {
+        "id": "TKT-2026-2890",
+        "severity": "P3",
+        "status": "Resolved",
+        "title": "Azure AI Services — image recognition model accuracy drop",
+        "opened": "2026-01-20",
+        "resolved": "2026-02-02",
+        "description": "Custom Vision model for toy safety inspection dropped from 96% to 88% accuracy after retraining. Resolved by reverting to previous model version and retraining with corrected labeled dataset."
+      }
+    ],
+    "expansion_opportunities": [
+      {
+        "product": "Microsoft 365 E3",
+        "current_seats": 800,
+        "current_sku": "Business Premium",
+        "proposed_sku": "E3",
+        "incremental_value": 108000,
+        "champion": "Julie Tanaka",
+        "stage": "Proposal",
+        "confidence": "High",
+        "notes": "Julie (IT Director) ready to move to E3 as the company grows past the Business Premium 300-seat sweet spot. Headcount expected to reach 1000 by Q4 2026. Need enterprise admin capabilities."
+      },
+      {
+        "product": "Azure (D2C Platform Expansion)",
+        "current_state": "Basic e-commerce on App Service",
+        "proposed": "Full D2C platform — AKS, Azure Front Door, Cosmos DB",
+        "incremental_value": 960000,
+        "champion": "Brian Castellano",
+        "stage": "Discovery",
+        "confidence": "Medium",
+        "notes": "Brian (VP Digital) wants to build a direct-to-consumer platform with personalized toy recommendations using Azure AI. Currently evaluating Azure vs. Shopify Plus. Architecture workshop scheduled for March."
+      },
+      {
+        "product": "Microsoft 365 Copilot",
+        "current_seats": 200,
+        "proposed_seats": 800,
+        "incremental_value": 216000,
+        "champion": "Julie Tanaka",
+        "stage": "Negotiation",
+        "confidence": "High",
+        "notes": "92% adoption and 4.7 satisfaction on initial 200-seat rollout — best Copilot metrics in the territory. Julie wants full company deployment. Negotiating bundled pricing with E3 upgrade."
+      }
+    ],
+    "financial_summary": {
+      "current_annual_spend": 2100000,
+      "proposed_annual_spend": 3784000,
+      "growth_potential_pct": 80,
+      "renewal_risk": "Low"
+    }
+  },
+  "alpine-ski-house": {
+    "customer_name": "Alpine Ski House",
+    "contract": {
+      "type": "MOSP",
+      "annual_spend": 1200000,
+      "renewal_date": "2026-11-30",
+      "products": [
+        {"name": "Microsoft 365 Business Standard", "seats": 400, "annual_value": 72000},
+        {"name": "Azure (IaaS/PaaS)", "annual_value": 1128000}
+      ]
+    },
+    "usage_trends": {
+      "azure": {
+        "monthly_spend_trend": [82000, 78000, 65000, 58000, 70000, 94000],
+        "top_services": ["App Service", "Azure SQL", "Azure CDN", "Blob Storage"]
+      }
+    },
+    "support_tickets": [
+      {
+        "id": "TKT-2026-5230",
+        "severity": "P3",
+        "status": "Open",
+        "title": "Azure App Service — seasonal autoscale not triggering properly",
+        "opened": "2026-02-20",
+        "description": "Booking platform App Service plan not scaling up during peak ski season traffic. Autoscale rules based on CPU percentage not triggering despite 85%+ utilization. Customers experiencing 8-10 second page load times during peak hours.",
+        "assigned_to": "Alex Petrov"
+      }
+    ],
+    "expansion_opportunities": [
+      {
+        "product": "Microsoft 365 Copilot",
+        "current_seats": 0,
+        "proposed_seats": 50,
+        "incremental_value": 18000,
+        "champion": "Hannah Whitfield",
+        "stage": "Early Interest",
+        "confidence": "Low",
+        "notes": "Hannah (GM) saw a Copilot demo at a hospitality conference and expressed interest for front desk and marketing teams. Budget is tight — needs clear ROI justification for a seasonal business."
+      },
+      {
+        "product": "Azure AI Services",
+        "current_state": "Not deployed",
+        "proposed": "Azure AI for guest personalization and dynamic pricing",
+        "incremental_value": 420000,
+        "champion": "Hannah Whitfield",
+        "stage": "Discovery",
+        "confidence": "Medium",
+        "notes": "Hannah wants to use AI for personalized guest experiences — ski lesson recommendations, restaurant preferences, dynamic lift ticket pricing. Evaluated a competitor solution but budget may favor Azure-integrated approach."
+      }
+    ],
+    "financial_summary": {
+      "current_annual_spend": 1200000,
+      "proposed_annual_spend": 1838000,
+      "growth_potential_pct": 53,
+      "renewal_risk": "Medium"
+    }
+  },
+  "bellows-college": {
+    "customer_name": "Bellows College",
+    "contract": {
+      "type": "Education Enterprise Agreement",
+      "annual_spend": 3500000,
+      "renewal_date": "2026-06-30",
+      "products": [
+        {"name": "Microsoft 365 A5", "seats": 15000, "annual_value": 2250000},
+        {"name": "Azure (IaaS/PaaS)", "annual_value": 780000},
+        {"name": "Microsoft Teams (Heavy Usage)", "annual_value": 470000}
+      ]
+    },
+    "usage_trends": {
+      "m365": {
+        "teams_active_users_pct": 94,
+        "teams_monthly_meetings": 48000,
+        "teams_trend": "stable",
+        "top_apps": ["Teams", "OneDrive", "SharePoint", "Outlook"]
+      },
+      "azure": {
+        "monthly_spend_trend": [60000, 62000, 63000, 64000, 65000, 66000],
+        "top_services": ["Virtual Machines", "Azure Lab Services", "Azure SQL", "Blob Storage"]
+      }
+    },
+    "support_tickets": [
+      {
+        "id": "TKT-2026-4715",
+        "severity": "P3",
+        "status": "Open",
+        "title": "Teams Rooms — display connectivity issues in lecture halls",
+        "opened": "2026-02-12",
+        "description": "Teams Rooms devices in 8 out of 42 lecture halls intermittently losing display connection during classes. Faculty reporting disruptions to hybrid lectures. Suspected firmware compatibility issue with recently upgraded AV equipment.",
+        "assigned_to": "Wei Zhang"
+      }
+    ],
+    "expansion_opportunities": [
+      {
+        "product": "Microsoft 365 Copilot",
+        "current_seats": 0,
+        "proposed_seats": 500,
+        "incremental_value": 180000,
+        "champion": "Dr. Amara Osei",
+        "stage": "Discovery",
+        "confidence": "Medium",
+        "notes": "Dr. Osei (Provost) interested in Copilot pilot for faculty and administrative staff. Wants to evaluate impact on research paper drafting, grant writing, and administrative efficiency. Faculty senate approval required."
+      },
+      {
+        "product": "Azure (Research Computing)",
+        "current_state": "Basic VM workloads",
+        "proposed": "Azure HPC and GPU instances for research computing",
+        "incremental_value": 650000,
+        "champion": "Dr. Kevin Marsh",
+        "stage": "Proposal",
+        "confidence": "Medium",
+        "notes": "Dr. Marsh (VP Research) looking to replace aging on-prem HPC cluster. Genomics, climate modeling, and computational chemistry departments all requesting GPU resources. NSF grant funding may cover 40% of costs."
+      },
+      {
+        "product": "Microsoft Fabric",
+        "current_state": "Not deployed",
+        "proposed": "Fabric F32 for student analytics and institutional research",
+        "incremental_value": 600000,
+        "champion": "Dr. Amara Osei",
+        "stage": "Early Interest",
+        "confidence": "Low",
+        "notes": "Dr. Osei exploring Fabric for student retention analytics, enrollment forecasting, and accreditation reporting. Currently using fragmented Excel-based processes. Would need to consolidate 12 separate data sources."
+      }
+    ],
+    "financial_summary": {
+      "current_annual_spend": 3500000,
+      "proposed_annual_spend": 5030000,
+      "growth_potential_pct": 44,
+      "renewal_risk": "Low"
+    }
+  },
+  "relecloud": {
+    "customer_name": "Relecloud",
+    "contract": {
+      "type": "Enterprise Agreement",
+      "annual_spend": 15000000,
+      "renewal_date": "2026-05-15",
+      "products": [
+        {"name": "Azure (IaaS/PaaS)", "annual_value": 10800000},
+        {"name": "Microsoft 365 E5", "seats": 3000, "annual_value": 1440000},
+        {"name": "Microsoft 365 Copilot", "seats": 1500, "annual_value": 540000},
+        {"name": "Azure Media Services", "annual_value": 2220000}
+      ]
+    },
+    "usage_trends": {
+      "m365_copilot": {
+        "active_users_pct": 76,
+        "trend": "increasing",
+        "top_apps": ["Teams", "Word", "Outlook"],
+        "monthly_actions_per_user": 134,
+        "satisfaction_score": 4.0
+      },
+      "azure": {
+        "monthly_spend_trend": [870000, 885000, 900000, 920000, 935000, 950000],
+        "top_services": ["AKS", "Azure CDN", "Azure Media Services", "Azure Front Door", "Cosmos DB", "Azure OpenAI"]
+      }
+    },
+    "support_tickets": [
+      {
+        "id": "TKT-2026-5055",
+        "severity": "P2",
+        "status": "Open",
+        "title": "Azure CDN — elevated latency in Asia-Pacific regions",
+        "opened": "2026-02-14",
+        "description": "CDN edge nodes in Tokyo, Singapore, and Sydney reporting 300-500ms additional latency for video segment delivery. Affecting streaming quality for 2.8M subscribers in APAC region. P95 rebuffer rate increased from 0.8% to 3.2%.",
+        "assigned_to": "Kenji Watanabe"
+      },
+      {
+        "id": "TKT-2026-3410",
+        "severity": "P3",
+        "status": "Resolved",
+        "title": "Azure Media Services — encoding pipeline intermittent failures",
+        "opened": "2026-01-22",
+        "resolved": "2026-02-03",
+        "description": "4K HDR encoding jobs failing at 15% rate due to memory allocation issues in Media Services encoder. Resolved by migrating to updated encoding preset and increasing reserved unit allocation."
+      }
+    ],
+    "expansion_opportunities": [
+      {
+        "product": "Azure AI (Content Recommendations)",
+        "current_state": "Basic collaborative filtering",
+        "proposed": "Azure OpenAI + AI Foundry for personalized content recommendations",
+        "incremental_value": 2400000,
+        "champion": "Sophie Dubois",
+        "stage": "Proposal",
+        "confidence": "High",
+        "notes": "Sophie (VP Product) wants to replace their homegrown recommendation engine with Azure OpenAI-powered personalization. Internal A/B test showed 23% improvement in watch time. Architecture review completed, moving to contract negotiation."
+      },
+      {
+        "product": "Microsoft Fabric",
+        "current_state": "Not deployed",
+        "proposed": "Fabric F64 for viewer analytics and content performance",
+        "incremental_value": 2200000,
+        "champion": "Amir Hassan",
+        "stage": "Discovery",
+        "confidence": "Medium",
+        "notes": "Amir (Head of Data) currently running Snowflake for viewer analytics. Exploring Fabric as potential consolidation play — would unify content performance, ad revenue, and subscriber analytics. Cost comparison underway."
+      },
+      {
+        "product": "Azure AI Foundry",
+        "current_state": "Not deployed",
+        "proposed": "AI Foundry for content moderation and auto-tagging",
+        "incremental_value": 800000,
+        "champion": "Sophie Dubois",
+        "stage": "Early Interest",
+        "confidence": "Medium",
+        "notes": "Sophie exploring AI Foundry for automated content moderation, metadata tagging, and subtitle generation across 40+ languages. Currently spending $1.2M/year on manual content moderation."
+      }
+    ],
+    "financial_summary": {
+      "current_annual_spend": 15000000,
+      "proposed_annual_spend": 20400000,
+      "growth_potential_pct": 36,
+      "renewal_risk": "Low"
+    }
+  },
+  "lamna-healthcare": {
+    "customer_name": "Lamna Healthcare",
+    "contract": {
+      "type": "Enterprise Agreement",
+      "annual_spend": 9500000,
+      "renewal_date": "2026-07-31",
+      "products": [
+        {"name": "Microsoft 365 E5", "seats": 18000, "annual_value": 3240000},
+        {"name": "Microsoft 365 Copilot", "seats": 2000, "annual_value": 720000},
+        {"name": "Azure (IaaS/PaaS)", "annual_value": 3600000},
+        {"name": "Microsoft Fabric", "capacity": "F64", "annual_value": 1940000}
+      ]
+    },
+    "usage_trends": {
+      "m365_copilot": {
+        "active_users_pct": 58,
+        "trend": "increasing",
+        "top_apps": ["Outlook", "Word", "Teams"],
+        "monthly_actions_per_user": 95,
+        "satisfaction_score": 3.8
+      },
+      "fabric": {
+        "monthly_queries": 185000,
+        "trend": "increasing",
+        "top_workloads": ["Clinical Trial Analytics", "Patient Outcomes Reporting", "Regulatory Submissions"],
+        "capacity_utilization_pct": 62,
+        "latency_p95_ms": 2800,
+        "latency_trend": "stable"
+      },
+      "azure": {
+        "monthly_spend_trend": [280000, 288000, 295000, 302000, 310000, 318000],
+        "top_services": ["Azure API for FHIR", "Azure Key Vault", "AKS", "Azure SQL Managed Instance", "Azure Confidential Computing"]
+      }
+    },
+    "support_tickets": [
+      {
+        "id": "TKT-2026-5301",
+        "severity": "P1",
+        "status": "Open",
+        "title": "SECURITY — Unauthorized access attempt on Azure healthcare data platform",
+        "opened": "2026-02-22",
+        "description": "Microsoft Defender for Cloud detected unauthorized access attempts targeting the Azure API for FHIR endpoint containing PHI. 47 failed authentication attempts from 3 external IP addresses over 6 hours. No confirmed data exfiltration but incident response protocol activated. HIPAA breach notification assessment in progress. Executive leadership and legal team engaged.",
+        "assigned_to": "Maria Santos"
+      },
+      {
+        "id": "TKT-2026-5188",
+        "severity": "P2",
+        "status": "Open",
+        "title": "HIPAA audit remediation — Azure Key Vault rotation policy gaps",
+        "opened": "2026-02-16",
+        "description": "External HIPAA audit identified that 12 Azure Key Vault secrets used for inter-service authentication have not been rotated in 180+ days, violating organization's 90-day rotation policy. Must remediate before audit response deadline of March 15.",
+        "assigned_to": "Maria Santos"
+      }
+    ],
+    "expansion_opportunities": [
+      {
+        "product": "Microsoft 365 Copilot",
+        "current_seats": 2000,
+        "proposed_seats": 10000,
+        "incremental_value": 2880000,
+        "champion": "Dr. Rachel Nguyen",
+        "stage": "Proposal",
+        "confidence": "Medium",
+        "notes": "Dr. Nguyen (CMIO) wants to expand Copilot to all physicians and clinical staff for documentation, discharge summaries, and care coordination. Pilot showed 40% reduction in documentation time. HIPAA compliance review for clinical use cases must be completed first. P1 security incident may delay approval timeline."
+      },
+      {
+        "product": "Azure Healthcare Data Platform",
+        "current_state": "Azure API for FHIR with basic integrations",
+        "proposed": "Full Azure Health Data Services with de-identification and analytics",
+        "incremental_value": 1200000,
+        "champion": "David Adler",
+        "stage": "Discovery",
+        "confidence": "Medium",
+        "notes": "David (CTO) wants to build a unified patient data platform using Azure Health Data Services. Would consolidate 5 separate EHR integrations. Dependent on resolving P1 security incident and demonstrating enhanced security posture."
+      },
+      {
+        "product": "Microsoft Fabric",
+        "current_capacity": "F64",
+        "proposed_capacity": "F128",
+        "incremental_value": 1940000,
+        "champion": "Dr. Rachel Nguyen",
+        "stage": "Proposal",
+        "confidence": "High",
+        "notes": "Clinical trials analytics workload growing rapidly. 3 new Phase III trials launching in Q3 2026 will double data volume. Current F64 capacity projected to be insufficient by August. Dr. Nguyen has budget pre-approved for upgrade."
+      }
+    ],
+    "financial_summary": {
+      "current_annual_spend": 9500000,
+      "proposed_annual_spend": 14020000,
+      "growth_potential_pct": 48,
+      "renewal_risk": "Medium"
+    }
   }
 }
