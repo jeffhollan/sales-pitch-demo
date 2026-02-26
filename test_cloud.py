@@ -21,7 +21,7 @@ project_client = AIProjectClient(
 )
 
 myAgent = "sales-pres-agent"
-myVersion = "3"
+myVersion = "16"
 
 prompt = sys.argv[1] if len(sys.argv) > 1 else "Tell me what you can help with."
 
@@ -31,7 +31,13 @@ print(f"Sending: {prompt!r}\n")
 
 stream = openai_client.responses.create(
     input=[{"role": "user", "content": prompt}],
-    extra_body={"agent_reference": {"name": myAgent, "version": myVersion, "type": "agent_reference"}},
+    extra_body={
+        "agent_reference": {
+            "name": myAgent,
+            "version": myVersion,
+            "type": "agent_reference",
+        }
+    },
     stream=True,
 )
 
@@ -44,7 +50,9 @@ for event in stream:
     elif etype == "response.completed":
         print(f"\n[completed] output_text={event.response.output_text!r}")
     elif etype == "error":
-        print(f"\nERROR: code={getattr(event, 'code', '?')} message={getattr(event, 'message', '?')}")
+        print(
+            f"\nERROR: code={getattr(event, 'code', '?')} message={getattr(event, 'message', '?')}"
+        )
     else:
         # Show all envelope events for debugging
         print(f"  [{event_count}] {etype}", flush=True)

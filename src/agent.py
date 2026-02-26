@@ -73,8 +73,49 @@ def create_orchestrator():
             self._skill_directories = skill_directories or []
             self._disabled_skills = disabled_skills or []
 
+        async def start(self) -> None:
+            """Override to configure CopilotClient auth.
+
+            When AZURE_AI_FOUNDRY_RESOURCE_URL is set, start the CLI without
+            GitHub auth (like Tony's adapter) — the ProviderConfig in
+            _create_session handles LLM routing. Otherwise, pass GITHUB_TOKEN
+            if available.
+            """
+            if self._started:
+                return
+
+            if self._client is None:
+                from copilot import CopilotClient
+                from copilot.types import CopilotClientOptions
+
+                client_options: CopilotClientOptions = {}
+                if self._settings["cli_path"]:
+                    client_options["cli_path"] = self._settings["cli_path"]
+                if self._settings["log_level"]:
+                    client_options["log_level"] = self._settings["log_level"]  # type: ignore[typeddict-item]
+
+                # Always pass GitHub token if available — the CLI needs it
+                # for its startup auth handshake regardless of LLM routing.
+                github_token = os.environ.get("GITHUB_TOKEN")
+                if github_token:
+                    client_options["github_token"] = github_token
+                    print("[SalesAgent] CopilotClient using GITHUB_TOKEN", flush=True)
+                else:
+                    print("[SalesAgent] CopilotClient: no GITHUB_TOKEN found", flush=True)
+
+                self._client = CopilotClient(client_options if client_options else None)
+
+            try:
+                await self._client.start()
+                self._started = True
+                print("[SalesAgent] CopilotClient started successfully", flush=True)
+            except Exception as ex:
+                print(f"[SalesAgent] CopilotClient failed to start: {ex}", flush=True)
+                from agent_framework.exceptions import AgentException
+                raise AgentException(f"Failed to start GitHub Copilot client: {ex}") from ex
+
         async def _create_session(self, streaming, runtime_options=None):
-            """Override to inject skill_directories and disabled_skills."""
+            """Override to inject skill_directories, disabled_skills, and provider."""
             if not self._client:
                 raise RuntimeError(
                     "GitHub Copilot client not initialized. Call start() first."
@@ -83,7 +124,9 @@ def create_orchestrator():
             opts = runtime_options or {}
             config: dict[str, Any] = {"streaming": streaming}
 
-            model = opts.get("model") or self._settings["model"]
+            model = (opts.get("model")
+                     or self._settings["model"]
+                     or os.environ.get("COPILOT_MODEL"))
             if model:
                 config["model"] = model
 
@@ -115,26 +158,40 @@ def create_orchestrator():
 
             # ── Azure AI Foundry provider (for hosted containers) ──
             foundry_url = os.environ.get("AZURE_AI_FOUNDRY_RESOURCE_URL")
+            github_token = os.environ.get("GITHUB_TOKEN")
+            print(f"[SalesAgent] AZURE_AI_FOUNDRY_RESOURCE_URL={foundry_url!r}", flush=True)
+            print(f"[SalesAgent] GITHUB_TOKEN={'set' if github_token else 'not set'}", flush=True)
+
             if foundry_url:
                 from copilot import ProviderConfig
 
                 base_url = foundry_url.rstrip("/") + "/openai/v1/"
                 api_key = os.environ.get("AZURE_AI_FOUNDRY_API_KEY")
-                if api_key:
-                    bearer = api_key
-                else:
-                    from azure.identity import DefaultAzureCredential
+                try:
+                    if api_key:
+                        bearer = api_key
+                        print(f"[SalesAgent] Using Foundry provider with API key", flush=True)
+                    else:
+                        from azure.identity import DefaultAzureCredential
 
-                    bearer = DefaultAzureCredential().get_token(
-                        "https://cognitiveservices.azure.com/.default"
-                    ).token
-                config["provider"] = ProviderConfig(
-                    type="openai",
-                    base_url=base_url,
-                    bearer_token=bearer,
-                    wire_api="responses",
-                )
+                        print(f"[SalesAgent] Using Foundry provider with DefaultAzureCredential", flush=True)
+                        bearer = DefaultAzureCredential().get_token(
+                            "https://cognitiveservices.azure.com/.default"
+                        ).token
+                        print(f"[SalesAgent] Got bearer token (len={len(bearer)})", flush=True)
+                    config["provider"] = ProviderConfig(
+                        type="openai",
+                        base_url=base_url,
+                        bearer_token=bearer,
+                        wire_api="responses",
+                    )
+                    print(f"[SalesAgent] Provider config set: base_url={base_url}", flush=True)
+                except Exception as exc:
+                    print(f"[SalesAgent] FAILED to configure Foundry provider: {exc}", flush=True)
+            else:
+                print("[SalesAgent] No Foundry URL — using default GitHub Copilot provider", flush=True)
 
+            print(f"[SalesAgent] Session config keys: {list(config.keys())}", flush=True)
             return await self._client.create_session(config)
 
     return SalesAgent(
