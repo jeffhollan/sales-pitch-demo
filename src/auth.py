@@ -182,8 +182,11 @@ def _load_from_blob() -> None:
         _delegated_token_cache["access_token"] = data.get("access_token")
         _delegated_token_cache["refresh_token"] = data.get("refresh_token")
         _delegated_token_cache["expires_at"] = data.get("expires_at", 0.0)
-    except Exception:
-        pass  # blob doesn't exist yet or is unreadable
+        expired = time.time() >= _delegated_token_cache["expires_at"] - 60
+        has_refresh = bool(_delegated_token_cache["refresh_token"])
+        print(f"[Auth] Loaded token from blob (expired={expired}, has_refresh={has_refresh})", flush=True)
+    except Exception as exc:
+        print(f"[Auth] Failed to load token from blob: {exc}", flush=True)
 
 
 def _load_from_file() -> None:
@@ -201,10 +204,14 @@ def _load_delegated_cache() -> None:
     """Load delegated token into the in-memory cache.
 
     Reads from Azure Blob Storage when TOKEN_STORAGE_URL is set,
-    otherwise falls back to the local file.
+    otherwise falls back to the local file.  Always reloads if the
+    current token is expired (so a freshly-saved token from the
+    OAuth callback is picked up).
     """
-    if _delegated_token_cache["access_token"]:
-        return  # already loaded
+    # Only skip reload if the cached token is still valid
+    if (_delegated_token_cache["access_token"]
+            and time.time() < _delegated_token_cache["expires_at"] - 60):
+        return
 
     if TOKEN_STORAGE_URL:
         _load_from_blob()
