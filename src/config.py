@@ -41,6 +41,10 @@ AUTH_REDIRECT_BASE_URL: str = os.getenv("AUTH_REDIRECT_BASE_URL", "http://localh
 # ── Cloud token storage (Azure Blob SAS URL) ─────────────────────────
 TOKEN_STORAGE_URL: str | None = os.getenv("TOKEN_STORAGE_URL")
 
+# ── Output blob storage (upload generated docs) ─────────────────────
+OUTPUT_STORAGE_ACCOUNT_URL: str | None = os.getenv("OUTPUT_STORAGE_ACCOUNT_URL")  # e.g. "https://salespresdemostor.blob.core.windows.net"
+OUTPUT_STORAGE_CONTAINER: str = os.getenv("OUTPUT_STORAGE_CONTAINER", "output")
+
 # ── Fabric IQ ─────────────────────────────────────────────────────────
 FABRIC_WORKSPACE_ID: str | None = os.getenv("FABRIC_WORKSPACE_ID")
 

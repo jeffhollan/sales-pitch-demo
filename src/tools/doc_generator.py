@@ -22,7 +22,68 @@ from pptx.dml.color import RGBColor as PptxRGB
 from pptx.enum.text import PP_ALIGN
 from pptx.util import Inches as PptxInches, Pt as PptxPt
 
-from src.config import MOCK_DATA_DIR, PPTX_TEMPLATE, ensure_output_dir
+from src.config import MOCK_DATA_DIR, PPTX_TEMPLATE, ensure_output_dir, OUTPUT_STORAGE_ACCOUNT_URL, OUTPUT_STORAGE_CONTAINER
+
+
+# ── Blob upload helper ────────────────────────────────────────────────
+
+def _upload_and_get_url(local_path: Path) -> str:
+    """Upload a generated file to Azure Blob Storage and return a SAS download URL.
+
+    Falls back to returning the local path when OUTPUT_STORAGE_ACCOUNT_URL is not
+    set or when Azure credentials are unavailable (e.g. local container without
+    managed identity).
+    """
+    if not OUTPUT_STORAGE_ACCOUNT_URL:
+        return str(local_path)
+
+    try:
+        from azure.identity import DefaultAzureCredential
+        from azure.storage.blob import (
+            BlobServiceClient, ContentSettings,
+            generate_blob_sas, BlobSasPermissions,
+        )
+        from datetime import datetime, timedelta, timezone
+
+        credential = DefaultAzureCredential()
+        blob_service = BlobServiceClient(OUTPUT_STORAGE_ACCOUNT_URL, credential=credential)
+
+        # Ensure container exists
+        container_client = blob_service.get_container_client(OUTPUT_STORAGE_CONTAINER)
+        try:
+            container_client.create_container()
+        except Exception:
+            pass  # already exists
+
+        # Upload
+        blob_name = local_path.name
+        if blob_name.endswith(".pptx"):
+            content_type = "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+        else:
+            content_type = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+        blob_client = container_client.get_blob_client(blob_name)
+        with open(local_path, "rb") as f:
+            blob_client.upload_blob(f, overwrite=True, content_settings=ContentSettings(content_type=content_type))
+
+        # Generate user delegation SAS (1 hour)
+        now = datetime.now(timezone.utc)
+        udk = blob_service.get_user_delegation_key(now - timedelta(minutes=5), now + timedelta(hours=1))
+        sas = generate_blob_sas(
+            account_name=blob_service.account_name,
+            container_name=OUTPUT_STORAGE_CONTAINER,
+            blob_name=blob_name,
+            user_delegation_key=udk,
+            permission=BlobSasPermissions(read=True),
+            expiry=now + timedelta(hours=1),
+            start=now - timedelta(minutes=5),
+            content_disposition=f'attachment; filename="{blob_name}"',
+        )
+
+        return f"{blob_client.url}?{sas}"
+    except Exception as exc:
+        import warnings
+        warnings.warn(f"Blob upload failed, returning local path: {exc}")
+        return str(local_path)
 
 
 # ── Brand helpers ──────────────────────────────────────────────────────
@@ -259,7 +320,7 @@ def generate_prep_doc(
     filename = f"meeting_prep_{brand['short_name'].lower().replace(' ', '_')}_{date.today().isoformat()}.docx"
     path = out_dir / filename
     doc.save(str(path))
-    return str(path)
+    return _upload_and_get_url(path)
 
 
 # ═══════════════════════════════════════════════════════════════════════
@@ -731,4 +792,4 @@ def generate_presentation(
     filename = f"presentation_{brand['short_name'].lower().replace(' ', '_')}_{date.today().isoformat()}.pptx"
     path = out_dir / filename
     prs.save(str(path))
-    return str(path)
+    return _upload_and_get_url(path)
