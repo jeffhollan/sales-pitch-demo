@@ -125,7 +125,15 @@ class SalesAgentServer(FoundryCBAgent):
                     )
         except Exception as exc:
             print(f"[SalesAgent] Stream ERROR after {update_count} updates: {exc!r}", flush=True)
-            raise
+            error_text = f"\n\n[Error: {exc}]"
+            accumulated_text += error_text
+            yield ResponseTextDeltaEvent(
+                sequence_number=self._next_seq(),
+                item_id=item_id,
+                output_index=0,
+                content_index=0,
+                delta=error_text,
+            )
 
         print(f"[SalesAgent] Stream ended after {update_count} updates, accumulated {len(accumulated_text)} chars", flush=True)
 
