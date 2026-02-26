@@ -22,7 +22,7 @@ from dotenv import load_dotenv
 _ROOT = Path(__file__).resolve().parent.parent
 load_dotenv(_ROOT / ".env")
 
-from src.auth import get_graph_token  # noqa: E402
+from src.auth import _get_legacy_token, get_graph_token  # noqa: E402
 from src.config import GRAPH_USER_ID  # noqa: E402
 
 USER_ID = GRAPH_USER_ID
@@ -684,7 +684,7 @@ def main() -> None:
         sys.exit(1)
 
     print("Acquiring token\u2026")
-    token = get_graph_token()
+    token = _get_legacy_token()
 
     print(f"Seeding emails for {len(CUSTOMERS)} customers\u2026")
     seed_emails(token)

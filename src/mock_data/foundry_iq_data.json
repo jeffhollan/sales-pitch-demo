@@ -72,5 +72,736 @@
         "Open P2 support ticket could undermine confidence in Fabric expansion"
       ]
     }
+  },
+  "contoso": {
+    "customer_name": "Contoso Ltd.",
+    "industry": "Technology / SaaS",
+    "sales_plays": [
+      {
+        "play_name": "AI Foundry Platform Embedding",
+        "relevance_score": 0.97,
+        "summary": "Enable Contoso to embed Azure AI Foundry directly into their flagship SaaS product, providing managed AI capabilities to their end customers. This is a high-visibility strategic play that positions Microsoft as the AI backbone of Contoso's product roadmap.",
+        "key_talking_points": [
+          "Contoso's SaaS platform serves 12,000+ enterprise customers — embedding Foundry creates sticky, high-consumption Azure revenue estimated at $6.2M ARR",
+          "AI Foundry's model catalog and prompt management enable Contoso to ship AI features 40% faster than building from scratch on raw APIs",
+          "Comparable ISV embeddings (e.g., ServiceNow, Freshworks) report 3x increase in platform stickiness after adding AI-powered features",
+          "Foundry's built-in responsible AI guardrails and content filtering reduce Contoso's compliance burden for their regulated customers"
+        ],
+        "customer_references": [
+          {"company": "Freshworks", "contact": "available on request", "summary": "Embedded AI Foundry into Freshdesk. Shipped AI-powered ticket routing and summarization in 8 weeks. 45% improvement in resolution time."},
+          {"company": "UiPath", "contact": "available on request", "summary": "Integrated Foundry models into automation platform. 60% of new customers now use AI-powered document understanding features."}
+        ],
+        "resources": [
+          {"title": "AI Foundry ISV Embedding Guide", "type": "PDF", "url": "internal://foundry-isv-embedding"},
+          {"title": "Azure AI Foundry Pricing Calculator for ISVs", "type": "Excel Tool", "url": "internal://foundry-isv-pricing"}
+        ]
+      },
+      {
+        "play_name": "Copilot Expansion — Engineering Productivity",
+        "relevance_score": 0.91,
+        "summary": "Scale GitHub Copilot and M365 Copilot across Contoso's 2,800-person engineering and product organization to accelerate development velocity and reduce cycle times.",
+        "key_talking_points": [
+          "Contoso's pilot of GitHub Copilot across 200 developers shows 32% increase in code completion acceptance rate and 26% faster PR merge times",
+          "M365 Copilot for product managers reduces spec-writing time by 35% and automates cross-team status reporting",
+          "Combined GitHub Copilot Business + M365 Copilot bundle pricing provides 18% savings versus separate procurement",
+          "Engineering-focused Copilot deployment at SaaS companies averages 4.1x ROI within 12 months based on developer time savings"
+        ],
+        "customer_references": [
+          {"company": "Atlassian", "contact": "available on request", "summary": "3,500 GitHub Copilot seats. 28% reduction in boilerplate code authoring. Developer satisfaction score increased from 3.8 to 4.4."}
+        ],
+        "resources": [
+          {"title": "GitHub Copilot ROI for Engineering Orgs", "type": "PDF", "url": "internal://copilot-eng-roi"},
+          {"title": "Developer Productivity Benchmark Report", "type": "PDF", "url": "internal://dev-productivity-benchmark"}
+        ]
+      },
+      {
+        "play_name": "Azure Infrastructure Optimization & Reserved Capacity",
+        "relevance_score": 0.85,
+        "summary": "Optimize Contoso's $14M annual Azure spend through reserved instances, spot VMs for CI/CD, and architectural modernization of legacy microservices.",
+        "key_talking_points": [
+          "Azure Advisor analysis identifies $2.8M in annual savings through reserved instances and right-sizing across 1,400+ VMs",
+          "Migrating CI/CD pipelines to Azure Spot VMs can reduce build infrastructure costs by 60-80%",
+          "AKS modernization of 23 legacy microservices improves autoscaling efficiency and reduces compute waste by an estimated 35%",
+          "3-year reserved capacity commitment unlocks enterprise discount tier and dedicated Azure FastTrack architect support"
+        ],
+        "customer_references": [
+          {"company": "Twilio", "contact": "available on request", "summary": "Azure infrastructure optimization reduced annual cloud spend by $4.2M (22%). Migrated to AKS with 99.99% uptime."}
+        ],
+        "resources": [
+          {"title": "Azure Cost Optimization Assessment", "type": "Excel Tool", "url": "internal://azure-cost-assessment"},
+          {"title": "AKS Migration Playbook for SaaS", "type": "PDF", "url": "internal://aks-migration-saas"}
+        ]
+      }
+    ],
+    "competitive_intelligence": {
+      "primary_competitors_in_account": ["AWS (some production workloads)", "Snowflake (data warehouse)"],
+      "microsoft_strengths": [
+        "AI Foundry embedding is deeply differentiated — no comparable end-to-end AI platform from AWS or GCP for ISV embedding",
+        "Contoso already runs 75% of workloads on Azure — switching cost is extremely high",
+        "GitHub Copilot integration with Azure DevOps gives a seamless inner/outer loop developer experience"
+      ],
+      "risks": [
+        "AWS actively pitching Bedrock as alternative AI embedding platform with aggressive startup credits",
+        "Snowflake expanding into AI/ML with Cortex — could fragment Contoso's data and AI strategy"
+      ]
+    }
+  },
+  "fabrikam": {
+    "customer_name": "Fabrikam",
+    "industry": "Manufacturing / Industrial",
+    "sales_plays": [
+      {
+        "play_name": "Cloud Migration — On-Premises to Azure",
+        "relevance_score": 0.93,
+        "summary": "Migrate Fabrikam's remaining on-premises infrastructure to Azure, including 340+ VMs, SQL Server instances, and legacy file shares. This is a foundational play that unlocks all subsequent cloud-native investments.",
+        "key_talking_points": [
+          "Azure Migrate assessment shows 340 VMs and 28 SQL Server instances eligible for migration — estimated 38% TCO reduction over 3 years",
+          "Azure Hybrid Benefit for existing Windows Server and SQL licenses saves an additional $1.4M annually",
+          "Comparable manufacturing migrations (Siemens, Honeywell) complete in 6-9 months with Azure Migrate and FastTrack support",
+          "Extended Security Updates for Windows Server 2012 are free on Azure — eliminates $800K annual ESU cost on-premises"
+        ],
+        "customer_references": [
+          {"company": "Honeywell", "contact": "available on request", "summary": "Migrated 500+ VMs to Azure in 7 months. 42% infrastructure cost reduction. Zero unplanned downtime during migration."},
+          {"company": "Emerson Electric", "contact": "available on request", "summary": "Consolidated 4 data centers to Azure. $6M annual savings. Azure Arc for remaining edge devices."}
+        ],
+        "resources": [
+          {"title": "Azure Migration Guide for Manufacturing", "type": "PDF", "url": "internal://azure-migration-manufacturing"},
+          {"title": "Azure TCO Calculator — Manufacturing Template", "type": "Excel Tool", "url": "internal://azure-tco-manufacturing"}
+        ]
+      },
+      {
+        "play_name": "Fabric for Supply Chain Analytics",
+        "relevance_score": 0.88,
+        "summary": "Deploy Microsoft Fabric as the unified analytics platform for supply chain visibility, demand planning, and operational intelligence across Fabrikam's 14 manufacturing facilities.",
+        "key_talking_points": [
+          "Fabric unifies Fabrikam's fragmented data landscape — SAP, IoT sensor data, and logistics systems — into a single lakehouse architecture",
+          "Real-Time Intelligence in Fabric enables sub-minute visibility into supply chain disruptions, reducing response time from hours to minutes",
+          "Supply chain analytics on Fabric reduces inventory carrying costs by 18-22% based on comparable manufacturing deployments",
+          "Fabric's OneLake eliminates data duplication across 14 facilities, reducing storage costs by an estimated 45%"
+        ],
+        "customer_references": [
+          {"company": "Siemens", "contact": "available on request", "summary": "Fabric for global supply chain analytics across 30 plants. 20% improvement in demand forecast accuracy. $12M inventory reduction."}
+        ],
+        "resources": [
+          {"title": "Fabric for Supply Chain — Solution Architecture", "type": "PDF", "url": "internal://fabric-supply-chain-arch"},
+          {"title": "Manufacturing Analytics Quick Start Kit", "type": "Guide", "url": "internal://manufacturing-analytics-kit"}
+        ]
+      },
+      {
+        "play_name": "Copilot for Manufacturing Operations",
+        "relevance_score": 0.79,
+        "summary": "Deploy M365 Copilot and custom Copilot agents for plant managers, quality engineers, and operations staff to streamline shift reporting, maintenance scheduling, and compliance documentation.",
+        "key_talking_points": [
+          "Copilot Studio agents can automate shift handover reports — reducing 45 minutes of manual documentation per shift across 14 plants",
+          "Quality engineers spend 30% of time on compliance paperwork — Copilot-assisted document generation cuts this to under 10%",
+          "M365 Copilot in Teams enables real-time translation for multilingual plant floor communications across 6 countries",
+          "Estimated annual savings of $1.8M from reduced administrative burden on operations staff (2,200 target users)"
+        ],
+        "customer_references": [
+          {"company": "Toyota Motor North America", "contact": "available on request", "summary": "Copilot pilot for plant managers at 3 facilities. 40% reduction in shift report preparation time. Expanding to all 14 NA plants."}
+        ],
+        "resources": [
+          {"title": "Copilot for Manufacturing — Use Case Catalog", "type": "PDF", "url": "internal://copilot-manufacturing-usecases"},
+          {"title": "Copilot Studio Agent Builder for Operations", "type": "Guide", "url": "internal://copilot-studio-ops-guide"}
+        ]
+      }
+    ],
+    "competitive_intelligence": {
+      "primary_competitors_in_account": ["AWS (actively pitching migration)", "SAP (incumbent ERP)"],
+      "microsoft_strengths": [
+        "Azure Hybrid Benefit and ESU savings create a compelling financial case that AWS cannot match",
+        "Fabric + SAP integration is best-in-class — direct SAP connector avoids costly ETL middleware",
+        "Existing M365 E3 footprint makes Copilot a natural expansion with no additional identity or security overhead"
+      ],
+      "risks": [
+        "AWS offering aggressive 3-year committed spend discounts and free migration services",
+        "SAP pushing S/4HANA Cloud on their own infrastructure — could pull ERP workloads away from Azure"
+      ]
+    }
+  },
+  "northwind-traders": {
+    "customer_name": "Northwind Traders",
+    "industry": "Retail / E-commerce",
+    "sales_plays": [
+      {
+        "play_name": "Copilot for Retail Operations",
+        "relevance_score": 0.94,
+        "summary": "Deploy M365 Copilot and custom Copilot agents across Northwind's 380 retail locations to streamline store operations, inventory management, and associate training.",
+        "key_talking_points": [
+          "Copilot agents in Teams enable store managers to query inventory, schedule staff, and generate daily reports using natural language — saving 1.5 hrs/day per manager",
+          "Retail-specific Copilot templates for planogram compliance, loss prevention reporting, and seasonal merchandising reduce HQ-to-store communication lag by 60%",
+          "Comparable retail Copilot deployments (Target, Nordstrom) show 23% improvement in associate onboarding speed",
+          "ROI model projects $2.1M annual savings across 380 stores with Copilot for store managers and regional directors (850 seats)"
+        ],
+        "customer_references": [
+          {"company": "Nordstrom", "contact": "available on request", "summary": "Copilot for 1,200 store managers and regional leaders. 28% reduction in time spent on administrative tasks. Employee NPS up 12 points."},
+          {"company": "H&M", "contact": "available on request", "summary": "Custom Copilot agent for store operations. Real-time inventory queries reduced stockout escalations by 35%."}
+        ],
+        "resources": [
+          {"title": "Copilot for Retail — Deployment Guide", "type": "PDF", "url": "internal://copilot-retail-deploy"},
+          {"title": "Retail Operations Copilot ROI Calculator", "type": "Excel Tool", "url": "internal://copilot-retail-roi"}
+        ]
+      },
+      {
+        "play_name": "Dynamics 365 Expansion — Unified Commerce",
+        "relevance_score": 0.89,
+        "summary": "Expand Northwind's Dynamics 365 Commerce deployment to unify online and in-store experiences, add Dynamics 365 Customer Insights for personalized marketing, and integrate loyalty program data.",
+        "key_talking_points": [
+          "Unified Commerce on Dynamics 365 eliminates the gap between online and in-store inventory — reducing order cancellations by 30%",
+          "Customer Insights integration enables personalized product recommendations across channels, driving 12-18% increase in average order value",
+          "Dynamics 365 Fraud Protection saves retailers an average of $2.50 per transaction in reduced chargebacks and false declines",
+          "Single platform for POS, e-commerce, and CRM eliminates 3 point solutions and reduces integration maintenance costs by $450K/year"
+        ],
+        "customer_references": [
+          {"company": "Gap Inc.", "contact": "available on request", "summary": "Dynamics 365 Unified Commerce across 2,800 stores. 25% reduction in order fulfillment errors. Omnichannel revenue up 18%."}
+        ],
+        "resources": [
+          {"title": "Dynamics 365 Commerce — Retail Solution Brief", "type": "PDF", "url": "internal://d365-commerce-retail"},
+          {"title": "Unified Commerce TCO Comparison", "type": "Excel Tool", "url": "internal://d365-commerce-tco"}
+        ]
+      },
+      {
+        "play_name": "Fabric for Retail Analytics",
+        "relevance_score": 0.81,
+        "summary": "Deploy Microsoft Fabric to consolidate retail analytics from POS, e-commerce, supply chain, and customer loyalty systems into a single governed data platform for real-time decision-making.",
+        "key_talking_points": [
+          "Fabric consolidates Northwind's 7 disconnected analytics tools into one platform — reducing data engineering overhead by 50%",
+          "Real-Time Intelligence powers live dashboards for store performance, foot traffic, and promotional effectiveness across all 380 locations",
+          "Predictive analytics for demand forecasting reduces markdowns by 15-20% and improves sell-through rates by 8%",
+          "Fabric's integration with Dynamics 365 and Power BI creates a seamless retail analytics stack with no additional ETL required"
+        ],
+        "customer_references": [
+          {"company": "Kroger", "contact": "available on request", "summary": "Fabric for retail analytics across 2,700 stores. Real-time pricing optimization improved margins by 2.3 percentage points."}
+        ],
+        "resources": [
+          {"title": "Fabric for Retail — Architecture Guide", "type": "PDF", "url": "internal://fabric-retail-architecture"},
+          {"title": "Retail Analytics Maturity Assessment", "type": "Guide", "url": "internal://retail-analytics-maturity"}
+        ]
+      }
+    ],
+    "competitive_intelligence": {
+      "primary_competitors_in_account": ["Salesforce (CRM and Marketing Cloud)", "Shopify (e-commerce platform)"],
+      "microsoft_strengths": [
+        "Dynamics 365 Commerce provides a unified POS + e-commerce + CRM platform that Salesforce and Shopify cannot match individually",
+        "Fabric integration with Dynamics 365 eliminates the data silo problem that Salesforce customers frequently face",
+        "M365 Copilot for frontline workers is uniquely positioned for retail — no equivalent from Salesforce or Shopify"
+      ],
+      "risks": [
+        "Salesforce actively pitching Commerce Cloud + Data Cloud as unified alternative",
+        "Shopify's simplicity and lower total cost for e-commerce could limit Dynamics 365 Commerce online expansion"
+      ]
+    }
+  },
+  "woodgrove-bank": {
+    "customer_name": "Woodgrove Bank",
+    "industry": "Financial Services / Banking",
+    "sales_plays": [
+      {
+        "play_name": "Azure Confidential Computing for Regulatory Compliance",
+        "relevance_score": 0.96,
+        "summary": "Deploy Azure Confidential Computing and compliance-grade infrastructure to address Woodgrove's regulatory requirements across OCC, FFIEC, and GDPR. This play directly counters the Google Cloud evaluation by demonstrating Microsoft's unmatched compliance posture in financial services.",
+        "key_talking_points": [
+          "Azure holds 100+ compliance certifications including FedRAMP High, PCI DSS 4.0, and SOC 2 Type II — more than any other cloud provider",
+          "Confidential Computing with AMD SEV-SNP ensures customer financial data is encrypted even during processing — a key OCC requirement for cloud adoption",
+          "Azure Confidential Ledger provides tamper-proof audit trails for regulatory reporting — eliminates $2.4M/year in manual audit preparation costs",
+          "Microsoft Financial Services compliance blueprint accelerates regulatory approval from 12 months to 4 months based on comparable bank deployments"
+        ],
+        "customer_references": [
+          {"company": "JPMorgan Chase", "contact": "available on request", "summary": "Azure Confidential Computing for derivatives risk calculation. Passed OCC cloud audit in 3 months. Processing 2B+ transactions/day."},
+          {"company": "HSBC", "contact": "available on request", "summary": "Azure compliance framework for GDPR and PRA. 65% reduction in compliance reporting effort. Full regulatory approval in 5 months."}
+        ],
+        "resources": [
+          {"title": "Azure Financial Services Compliance Blueprint", "type": "PDF", "url": "internal://azure-finserv-compliance"},
+          {"title": "Confidential Computing for Banking — Technical Deep Dive", "type": "PDF", "url": "internal://confidential-computing-banking"}
+        ]
+      },
+      {
+        "play_name": "AI Foundry for Risk Modeling & Fraud Detection",
+        "relevance_score": 0.91,
+        "summary": "Deploy Azure AI Foundry for next-generation credit risk modeling, fraud detection, and anti-money laundering (AML). Foundry's governed AI platform ensures model explainability and regulatory compliance.",
+        "key_talking_points": [
+          "AI Foundry's model catalog includes pre-trained financial services models for credit scoring, fraud detection, and AML — reducing time-to-production by 60%",
+          "Built-in model explainability and bias detection satisfy OCC SR 11-7 model risk management requirements out of the box",
+          "Real-time fraud detection on Foundry processes transactions in under 50ms — 10x faster than Woodgrove's current batch-based system",
+          "Estimated $18M annual fraud loss reduction based on comparable deployments achieving 40% improvement in fraud detection rates"
+        ],
+        "customer_references": [
+          {"company": "Capital One", "contact": "available on request", "summary": "AI Foundry for real-time fraud detection. 45% reduction in false positives. $22M annual fraud savings. Full SR 11-7 compliance."},
+          {"company": "ING Group", "contact": "available on request", "summary": "AI Foundry for AML transaction monitoring. 50% reduction in false alerts. Regulator-approved model governance framework."}
+        ],
+        "resources": [
+          {"title": "AI Foundry for Financial Services — Solution Brief", "type": "PDF", "url": "internal://foundry-finserv-brief"},
+          {"title": "Model Risk Management with AI Foundry", "type": "Guide", "url": "internal://foundry-model-risk-mgmt"}
+        ]
+      },
+      {
+        "play_name": "M365 Copilot for Banking Productivity",
+        "relevance_score": 0.84,
+        "summary": "Deploy M365 Copilot across Woodgrove's corporate banking, wealth management, and operations divisions with financial-services-specific compliance controls and DLP integration.",
+        "key_talking_points": [
+          "Copilot with Purview DLP integration ensures no sensitive financial data (PII, account numbers, NPI) leaks through AI-generated content",
+          "Wealth management advisors using Copilot generate client meeting summaries and portfolio reviews 55% faster — freeing 8 hrs/week for client-facing activity",
+          "Corporate banking analysts report 40% faster credit memo preparation and 30% reduction in deal documentation cycle time",
+          "Projected $5.8M annual productivity gain across 4,500 Copilot seats based on 3.1 hrs/week saved per user in financial services benchmarks"
+        ],
+        "customer_references": [
+          {"company": "Morgan Stanley", "contact": "available on request", "summary": "M365 Copilot for 10,000 wealth advisors. 50% faster client prep. Fully compliant with SEC and FINRA recordkeeping requirements."}
+        ],
+        "resources": [
+          {"title": "Copilot for Financial Services — Compliance Guide", "type": "PDF", "url": "internal://copilot-finserv-compliance"},
+          {"title": "Banking Copilot ROI Calculator", "type": "Excel Tool", "url": "internal://copilot-banking-roi"}
+        ]
+      }
+    ],
+    "competitive_intelligence": {
+      "primary_competitors_in_account": ["Google Cloud (actively evaluating)", "AWS (some workloads)"],
+      "microsoft_strengths": [
+        "Azure Confidential Computing is a clear differentiator — Google Cloud has no comparable offering at GA for financial services",
+        "Microsoft's 100+ compliance certifications are 30% more than GCP and 20% more than AWS in financial services",
+        "Existing M365 E5 and Purview deployment creates a compliance-integrated platform that would take 18+ months to replicate on Google Workspace"
+      ],
+      "risks": [
+        "Google Cloud offering $8M in committed migration credits and free BigQuery for first year — aggressive pricing play",
+        "Woodgrove CTO is a former Google executive — personal bias toward GCP ecosystem and culture"
+      ]
+    }
+  },
+  "adatum": {
+    "customer_name": "Adatum",
+    "industry": "Insurance / Financial Services",
+    "sales_plays": [
+      {
+        "play_name": "Mainframe to Azure Migration",
+        "relevance_score": 0.95,
+        "summary": "Modernize Adatum's IBM zSeries mainframe workloads to Azure using a phased approach — rehost critical COBOL applications, then refactor to cloud-native services. This eliminates $4.2M in annual mainframe licensing and creates a modern platform for AI-powered insurance products.",
+        "key_talking_points": [
+          "Azure Mainframe Migration assessment identifies 180 COBOL programs and 45 CICS transactions eligible for rehosting — 70% can migrate without code changes using partner tooling",
+          "Mainframe licensing costs of $4.2M/year are replaced by Azure consumption estimated at $1.6M/year — 62% cost reduction",
+          "Comparable insurance mainframe migrations (MetLife, Zurich) complete Phase 1 in 9-12 months with zero business disruption",
+          "Azure Managed Instance for Apache Cassandra preserves Adatum's existing VSAM data patterns while enabling cloud-native access"
+        ],
+        "customer_references": [
+          {"company": "MetLife", "contact": "available on request", "summary": "Migrated 200+ mainframe applications to Azure in 14 months. $5.8M annual savings. Claims processing time reduced from 72 hours to 4 hours."},
+          {"company": "Zurich Insurance", "contact": "available on request", "summary": "Phased mainframe decommission over 18 months. 65% infrastructure cost reduction. Zero customer-facing outages during migration."}
+        ],
+        "resources": [
+          {"title": "Azure Mainframe Migration Guide for Insurance", "type": "PDF", "url": "internal://azure-mainframe-insurance"},
+          {"title": "Mainframe TCO Comparison Calculator", "type": "Excel Tool", "url": "internal://mainframe-tco-calc"}
+        ]
+      },
+      {
+        "play_name": "Copilot Pilot for Knowledge Workers",
+        "relevance_score": 0.82,
+        "summary": "Launch a targeted M365 Copilot pilot for Adatum's 800 underwriters, claims adjusters, and actuaries to demonstrate AI-driven productivity gains in insurance-specific workflows.",
+        "key_talking_points": [
+          "Underwriters spend 40% of their time on document review and data gathering — Copilot automates policy comparison and risk summary generation, saving 12 hrs/week per underwriter",
+          "Claims adjusters using Copilot in Outlook and Teams process 25% more claims per day through automated correspondence drafting and case summarization",
+          "Actuarial teams report 35% faster report generation when using Copilot in Excel for model documentation and peer review preparation",
+          "Pilot ROI projection: $1.2M annual savings from 500-seat pilot based on insurance industry Copilot benchmarks"
+        ],
+        "customer_references": [
+          {"company": "Allstate", "contact": "available on request", "summary": "Copilot pilot for 600 underwriters. 30% reduction in policy review time. Expanding to 3,000 seats across claims and actuarial."}
+        ],
+        "resources": [
+          {"title": "Copilot for Insurance — Use Case Guide", "type": "PDF", "url": "internal://copilot-insurance-usecases"},
+          {"title": "Insurance Copilot Pilot Playbook", "type": "Guide", "url": "internal://copilot-insurance-pilot"}
+        ]
+      },
+      {
+        "play_name": "Azure Arc for Hybrid Infrastructure",
+        "relevance_score": 0.76,
+        "summary": "Deploy Azure Arc to bring Azure management, security, and governance to Adatum's remaining on-premises and edge infrastructure during the multi-year mainframe migration, ensuring consistent policy enforcement across hybrid environments.",
+        "key_talking_points": [
+          "Azure Arc extends Azure Policy and Microsoft Defender for Cloud to Adatum's 120 on-premises servers — unified security posture across hybrid estate",
+          "Arc-enabled SQL Server provides Azure-grade patching, monitoring, and backup for 18 on-prem SQL instances during migration transition",
+          "GitOps-based configuration management through Arc reduces infrastructure drift incidents by 70% compared to manual management",
+          "Arc provides a migration-ready inventory — automatic Azure readiness scoring for all on-premises workloads accelerates migration planning by 40%"
+        ],
+        "customer_references": [
+          {"company": "Liberty Mutual", "contact": "available on request", "summary": "Azure Arc across 400 on-prem servers during cloud migration. Unified security posture. 55% reduction in compliance audit preparation time."}
+        ],
+        "resources": [
+          {"title": "Azure Arc for Hybrid Insurance Environments", "type": "PDF", "url": "internal://azure-arc-insurance"},
+          {"title": "Azure Arc Deployment Quick Start", "type": "Guide", "url": "internal://azure-arc-quickstart"}
+        ]
+      }
+    ],
+    "competitive_intelligence": {
+      "primary_competitors_in_account": ["IBM (incumbent mainframe vendor)", "AWS (alternative cloud)"],
+      "microsoft_strengths": [
+        "Azure mainframe migration tooling is more mature than AWS — certified partnerships with Micro Focus, Astadia, and LzLabs",
+        "Azure Arc provides seamless hybrid management during migration — AWS has no comparable unified hybrid management plane",
+        "IBM has financial incentive to keep Adatum on mainframe — Microsoft is the only vendor aligned with Adatum's modernization goals"
+      ],
+      "risks": [
+        "IBM offering 30% mainframe license discount to retain Adatum — could delay migration business case approval",
+        "AWS pitching mainframe migration with partner Blu Age and offering $2M in migration credits"
+      ]
+    }
+  },
+  "tailwind-toys": {
+    "customer_name": "Tailwind Toys",
+    "industry": "Consumer Products / Toys",
+    "sales_plays": [
+      {
+        "play_name": "Copilot-First Workplace",
+        "relevance_score": 0.93,
+        "summary": "Position Tailwind Toys as a Copilot-first organization, deploying M365 Copilot to all 450 employees from day one. As a fast-growing D2C brand, Tailwind can move quickly and become a flagship Copilot reference for mid-market consumer products.",
+        "key_talking_points": [
+          "Tailwind's 450-person workforce is 85% under age 35 — digital-native employees adopt Copilot 2x faster than average, with early pilots showing 91% weekly active usage",
+          "Marketing team generates 3x more campaign variations using Copilot in Word, PowerPoint, and Designer — critical during holiday and product launch seasons",
+          "HR and operations teams automate onboarding documentation, policy updates, and vendor communications — reducing administrative overhead by 28%",
+          "All-employee Copilot deployment at $30/user/month totals $162K/year — projecting $580K in productivity savings (3.6x ROI)"
+        ],
+        "customer_references": [
+          {"company": "Warby Parker", "contact": "available on request", "summary": "Copilot-first deployment for 500 employees. 34% reduction in time-to-market for marketing campaigns. Named a Copilot Innovation Partner."},
+          {"company": "Allbirds", "contact": "available on request", "summary": "Full Copilot rollout for 400 employees. 2.8 hrs/week saved per user. Highest adoption in creative and marketing teams."}
+        ],
+        "resources": [
+          {"title": "Copilot-First Workplace Blueprint for SMB", "type": "PDF", "url": "internal://copilot-first-smb"},
+          {"title": "M365 Copilot Mid-Market Pricing Guide", "type": "PDF", "url": "internal://copilot-midmarket-pricing"}
+        ]
+      },
+      {
+        "play_name": "Azure for D2C E-commerce Platform",
+        "relevance_score": 0.86,
+        "summary": "Migrate Tailwind's e-commerce platform to Azure to handle seasonal traffic spikes (up to 20x during holiday season), improve site performance, and enable AI-powered product recommendations.",
+        "key_talking_points": [
+          "Azure App Service and Azure Front Door provide global CDN and auto-scaling that handles 20x traffic spikes during holiday launches without over-provisioning",
+          "Azure Cosmos DB enables sub-10ms product catalog queries globally — improving page load time by 40% versus Tailwind's current database",
+          "Estimated 35% infrastructure cost reduction versus current hosting through auto-scaling and pay-per-use compute during off-peak months",
+          "Azure AI Personalizer for product recommendations increases average order value by 15-20% based on comparable D2C deployments"
+        ],
+        "customer_references": [
+          {"company": "LEGO Group", "contact": "available on request", "summary": "D2C e-commerce on Azure. 99.99% uptime during holiday peak. 45% improvement in page load times. 18% increase in conversion rate."}
+        ],
+        "resources": [
+          {"title": "Azure for D2C E-commerce — Reference Architecture", "type": "PDF", "url": "internal://azure-d2c-ecommerce"},
+          {"title": "E-commerce Scalability Assessment Tool", "type": "Excel Tool", "url": "internal://ecommerce-scale-assessment"}
+        ]
+      },
+      {
+        "play_name": "AI-Powered Customer Insights",
+        "relevance_score": 0.78,
+        "summary": "Deploy Azure AI and Dynamics 365 Customer Insights to build a 360-degree view of Tailwind's D2C customers, enabling personalized marketing, predictive churn modeling, and lifetime value optimization.",
+        "key_talking_points": [
+          "Customer Insights unifies data from e-commerce, social media, email, and customer service into a single customer profile — eliminating 4 data silos",
+          "Predictive churn models identify at-risk customers 30 days before lapse, enabling targeted win-back campaigns with 22% success rate",
+          "AI-powered customer segmentation improves email marketing ROI by 35% through micro-targeted campaigns versus Tailwind's current broad-segment approach",
+          "Lifetime value modeling helps Tailwind allocate acquisition spend more efficiently — projected 25% improvement in customer acquisition cost (CAC)"
+        ],
+        "customer_references": [
+          {"company": "Glossier", "contact": "available on request", "summary": "Customer Insights for D2C beauty brand. 360-degree customer view across 8 channels. 28% improvement in marketing ROI. 19% reduction in churn."}
+        ],
+        "resources": [
+          {"title": "Customer Insights for D2C Brands", "type": "PDF", "url": "internal://customer-insights-d2c"},
+          {"title": "AI Customer Analytics Maturity Assessment", "type": "Guide", "url": "internal://ai-customer-analytics-maturity"}
+        ]
+      }
+    ],
+    "competitive_intelligence": {
+      "primary_competitors_in_account": ["Google Workspace (under consideration)", "Shopify (e-commerce platform)"],
+      "microsoft_strengths": [
+        "M365 Copilot integration across productivity, collaboration, and business applications is far ahead of Google Workspace Duet AI",
+        "Azure + Dynamics 365 Customer Insights provides an end-to-end D2C stack — Shopify requires extensive third-party integrations for comparable capabilities",
+        "Microsoft for Startups program provides $150K in Azure credits and technical support for Tailwind's growth phase"
+      ],
+      "risks": [
+        "Google Workspace is 40% cheaper per seat — cost-sensitive D2C brand may prioritize short-term savings",
+        "Shopify deeply entrenched as e-commerce platform — migration to Azure-hosted commerce is a heavy lift that may not be prioritized"
+      ]
+    }
+  },
+  "alpine-ski-house": {
+    "customer_name": "Alpine Ski House",
+    "industry": "Hospitality / Tourism",
+    "sales_plays": [
+      {
+        "play_name": "Azure AI for Guest Experience Personalization",
+        "relevance_score": 0.91,
+        "summary": "Deploy Azure AI services to create a personalized guest experience engine — from pre-arrival customization to real-time on-property recommendations. This differentiates Alpine Ski House in a competitive hospitality market and drives ancillary revenue.",
+        "key_talking_points": [
+          "Azure AI Personalizer delivers real-time activity and dining recommendations based on guest profiles, weather, and slope conditions — increasing ancillary revenue by 22%",
+          "Azure OpenAI-powered concierge chatbot handles 65% of routine guest inquiries (lift status, restaurant hours, booking changes), reducing front desk call volume by 45%",
+          "Predictive pricing models on Azure ML optimize room rates and lift ticket bundles — comparable resorts report 12-18% revenue per available room (RevPAR) improvement",
+          "Guest sentiment analysis from review data and in-stay surveys enables real-time service recovery — reducing negative reviews by 30%"
+        ],
+        "customer_references": [
+          {"company": "Marriott International", "contact": "available on request", "summary": "Azure AI for guest personalization across 200 properties. 18% increase in ancillary spend. AI concierge handles 500K+ guest interactions/month."},
+          {"company": "Vail Resorts", "contact": "available on request", "summary": "Azure-powered personalization for Epic Pass holders. 24% improvement in guest satisfaction scores. Dynamic pricing increased lift ticket revenue by 15%."}
+        ],
+        "resources": [
+          {"title": "Azure AI for Hospitality — Solution Brief", "type": "PDF", "url": "internal://azure-ai-hospitality"},
+          {"title": "Guest Personalization Reference Architecture", "type": "PDF", "url": "internal://guest-personalization-arch"}
+        ]
+      },
+      {
+        "play_name": "Copilot Pilot for Seasonal Staff Productivity",
+        "relevance_score": 0.82,
+        "summary": "Deploy M365 Copilot for Alpine's 120 permanent staff and seasonal Copilot agents for the 400+ seasonal workers who join during ski season, dramatically reducing onboarding time and enabling rapid operational ramp-up.",
+        "key_talking_points": [
+          "Seasonal staff onboarding takes 2 weeks currently — Copilot-powered knowledge base and training assistants reduce this to 3 days",
+          "Copilot in Teams provides instant answers to operational questions (grooming schedules, safety protocols, guest policies) — reducing manager interruptions by 55%",
+          "Frontline worker Copilot licenses at $6/user/month for seasonal staff make this economically viable — $28.8K total for 400 seasonal workers across 4-month season",
+          "Manager productivity improves 30% during peak season when Copilot handles routine scheduling, incident reporting, and staff communications"
+        ],
+        "customer_references": [
+          {"company": "Four Seasons Hotels", "contact": "available on request", "summary": "Copilot for 2,000 frontline hospitality workers. Onboarding time cut by 60%. Guest service quality scores increased 14 points during first 90 days."}
+        ],
+        "resources": [
+          {"title": "Copilot for Frontline Workers — Hospitality Guide", "type": "PDF", "url": "internal://copilot-frontline-hospitality"},
+          {"title": "Seasonal Workforce Copilot Deployment Playbook", "type": "Guide", "url": "internal://copilot-seasonal-playbook"}
+        ]
+      },
+      {
+        "play_name": "Azure Cost Optimization for Seasonal Workloads",
+        "relevance_score": 0.74,
+        "summary": "Optimize Alpine's Azure spend for highly seasonal usage patterns — scaling up for November-April peak season and scaling down during summer months, ensuring they only pay for what they use.",
+        "key_talking_points": [
+          "Azure auto-scaling and serverless compute (Functions, Container Apps) reduce off-season infrastructure costs by up to 70%",
+          "Reserved Instances for baseline workloads combined with pay-as-you-go for seasonal burst saves an estimated $180K/year versus always-on provisioning",
+          "Azure Cost Management + Advisor provides real-time spend alerts and right-sizing recommendations — preventing surprise bills during peak season ramp-up",
+          "Compared to AWS, Azure's hybrid pricing and B-series burstable VMs are 25% more cost-effective for Alpine's variable workload pattern"
+        ],
+        "customer_references": [
+          {"company": "Carnival Cruise Line", "contact": "available on request", "summary": "Azure cost optimization for seasonal cruise booking workloads. 45% reduction in annual cloud spend. Auto-scaling handles 15x traffic spikes during booking windows."}
+        ],
+        "resources": [
+          {"title": "Azure Cost Optimization for Seasonal Businesses", "type": "PDF", "url": "internal://azure-cost-seasonal"},
+          {"title": "Azure Pricing Calculator — Hospitality Template", "type": "Excel Tool", "url": "internal://azure-pricing-hospitality"}
+        ]
+      }
+    ],
+    "competitive_intelligence": {
+      "primary_competitors_in_account": ["AWS (current website hosting)", "Google (analytics and ads platform)"],
+      "microsoft_strengths": [
+        "Azure AI services for personalization are more integrated and easier to deploy than AWS SageMaker for hospitality use cases",
+        "M365 Copilot for frontline workers has no equivalent in the AWS or Google ecosystem",
+        "Azure cost optimization for seasonal workloads provides a clear financial advantage over AWS's less flexible pricing models"
+      ],
+      "risks": [
+        "AWS offers a hospitality-specific competency program with dedicated solution architects — may deepen existing relationship",
+        "Google Analytics and Google Ads integration makes it tempting to consolidate guest analytics on Google Cloud"
+      ]
+    }
+  },
+  "bellows-college": {
+    "customer_name": "Bellows College",
+    "industry": "Higher Education",
+    "sales_plays": [
+      {
+        "play_name": "Copilot for Education",
+        "relevance_score": 0.94,
+        "summary": "Deploy M365 Copilot across faculty, staff, and graduate students to transform teaching, research, and administrative workflows. Position Bellows as a leader in AI-augmented higher education.",
+        "key_talking_points": [
+          "Faculty using Copilot reduce course material preparation time by 40% — freeing 6 hrs/week for research and student engagement",
+          "Administrative staff automate 55% of routine communications (financial aid letters, admissions responses, HR processes) with Copilot-generated drafts",
+          "Graduate research assistants use Copilot in Word and Excel for literature reviews and data analysis — reducing time-to-publication by 25%",
+          "Education A5 + Copilot bundle pricing at $57/user/month for 2,200 faculty and staff totals $1.5M/year — projecting $4.8M in productivity savings (3.2x ROI)"
+        ],
+        "customer_references": [
+          {"company": "Arizona State University", "contact": "available on request", "summary": "Copilot for 5,000 faculty and staff. 38% reduction in administrative workload. Faculty research output increased 15% in first year."},
+          {"company": "University of Sydney", "contact": "available on request", "summary": "Copilot pilot for 1,200 users. Automated 60% of student inquiry responses. Staff satisfaction score improved 22 points."}
+        ],
+        "resources": [
+          {"title": "M365 Copilot for Higher Education — Deployment Guide", "type": "PDF", "url": "internal://copilot-higher-ed"},
+          {"title": "Education Copilot ROI Calculator", "type": "Excel Tool", "url": "internal://copilot-education-roi"}
+        ]
+      },
+      {
+        "play_name": "Azure for Research Computing",
+        "relevance_score": 0.86,
+        "summary": "Provide Bellows College researchers with scalable Azure HPC and AI infrastructure for computational research — replacing aging on-campus compute clusters and enabling research at scale that was previously impossible.",
+        "key_talking_points": [
+          "Azure HPC (NDv5 H100 GPU instances) provides 10x the computational power of Bellows' current on-campus cluster at 40% lower cost per compute-hour",
+          "Azure AI Foundry gives researchers access to frontier models for NLP, computer vision, and scientific computing without managing infrastructure",
+          "Azure for Research grants program provides up to $20K in free Azure credits per approved research project — reducing barriers to cloud adoption",
+          "Research data governance with Azure Purview ensures compliance with NSF, NIH, and DOE data management requirements"
+        ],
+        "customer_references": [
+          {"company": "MIT", "contact": "available on request", "summary": "Azure HPC for computational biology research. 8x speedup in genomic analysis. $2M in Azure for Research credits awarded across 45 projects."}
+        ],
+        "resources": [
+          {"title": "Azure for Research Computing — Architecture Guide", "type": "PDF", "url": "internal://azure-research-computing"},
+          {"title": "Azure for Research Credits Program", "type": "Guide", "url": "internal://azure-research-credits"}
+        ]
+      },
+      {
+        "play_name": "Fabric for Student Success Analytics",
+        "relevance_score": 0.80,
+        "summary": "Deploy Microsoft Fabric to unify student data from SIS, LMS, financial aid, and engagement systems to build predictive models for student retention, academic success, and graduation outcomes.",
+        "key_talking_points": [
+          "Fabric consolidates data from Canvas LMS, Banner SIS, and 5 other student systems into a unified lakehouse — eliminating manual data reconciliation that takes 20 hrs/week",
+          "Predictive retention models identify at-risk students 6 weeks before drop — enabling proactive advising that improves retention by 12-15%",
+          "Real-time dashboards for deans and department chairs provide live enrollment, academic performance, and engagement metrics across all programs",
+          "FERPA-compliant data governance with Purview ensures student data privacy while enabling cross-department analytics collaboration"
+        ],
+        "customer_references": [
+          {"company": "Georgia State University", "contact": "available on request", "summary": "Fabric for student success analytics. Predictive advising improved 6-year graduation rate from 32% to 54%. 2,000 additional graduates per year."}
+        ],
+        "resources": [
+          {"title": "Fabric for Student Success — Solution Brief", "type": "PDF", "url": "internal://fabric-student-success"},
+          {"title": "Higher Education Analytics Maturity Assessment", "type": "Guide", "url": "internal://higher-ed-analytics-maturity"}
+        ]
+      }
+    ],
+    "competitive_intelligence": {
+      "primary_competitors_in_account": ["Google Workspace for Education", "Canvas/Instructure (LMS platform)"],
+      "microsoft_strengths": [
+        "M365 A5 is already deployed campus-wide — Copilot is a natural add-on with zero additional identity or security infrastructure required",
+        "Azure for Research Credits program provides a unique incentive that Google Cloud for Education cannot match at scale",
+        "Fabric integration with Power BI and M365 creates a unified analytics stack — Google has no equivalent for institutional research"
+      ],
+      "risks": [
+        "Google Workspace for Education is free for students — any attempt to expand Microsoft licensing to students faces a significant cost barrier",
+        "Canvas/Instructure deepening AI integrations within the LMS — could become the default AI touchpoint for faculty and students"
+      ]
+    }
+  },
+  "relecloud": {
+    "customer_name": "Relecloud",
+    "industry": "Media / Entertainment / Streaming",
+    "sales_plays": [
+      {
+        "play_name": "AI Foundry for Content Recommendations",
+        "relevance_score": 0.96,
+        "summary": "Deploy Azure AI Foundry to build Relecloud's next-generation content recommendation engine — replacing the current rule-based system with personalized, real-time AI recommendations that increase viewer engagement and reduce churn.",
+        "key_talking_points": [
+          "AI Foundry's model management and A/B testing framework enables Relecloud to iterate on recommendation algorithms 5x faster than their current custom ML pipeline",
+          "Comparable streaming deployments show 30-40% improvement in content discovery metrics and 18% increase in average watch time per session",
+          "Foundry's real-time inference at scale handles Relecloud's 8M concurrent viewers with sub-100ms recommendation latency",
+          "Personalized content recommendations reduce subscriber churn by 15-20% — at Relecloud's scale, that's an estimated $28M in annual retained revenue"
+        ],
+        "customer_references": [
+          {"company": "BBC iPlayer", "contact": "available on request", "summary": "AI Foundry for content recommendations. 35% improvement in content discovery. Average session length increased 22 minutes. Churn reduced 16%."},
+          {"company": "Paramount+", "contact": "available on request", "summary": "Foundry-powered recommendation engine for 45M subscribers. 28% increase in content engagement. Recommendation model deployment time reduced from weeks to hours."}
+        ],
+        "resources": [
+          {"title": "AI Foundry for Media — Recommendation Engine Blueprint", "type": "PDF", "url": "internal://foundry-media-recommendations"},
+          {"title": "Streaming AI Use Case Library", "type": "Guide", "url": "internal://streaming-ai-usecases"}
+        ]
+      },
+      {
+        "play_name": "Azure Media Services Modernization",
+        "relevance_score": 0.88,
+        "summary": "Modernize Relecloud's media encoding, packaging, and delivery infrastructure on Azure to support 4K/HDR content, reduce encoding costs, and improve global streaming quality.",
+        "key_talking_points": [
+          "Azure Media Services with content-aware encoding reduces encoding costs by 50% while maintaining visual quality — estimated $3.2M annual savings on Relecloud's content library",
+          "Azure CDN with front-door optimization delivers sub-2-second start times globally, reducing buffering-related viewer drop-off by 35%",
+          "AI-powered content moderation and automated metadata tagging (scene detection, caption generation) saves 800+ hours/month of manual operations work",
+          "Azure ExpressRoute Global Reach ensures low-latency content delivery to Relecloud's 52-country footprint with 99.99% uptime SLA"
+        ],
+        "customer_references": [
+          {"company": "NBCUniversal / Peacock", "contact": "available on request", "summary": "Azure media pipeline for Peacock streaming. 45% reduction in encoding costs. 4K/HDR delivery to 30M+ subscribers. 99.995% uptime."}
+        ],
+        "resources": [
+          {"title": "Azure Media Services — Streaming Architecture Guide", "type": "PDF", "url": "internal://azure-media-streaming"},
+          {"title": "Media Encoding Cost Calculator", "type": "Excel Tool", "url": "internal://media-encoding-calc"}
+        ]
+      },
+      {
+        "play_name": "Fabric for Viewer Analytics & Content Intelligence",
+        "relevance_score": 0.83,
+        "summary": "Deploy Microsoft Fabric as Relecloud's unified viewer analytics platform — consolidating streaming telemetry, content performance, marketing attribution, and financial data into a single real-time analytics estate.",
+        "key_talking_points": [
+          "Fabric Real-Time Intelligence processes 2B+ streaming events/day from Relecloud's platform — enabling real-time content performance dashboards for programming executives",
+          "Viewer cohort analysis and content affinity modeling in Fabric helps content acquisition teams make data-driven licensing decisions — reducing content spend waste by 12%",
+          "Marketing attribution models link campaign spend to subscriber acquisition and retention — improving marketing ROI by 25%",
+          "Fabric's integration with Power BI enables self-service analytics for 500+ business users — reducing ad-hoc data request backlog by 70%"
+        ],
+        "customer_references": [
+          {"company": "Warner Bros. Discovery", "contact": "available on request", "summary": "Fabric for viewer analytics across Max platform. Real-time content performance dashboards. 20% improvement in content acquisition ROI. Self-service analytics for 800 users."}
+        ],
+        "resources": [
+          {"title": "Fabric for Media & Entertainment — Solution Brief", "type": "PDF", "url": "internal://fabric-media-entertainment"},
+          {"title": "Streaming Analytics Maturity Assessment", "type": "Guide", "url": "internal://streaming-analytics-maturity"}
+        ]
+      }
+    ],
+    "competitive_intelligence": {
+      "primary_competitors_in_account": ["AWS (some CDN and storage workloads)", "GCP (evaluating ML platform for recommendations)"],
+      "microsoft_strengths": [
+        "AI Foundry provides an end-to-end managed AI platform for recommendations — GCP Vertex AI requires significantly more custom engineering",
+        "Azure Media Services is the most comprehensive cloud media platform — AWS Elemental is fragmented across 6 separate services",
+        "Fabric's real-time analytics for streaming telemetry is uniquely suited for media — no equivalent unified platform on AWS or GCP"
+      ],
+      "risks": [
+        "GCP actively pitching Vertex AI and BigQuery ML as alternative for recommendation engine — leveraging YouTube's recommendation expertise as proof point",
+        "AWS CloudFront CDN has a larger edge network than Azure CDN in Southeast Asia — a key growth market for Relecloud"
+      ]
+    }
+  },
+  "lamna-healthcare": {
+    "customer_name": "Lamna Healthcare",
+    "industry": "Healthcare / Pharmaceuticals",
+    "sales_plays": [
+      {
+        "play_name": "Azure Security Remediation & Zero Trust",
+        "relevance_score": 0.98,
+        "summary": "Immediate security remediation for the active P1 incident, followed by a comprehensive Zero Trust deployment to prevent recurrence. This is the highest-priority play — Lamna's CISO needs a concrete remediation plan within 48 hours.",
+        "key_talking_points": [
+          "P1 incident root cause analysis indicates lateral movement from compromised service account — Azure AD Conditional Access and PIM would have prevented escalation",
+          "Microsoft Sentinel SIEM with healthcare-specific detection rules identifies 85% more threats than Lamna's current SIEM, with 60% fewer false positives",
+          "Zero Trust architecture with Microsoft Entra ID, Defender for Cloud, and Intune provides end-to-end protection across Lamna's 12,000 endpoints and 400 applications",
+          "HIPAA Security Rule compliance dashboard in Defender for Cloud provides continuous compliance monitoring — reducing audit preparation from 6 weeks to 3 days"
+        ],
+        "customer_references": [
+          {"company": "Cleveland Clinic", "contact": "available on request", "summary": "Zero Trust deployment after security incident. 90% reduction in lateral movement risk. HIPAA audit passed with zero findings. Sentinel detects threats 4x faster than previous SIEM."},
+          {"company": "Kaiser Permanente", "contact": "available on request", "summary": "Microsoft Sentinel + Defender for Cloud across 40 hospitals. 75% reduction in mean time to detect (MTTD). $4.2M annual savings from SIEM consolidation."}
+        ],
+        "resources": [
+          {"title": "Healthcare Zero Trust Deployment Guide", "type": "PDF", "url": "internal://zero-trust-healthcare"},
+          {"title": "Incident Response & Remediation Playbook — HIPAA", "type": "PDF", "url": "internal://incident-response-hipaa"}
+        ]
+      },
+      {
+        "play_name": "Fabric for Clinical Analytics (HIPAA-Compliant)",
+        "relevance_score": 0.85,
+        "summary": "Deploy Microsoft Fabric with HIPAA BAA coverage as the unified analytics platform for clinical outcomes, population health, and operational efficiency — replacing Lamna's fragmented analytics tools with a governed, compliant data estate.",
+        "key_talking_points": [
+          "Fabric with HIPAA BAA and PHI data governance enables Lamna to analyze clinical data at scale without building custom de-identification pipelines — saving 6 months of development",
+          "FHIR-native data ingestion connects Epic and Cerner EHR data directly to Fabric — eliminating the HL7 middleware that costs $1.2M/year to maintain",
+          "Population health analytics on Fabric identify high-risk patient cohorts 30 days earlier than current methods, improving preventive care interventions by 25%",
+          "Real-time operational dashboards reduce OR turnaround time by 18% and bed management cycle time by 22% — estimated $8.5M annual operational savings"
+        ],
+        "customer_references": [
+          {"company": "Mayo Clinic", "contact": "available on request", "summary": "Fabric for clinical and operational analytics. FHIR integration with Epic. Population health models improved chronic disease management outcomes by 20%. Full HIPAA compliance."}
+        ],
+        "resources": [
+          {"title": "Fabric for Healthcare — HIPAA Compliance Guide", "type": "PDF", "url": "internal://fabric-healthcare-hipaa"},
+          {"title": "Healthcare Analytics Architecture with FHIR", "type": "PDF", "url": "internal://healthcare-fhir-analytics"}
+        ]
+      },
+      {
+        "play_name": "Copilot for Healthcare with Compliance Controls",
+        "relevance_score": 0.79,
+        "summary": "Deploy M365 Copilot with healthcare-specific compliance controls (PHI sensitivity labels, HIPAA-grade DLP, and audit logging) for Lamna's 3,500 administrative and clinical support staff.",
+        "key_talking_points": [
+          "Copilot with Microsoft Purview sensitivity labels automatically detects and protects PHI in AI-generated content — meeting HIPAA minimum necessary standard",
+          "Clinical documentation specialists using Copilot generate discharge summaries and referral letters 45% faster — reducing documentation backlog by 60%",
+          "Healthcare compliance team automates policy review and regulatory correspondence with Copilot — reducing compliance workload by 35%",
+          "DAX Copilot integration for clinical note generation reduces physician documentation time by 50% — addressing Lamna's #1 physician burnout driver"
+        ],
+        "customer_references": [
+          {"company": "Providence Health", "contact": "available on request", "summary": "Copilot for 8,000 administrative staff with HIPAA controls. 42% productivity improvement. Zero PHI incidents in 12 months. Physician satisfaction up 18 points with DAX Copilot."}
+        ],
+        "resources": [
+          {"title": "Copilot for Healthcare — HIPAA Compliance Playbook", "type": "PDF", "url": "internal://copilot-healthcare-hipaa"},
+          {"title": "Healthcare Copilot ROI Calculator", "type": "Excel Tool", "url": "internal://copilot-healthcare-roi"}
+        ]
+      }
+    ],
+    "competitive_intelligence": {
+      "primary_competitors_in_account": ["AWS (healthcare workloads)", "Epic/Cerner (clinical systems integration)"],
+      "microsoft_strengths": [
+        "Microsoft's security stack (Sentinel, Defender, Entra) is the most integrated in the industry — critical given the active P1 incident",
+        "Fabric's FHIR-native integration with Epic and Cerner is uniquely differentiated — AWS HealthLake requires significantly more custom development",
+        "DAX Copilot for clinical documentation is a healthcare-exclusive AI capability with no direct AWS or Google equivalent"
+      ],
+      "risks": [
+        "AWS HealthLake and Amazon Comprehend Medical are gaining traction with clinical NLP use cases",
+        "Epic's expanding analytics capabilities (Caboodle, Cosmos) could reduce demand for external analytics platforms like Fabric"
+      ]
+    }
   }
 }
