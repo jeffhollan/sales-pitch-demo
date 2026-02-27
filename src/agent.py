@@ -140,11 +140,13 @@ def create_orchestrator():
             if self._tools:
                 config["tools"] = self._prepare_tools(self._tools)
 
+            from copilot import PermissionHandler
             permission_handler = (
-                opts.get("on_permission_request") or self._permission_handler
+                opts.get("on_permission_request")
+                or self._permission_handler
+                or PermissionHandler.approve_all
             )
-            if permission_handler:
-                config["on_permission_request"] = permission_handler
+            config["on_permission_request"] = permission_handler
 
             mcp_servers = opts.get("mcp_servers") or self._mcp_servers
             if mcp_servers:
@@ -159,6 +161,30 @@ def create_orchestrator():
             print(f"[SalesAgent] Using GitHub Copilot provider", flush=True)
             print(f"[SalesAgent] Session config keys: {list(config.keys())}", flush=True)
             return await self._client.create_session(config)
+
+        async def _resume_session(self, session_id, streaming):
+            """Override to inject permission handler when resuming sessions."""
+            if not self._client:
+                raise RuntimeError(
+                    "GitHub Copilot client not initialized. Call start() first."
+                )
+
+            from copilot import PermissionHandler
+
+            config: dict[str, Any] = {"streaming": streaming}
+
+            if self._tools:
+                config["tools"] = self._prepare_tools(self._tools)
+
+            config["on_permission_request"] = (
+                self._permission_handler or PermissionHandler.approve_all
+            )
+
+            if self._mcp_servers:
+                config["mcp_servers"] = self._mcp_servers
+
+            print(f"[SalesAgent] RESUMING session {session_id}", flush=True)
+            return await self._client.resume_session(session_id, config)
 
     return SalesAgent(
         instructions=SYSTEM_INSTRUCTIONS,

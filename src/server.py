@@ -55,17 +55,44 @@ class SalesAgentServer(FoundryCBAgent):
             await self._orchestrator.start()
             self._started = True
 
-        prompt = self._extract_prompt(context.raw_payload)
+        # --- Diagnostic logging ---
+        payload = context.raw_payload
+        input_raw = payload.get("input", "")
+        conv_id = getattr(context, "conversation_id", None)
+        prev_resp_id = payload.get("previous_response_id", None)
+
+        print(f"[SalesAgent] === Incoming Request ===", flush=True)
+        print(f"[SalesAgent]   conversation_id: {conv_id}", flush=True)
+        print(f"[SalesAgent]   response_id: {context.response_id}", flush=True)
+        print(f"[SalesAgent]   previous_response_id: {prev_resp_id}", flush=True)
+        print(f"[SalesAgent]   input type: {type(input_raw).__name__}", flush=True)
+
+        if isinstance(input_raw, list):
+            print(f"[SalesAgent]   input message count: {len(input_raw)}", flush=True)
+            for i, m in enumerate(input_raw):
+                if isinstance(m, dict):
+                    role = m.get("role", "?")
+                    mtype = m.get("type", "?")
+                    content = m.get("content", "")
+                    content_preview = str(content)[:100]
+                    print(f"[SalesAgent]   input[{i}]: role={role} type={mtype} content_preview={content_preview!r}", flush=True)
+        elif isinstance(input_raw, str):
+            print(f"[SalesAgent]   input preview: {input_raw[:120]!r}", flush=True)
+        print(f"[SalesAgent] === End Request Info ===", flush=True)
+        # --- End diagnostic logging ---
+
+        prompt = self._extract_prompt(payload)
+        session = AgentSession()
 
         if context.stream:
-            return self._stream_response(prompt, context)
+            return self._stream_response(prompt, session, context)
         else:
-            return await self._non_stream_response(prompt, context)
+            return await self._non_stream_response(prompt, session, context)
 
     # ── Streaming path ────────────────────────────────────────────────
 
     async def _stream_response(
-        self, prompt: str, context: AgentRunContext
+        self, prompt: str, session: AgentSession, context: AgentRunContext
     ) -> AsyncGenerator[ResponseStreamEvent, None]:
         """Yield RAPI SSE events following the standard envelope sequence."""
         self._seq = 0
@@ -107,7 +134,6 @@ class SalesAgentServer(FoundryCBAgent):
 
         # --- Stream agent output ---
         print(f"[SalesAgent] Starting agent stream for prompt: {prompt[:80]!r}", flush=True)
-        session = AgentSession()
         update_count = 0
         try:
             stream = self._orchestrator.run(prompt, stream=True, session=session)
@@ -175,10 +201,9 @@ class SalesAgentServer(FoundryCBAgent):
     # ── Non-streaming path ────────────────────────────────────────────
 
     async def _non_stream_response(
-        self, prompt: str, context: AgentRunContext
+        self, prompt: str, session: AgentSession, context: AgentRunContext
     ) -> OpenAIResponse:
         """Run the agent and return a complete Response object."""
-        session = AgentSession()
         result = await self._orchestrator.run(prompt, session=session)
         text = result.text or "(No response text was produced by the agent.)"
         item_id = context.id_generator.generate_message_id()
@@ -219,19 +244,32 @@ class SalesAgentServer(FoundryCBAgent):
         if isinstance(raw, str):
             return raw
         if isinstance(raw, list):
-            parts = []
+            messages = []
             for m in raw:
-                if isinstance(m, dict):
-                    content = m.get("content", "")
-                    if isinstance(content, str):
-                        parts.append(content)
-                    elif isinstance(content, list):
-                        parts.extend(
-                            p.get("text", "")
-                            for p in content
-                            if isinstance(p, dict) and p.get("type") == "input_text"
-                        )
-            return "\n".join(parts)
+                if not isinstance(m, dict):
+                    continue
+                role = m.get("role", "user")
+                content = m.get("content", "")
+                if isinstance(content, list):
+                    text = " ".join(
+                        p.get("text", "") for p in content
+                        if isinstance(p, dict) and p.get("type") in ("input_text", "output_text")
+                    )
+                elif isinstance(content, str):
+                    text = content
+                else:
+                    text = str(content)
+                if text.strip():
+                    messages.append((role, text.strip()))
+            if len(messages) <= 1:
+                return messages[0][1] if messages else ""
+            # Multiple messages — format with role labels for context
+            parts = []
+            for role, text in messages[:-1]:
+                label = "User" if role == "user" else "Assistant"
+                parts.append(f"[{label}]: {text}")
+            parts.append(f"\nCurrent request:\n{messages[-1][1]}")
+            return "Previous conversation:\n" + "\n".join(parts)
         return str(raw)
 
 
