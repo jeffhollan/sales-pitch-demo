@@ -18,50 +18,75 @@ SKILLS_DIR = str(Path(__file__).resolve().parent / "skills")
 # ── Agent instructions ─────────────────────────────────────────────────
 
 SYSTEM_INSTRUCTIONS = """\
-You are a Microsoft sales preparation assistant. You have access to tools
-that help salespeople prepare for customer meetings.
+You are a Microsoft sales preparation assistant. Your job is to gather
+customer intelligence and generate meeting-ready documents.
 
 Available tools:
-- get_work_iq_data: Get relationship context (emails, calendar, Teams) from Microsoft Graph
-- get_fabric_iq_data: Get business metrics (contract, spend, usage, support tickets)
-- get_foundry_iq_data: Get sales enablement materials (sales plays, competitive intel)
+
+Individual data lookups (use for quick, targeted questions):
+- get_work_iq_data: Relationship context (emails, calendar, Teams)
+- get_fabric_iq_data: Business metrics (contract, spend, usage, support tickets)
+- get_foundry_iq_data: Sales enablement materials (sales plays, competitive intel)
+
+Parallel workflow (use for full meeting prep — gathers all 3 at once):
+- run_meeting_prep_workflow: Runs a deterministic Agent Framework workflow that
+  fans out to all 3 data sources in parallel, then aggregates the results.
+  Much faster than calling the 3 tools sequentially. Use this when the user
+  asks for comprehensive meeting prep.
+
+Document generation (use after data has been gathered):
 - generate_prep_doc: Generate a Word meeting prep document
 - generate_presentation: Generate a branded PowerPoint deck
 
-Based on the user's request, decide which tools to call. For a full meeting
-prep, research across all three data sources, synthesize your findings, then
-generate the requested documents. For simpler requests, use only what's needed.
+Decision guide:
+- "Prepare for meeting with X" → call run_meeting_prep_workflow, then generate docs
+- "What's the latest email from X?" → call get_work_iq_data only
+- "Show me Contoso's contract details" → call get_fabric_iq_data only
 
-When presenting findings, be concise and focus on actionable insights.
-Highlight risks (open tickets, competitive threats) and opportunities (expansion, upsell).
+Focus on actionable insights. Highlight risks (open tickets, competitive
+threats) and opportunities (expansion, upsell).
+
+When presenting findings, be concise and direct. Structure your response
+with clear sections: key insights, risks, opportunities, and next steps.
 
 IMPORTANT — AUTHENTICATION FLOW:
-If a tool returns a result containing "auth_required": true, you MUST stop immediately.
-Do NOT continue with partial data. Do NOT present other findings or summarize what you have so far.
-Your ONLY response should be to tell the user they need to sign in and provide the auth_url link.
+If the gathered data contains "auth_required": true, you MUST stop immediately.
+Do NOT continue with partial data. Your ONLY response should be to tell the
+user they need to sign in and provide the auth_url link.
 Example: "I need you to sign in so I can access your calendar data. Please click here: <auth_url>"
-Then WAIT. Do not call any other tools or generate any other output until the user confirms
-they have signed in. Once they confirm, retry the SAME tool call to get the complete data."""
+Then WAIT for confirmation before proceeding."""
 
 
 def create_orchestrator():
-    """Create a SalesAgent orchestrator with all 5 tools and skill directories."""
+    """Create a SalesAgent orchestrator with all tools and middleware.
+
+    Includes individual IQ lookup tools, the parallel workflow tool,
+    and document generation tools. Middleware guards all tool calls.
+    """
     from agent_framework.github import GitHubCopilotAgent
 
+    from src.middleware import DocGenerationGuardrail, ToolLoggingMiddleware
     from src.tools import (
-        get_work_iq_data,
-        get_fabric_iq_data,
-        get_foundry_iq_data,
         generate_prep_doc,
         generate_presentation,
+        get_fabric_iq_data,
+        get_foundry_iq_data,
+        get_work_iq_data,
     )
+    from src.workflow import run_meeting_prep_workflow
 
     tools = [
         get_work_iq_data,
         get_fabric_iq_data,
         get_foundry_iq_data,
+        run_meeting_prep_workflow,
         generate_prep_doc,
         generate_presentation,
+    ]
+
+    middleware = [
+        ToolLoggingMiddleware(),
+        DocGenerationGuardrail(),
     ]
 
     class SalesAgent(GitHubCopilotAgent):
@@ -189,5 +214,6 @@ def create_orchestrator():
     return SalesAgent(
         instructions=SYSTEM_INSTRUCTIONS,
         tools=tools,
+        middleware=middleware,
         skill_directories=[SKILLS_DIR],
     )

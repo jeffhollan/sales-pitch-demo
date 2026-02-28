@@ -5,13 +5,14 @@ Subclasses FoundryCBAgent from azure-ai-agentserver-core to expose:
 - GET  /liveness   — health check
 - GET  /readiness  — readiness check
 
-The agent_run method delegates to GitHubCopilotAgent internally, then
-converts the agent-framework streaming output into RAPI SSE events.
+The server is a thin adapter — the agent handles tool selection,
+workflow invocation, and document generation autonomously.
 """
 
 from __future__ import annotations
 
 import datetime
+import logging
 from typing import AsyncGenerator
 
 from azure.ai.agentserver.core import FoundryCBAgent, AgentRunContext
@@ -34,6 +35,18 @@ from azure.ai.agentserver.core.models.projects import (
 from agent_framework import AgentSession
 
 from src.agent import create_orchestrator
+
+# ── Enhancement 3: OpenTelemetry Observability ─────────────────────────
+# One call enables distributed tracing across the entire stack — every
+# workflow step, every tool call, every agent invocation.
+try:
+    from agent_framework.observability import configure_otel_providers
+    configure_otel_providers(enable_sensitive_data=False)
+    print("[SalesAgent] OpenTelemetry configured successfully", flush=True)
+except Exception as exc:
+    print(f"[SalesAgent] OpenTelemetry initialization skipped: {exc}", flush=True)
+
+logger = logging.getLogger(__name__)
 
 
 class SalesAgentServer(FoundryCBAgent):
