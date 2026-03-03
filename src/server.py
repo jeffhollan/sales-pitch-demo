@@ -11,6 +11,7 @@ workflow invocation, and document generation autonomously.
 
 from __future__ import annotations
 
+import asyncio
 import datetime
 import logging
 from typing import AsyncGenerator
@@ -145,23 +146,50 @@ class SalesAgentServer(FoundryCBAgent):
             part=ItemContentOutputText(text="", annotations=[]),
         )
 
-        # --- Stream agent output ---
+        # --- Stream agent output (with SSE keepalive) ---
+        # Azure AI Foundry's proxy kills idle SSE connections after ~30s.
+        # During tool execution (Graph API, doc generation, etc.) the stream
+        # goes silent.  We send an empty‑string text delta every
+        # KEEPALIVE_INTERVAL seconds to keep the connection alive.
+        KEEPALIVE_INTERVAL = 15  # seconds — well under the ~30s proxy timeout
+
         print(f"[SalesAgent] Starting agent stream for prompt: {prompt[:80]!r}", flush=True)
         update_count = 0
+        keepalive_count = 0
         try:
             stream = self._orchestrator.run(prompt, stream=True, session=session)
-            async for update in stream:
-                update_count += 1
-                text = update.text
-                if text:
-                    accumulated_text += text
+            stream_iter = stream.__aiter__()
+            stream_exhausted = False
+
+            while not stream_exhausted:
+                try:
+                    update = await asyncio.wait_for(
+                        stream_iter.__anext__(), timeout=KEEPALIVE_INTERVAL
+                    )
+                    update_count += 1
+                    text = update.text
+                    if text:
+                        accumulated_text += text
+                        yield ResponseTextDeltaEvent(
+                            sequence_number=self._next_seq(),
+                            item_id=item_id,
+                            output_index=0,
+                            content_index=0,
+                            delta=text,
+                        )
+                except asyncio.TimeoutError:
+                    # No update within the keepalive window — send a
+                    # heartbeat so the proxy doesn't drop us.
+                    keepalive_count += 1
                     yield ResponseTextDeltaEvent(
                         sequence_number=self._next_seq(),
                         item_id=item_id,
                         output_index=0,
                         content_index=0,
-                        delta=text,
+                        delta="",
                     )
+                except StopAsyncIteration:
+                    stream_exhausted = True
         except Exception as exc:
             print(f"[SalesAgent] Stream ERROR after {update_count} updates: {exc!r}", flush=True)
             error_text = f"\n\n[Error: {exc}]"
@@ -174,7 +202,7 @@ class SalesAgentServer(FoundryCBAgent):
                 delta=error_text,
             )
 
-        print(f"[SalesAgent] Stream ended after {update_count} updates, accumulated {len(accumulated_text)} chars", flush=True)
+        print(f"[SalesAgent] Stream ended after {update_count} updates, {keepalive_count} keepalives, accumulated {len(accumulated_text)} chars", flush=True)
 
         # --- Closing envelope ---
         yield ResponseTextDoneEvent(
